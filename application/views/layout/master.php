@@ -1,63 +1,241 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-      <meta charset="utf-8">
-      <meta http-equiv="X-UA-Compatible" content="IE=edge">
-      <meta name="viewport" content="width=device-width, initial-scale=1">
-      <title><?php if (isset($title)) { echo $title; } ?> </title>
-      <!-- Favicon and touch icons -->
-      <link rel="shortcut icon" href="<?php echo base_url(); ?>public/assets/dist/img/ico/favicon.png" type="image/x-icon">
-      <!-- Start Global Mandatory Style
-         =====================================================================-->
-      <!-- jquery-ui css -->
-      <link href="<?php echo base_url(); ?>public/assets/plugins/jquery-ui-1.12.1/jquery-ui.min.css" rel="stylesheet" type="text/css"/>
-      <!-- Bootstrap -->
-      <link href="<?php echo base_url(); ?>public/assets/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
-      <!-- Bootstrap rtl -->
-      <!--<link href="<?php echo base_url(); ?>public/assets/bootstrap-rtl/bootstrap-rtl.min.css" rel="stylesheet" type="text/css"/>-->
-      <!-- Lobipanel css -->
-      <link href="<?php echo base_url(); ?>public/assets/plugins/lobipanel/lobipanel.min.css" rel="stylesheet" type="text/css"/>
-         <!-- Include Toastr CSS -->
-      <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>public/toastr/toastr.min.css">
-      <!-- Sweet Alert css-->
-     <link href="<?php echo base_url(); ?>public/sweetalert2/sweetalert2.min.css" rel="stylesheet" type="text/css" />
-      <!-- Pace css -->
-      <!-- <link href="<?php echo base_url(); ?>public/assets/plugins/pace/flash.css" rel="stylesheet" type="text/css"/> -->
-      <!-- Font Awesome -->
-      <link href="<?php echo base_url(); ?>public/assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
-      <!-- Pe-icon -->
-      <link href="<?php echo base_url(); ?>public/assets/pe-icon-7-stroke/css/pe-icon-7-stroke.css" rel="stylesheet" type="text/css"/>
-      <!-- Themify icons -->
-      <link href="<?php echo base_url(); ?>public/assets/themify-icons/themify-icons.css" rel="stylesheet" type="text/css"/>
-      <!-- dataTables css -->
-      <link href="<?php echo base_url(); ?>public/assets/plugins/datatables/dataTables.min.css" rel="stylesheet" type="text/css"/>
-       <!-- select2 css -->
-       <link href="<?php echo base_url(); ?>public/select2/css/select2.min.css" rel="stylesheet" type="text/css"/>
-      <!-- DataTables CSS -->
-      <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>public/assets/plugins/datatables/jquery.dataTables.min.css">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-      <!-- End Global Mandatory Style
-         =====================================================================-->
-      <!-- Start Theme Layout Style
-         =====================================================================-->
-      <!-- Theme style -->
-      <link href="<?php echo base_url(); ?>public/assets/dist/css/stylecrm.css" rel="stylesheet" type="text/css"/>
-         <!-- Custom js -->
-         <link href="<?php echo base_url(); ?>public/dist/css/main.css" rel="stylesheet" type="text/css"/>
-      <!-- Theme style rtl -->
-      <!--<link href="<?php echo base_url(); ?>public/assets/dist/css/stylecrm-rtl.css" rel="stylesheet" type="text/css"/>-->
-       <!-- jQuery -->
-       <script src="<?php echo base_url(); ?>public/assets/plugins/jQuery/jquery-1.12.4.min.js" type="text/javascript"></script>
+	<link rel="stylesheet" href="<?php echo base_url(); ?>assets/static/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+	<link rel="stylesheet" href="<?php echo base_url(); ?>assets/static/css/dataTables.bootstrap5.css">
+	<link rel="stylesheet" href="<?php echo base_url(); ?>assets/static/css/dataTables.dataTables.css">
+	<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
+
+
+   <!-- Include Toastr CSS -->
+      <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>public/toastr/toastr.min.css">
+	<!-- Sweet Alert css-->
+    <link href="<?php echo base_url(); ?>public/sweetalert2/sweetalert2.min.css" rel="stylesheet" type="text/css" />
+	<link rel="stylesheet" href="<?php echo base_url(); ?>assets/static/css/style.css">
+	<link rel="stylesheet" href="<?php echo base_url(); ?>assets/static/css/responsive.css">
+	  <!-- jQuery -->
+      <script src="<?php echo base_url(); ?>assets/static/js/jquery.min.js"></script>
          <!-- Include Toastr JavaScript -->
       <script src="<?php echo base_url(); ?>public/toastr/toastr.min.js"></script>
       <!-- Sweet Alerts js -->
       <script src="<?php echo base_url(); ?>public/sweetalert2/sweetalert2.min.js"></script>
-      <!-- End Theme Layout Style
-         =====================================================================-->
-   </head>
-   <body class="hold-transition sidebar-mini">
+	<title>Admin Panel</title>
+</head>
+<body>
+	<div class="wrapper_container">
+		<section id="header_part">
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-12">
+						<div class="header_container">
+							<div class="header_left">
+								<div class="logo_part">
+									<a href="<?php echo base_url(); ?>dashboard" class="my_logo">MyLogo</a>
+								</div>
 
-       <!-- alert -->
+								<!-- sidebar toggle button -->
+								<!-- <a href="#" class="sidebar_collapse_btn"><i class="fas fa-bars"></i></a> -->
+								<!-- sidebar toggle button -->
+
+
+							</div>
+							<div class="nav_part">
+								<div class="nav_bar_container">
+									<div class="nav_left">
+										
+
+										<!-- top menu start -->
+									 <?php include('top_menu.php'); ?>
+										<!-- top menu end -->
+
+
+									</div>
+									<nav class="navbar nav py_5">
+										<ul class="navbar-nav header_nav">
+											<li class="nav-item dropdown header_nav_li">
+												<a href="#" class="nav-link " data-bs-toggle="dropdown">
+													<i class="fas fa-bell"></i>
+												</a>
+												<ul class="dropdown-menu nav_dropdown_ul shadow_user">
+													<li class="dropdown-item">
+														<a href="#">
+															<div class="usr_note">
+																<i class="fas fa-server"></i> 
+															</div>
+															<div class="note_details">
+																<p>Server Restarted <br> <span class="nav_drpdwn_time">10 min ago</span></p>
+																<i class="fas fa-xmark icn_close"></i>
+															</div>
+														</a>
+													</li>
+													<li class="dropdown-item">
+														<a href="#">
+															<div class="usr_note">
+																<i class="fas fa-heart"></i> 
+															</div>
+															<div class="note_details">
+																<p>Michael React <br> <span class="nav_drpdwn_time">15 min ago</span></p>
+																<i class="fas fa-xmark icn_close"></i>
+															</div>
+														</a>
+													</li>
+													<li class="dropdown-item">
+														<a href="#">
+															<div class="usr_note">
+																<i class="fas fa-file"></i> 
+															</div>
+															<div class="note_details">
+																<p>Danny Sent a file <br> <span class="nav_drpdwn_time">20 min ago</span></p>
+																<i class="fas fa-xmark icn_close"></i>
+															</div>
+														</a>
+													</li>
+													<li class="dropdown-item">
+														<a href="#">
+															<div class="usr_note">
+																<i class="fas fa-warning text-danger"></i> 
+															</div>
+															<div class="note_details">
+																<p>Server error <br> <span class="nav_drpdwn_time">30 min ago</span></p>
+																<i class="fas fa-xmark icn_close"></i>
+															</div>
+														</a>
+													</li>
+												</ul>
+											</li>
+											<li class="nav-item dropdown header_nav_li">
+												<a href="#" class="nav-link " data-bs-toggle="dropdown">
+													<i class="fas fa-envelope"></i>
+												</a>
+												<ul class="dropdown-menu nav_dropdown_ul shadow_user">
+													<li class="dropdown-item">
+														<a href="#">
+															<div class="usr_note">
+																<img src="imgs/user-1.png" alt="" class="msg_user">
+															</div>
+															<div class="note_details">
+																<p>David <br> <span class="nav_drpdwn_time">10 min ago</span></p>
+															</div>
+														</a>
+													</li>
+													<li class="dropdown-item">
+														<a href="#">
+															<div class="usr_note">
+																<img src="imgs/user-2.png" alt="" class="msg_user">
+															</div>
+															<div class="note_details">
+																<p>Michael <br> <span class="nav_drpdwn_time">15 min ago</span></p>
+															</div>
+														</a>
+													</li>
+													<li class="dropdown-item">
+														<a href="#">
+															<div class="usr_note">
+																<img src="imgs/user-3.png" alt="" class="msg_user">
+															</div>
+															<div class="note_details">
+																<p>Danny<br> <span class="nav_drpdwn_time">20 min ago</span></p>
+															</div>
+														</a>
+													</li>
+													<li class="dropdown-item">
+														<a href="#">
+															<div class="usr_note">
+																<img src="imgs/user-4.png" alt="" class="msg_user">
+															</div>
+															<div class="note_details">
+																<p>Roxy J<br> <span class="nav_drpdwn_time">30 min ago</span></p>
+															</div>
+														</a>
+													</li>
+												</ul>
+											</li>
+											<li class="nav-item dropdown header_nav_li">
+												<a href="#" class="nav-link " data-bs-toggle="dropdown">
+													<i class="fas fa-user"></i>
+												</a>
+												<ul class="dropdown-menu use_drpDown_ul shadow_user">
+													<li class="dropdown-item">
+														<div class="use_drpDown">
+															<span><i class="fas fa-user"></i></span>
+															<p class="usr_title">Monir Hossain</p>
+															<p class="usr_email">abcd@gmail.com</p>
+														</div>
+													</li>
+													<li class="dropdown-item">
+														<a href="#">
+															<div class="usr_note">
+																<i class="fas fa-cog"></i> 
+															</div>
+															<div class="note_details">
+																<p>Edit Profile</p>
+															</div>
+														</a>
+													</li>
+													<li class="dropdown-item">
+														<a href="login.html">
+															<div class="usr_note">
+																<i class="fa-solid fa-share-from-square "></i> 
+															</div>
+															<div class="note_details">
+																<p>Logout</p>
+															</div>
+														</a>
+													</li>
+												</ul>
+											</li>
+											<li class="nav-item dropdown header_nav_li">
+												<a href="#" class="nav-link " data-bs-toggle="dropdown">
+													<i class="fas fa-cog"></i>
+												</a>
+												<ul class="dropdown-menu nav_dropdown_ul shadow_user">
+													<li class="dropdown-item">
+														<a href="#">
+															<div class="usr_note setting_icn">
+																<i class="fas fa-users"></i> 
+															</div>
+															<div class="note_details">
+																<p>Admins <br> </p>
+															</div>
+														</a>
+													</li>
+													<li class="dropdown-item">
+														<a href="#">
+															<div class="usr_note setting_icn">
+																<i class="fas fa-font"></i> 
+															</div>
+															<div class="note_details">
+																<p>Language</p>
+															</div>
+														</a>
+													</li>
+													<li class="dropdown-item">
+														<a href="#">
+															<div class="usr_note setting_icn">
+																<i class="fas fa-palette"></i> 
+															</div>
+															<div class="note_details">
+																<p>Colors</p>
+															</div>
+														</a>
+													</li>
+												</ul>
+											</li>
+										</ul>
+									</nav>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		  <!-- alert -->
    <script>
     <?php if ($this->session->flashdata('success')): ?>
         toastr.success('<?php echo $this->session->flashdata('success'); ?>');
@@ -68,75 +246,29 @@
         toastr.error('<?php echo $this->session->flashdata('error'); ?>');
     <?php endif; ?>
       </script>
-      <!-- Site wrapper -->
-      <div class="wrapper">
-        <!--   Header -->
-        <?php include('header.php'); ?>
-        <input type="hidden" name="baseURL" id="baseURL" value="<?php echo base_url(); ?>">
-            <!-- End  Header -->
-         <!-- =============================================== -->
-         <!-- Left side column. contains the sidebar -->
-      <!--   Sidebar -->
-      <?php include('sidebar.php'); ?>
-         <!-- =============================================== -->
-         <!-- Content Wrapper. Contains page content -->
-         <div class="content-wrapper">
-            <!-- Content Header (Page header) -->
-             <?php
-             if(isset($content)){
-               echo $content;
-             }
-             
-             ?>
-         </div>
-         <!-- /.content-wrapper -->
-           <!-- footer -->
-            <?php include('footer.php'); ?>
-      </div>
-      <!-- ./wrapper -->
-      <!-- Start Core Plugins
-         =====================================================================-->
-     
-      <!-- jquery-ui --> 
-      <script src="<?php echo base_url(); ?>public/assets/plugins/jquery-ui-1.12.1/jquery-ui.min.js" type="text/javascript"></script>
-      <!-- Bootstrap -->
-      <script src="<?php echo base_url(); ?>public/assets/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
-      <!-- Custome javascript -->
-      <script src="<?php echo base_url(); ?>public/dist/js/main.js" type="text/javascript"></script>
-      <script src="<?php echo base_url(); ?>public/dist/js/custom.js" type="text/javascript"></script>
-      <!-- lobipanel -->
-      <script src="<?php echo base_url(); ?>public/assets/plugins/lobipanel/lobipanel.min.js" type="text/javascript"></script>
-      <!-- Pace js -->
-      <script src="<?php echo base_url(); ?>public/assets/plugins/pace/pace.min.js" type="text/javascript"></script>
-      <!-- table-export js -->
-      <script src="<?php echo base_url(); ?>public/assets/plugins/table-export/tableExport.js" type="text/javascript"></script>
-      <script src="<?php echo base_url(); ?>public/assets/plugins/table-export/jquery.base64.js" type="text/javascript"></script>
-      <script src="<?php echo base_url(); ?>public/assets/plugins/table-export/html2canvas.js" type="text/javascript"></script>
-      <script src="<?php echo base_url(); ?>public/assets/plugins/table-export/sprintf.js" type="text/javascript"></script>
-      <script src="<?php echo base_url(); ?>public/assets/plugins/table-export/jspdf.js" type="text/javascript"></script>
-      <script src="<?php echo base_url(); ?>public/assets/plugins/table-export/base64.js" type="text/javascript"></script>
-      <!-- dataTables js -->
-      <script src="<?php echo base_url(); ?>public/assets/plugins/datatables/dataTables.min.js" type="text/javascript"></script>
-      <script src="<?php echo base_url(); ?>public/assets/plugins/datatables/jquery.dataTables.min.js" type="text/javascript"></script>
-     <!-- /.select2 -->
-     <script src="<?php echo base_url(); ?>public/select2/js/select2.min.js"></script>
-      <!-- SlimScroll -->
-      <script src="<?php echo base_url(); ?>public/assets/plugins/slimScroll/jquery.slimscroll.min.js" type="text/javascript"></script>
-      <!-- FastClick -->
-      <script src="<?php echo base_url(); ?>public/assets/plugins/fastclick/fastclick.min.js" type="text/javascript"></script>
-      <!-- CRMadmin frame -->
-      <script src="<?php echo base_url(); ?>public/assets/dist/js/custom.js" type="text/javascript"></script>
-      <!-- End Core Plugins
-         =====================================================================-->
-      <!-- Start Theme label Script
-         =====================================================================-->
-      <!-- Dashboard js -->
-      <script src="<?php echo base_url(); ?>public/assets/dist/js/dashboard.js" type="text/javascript"></script>
-      <!-- End Theme label Script
-         =====================================================================-->
-         <script>
-new DataTable('#tableData');       
-</script>
-   </body>
-</html>
+		<section id="body_part" class="height_100p">
+			<div class="container-fluid height_100p">
+				<div class="row height_100p">
+					<div class="body_part_content">
+						
+						<div class="body_content">
+						    <?php
+							if(isset($content)){
+							echo $content;
+							}
+							
+							?>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+	</div>
+	<script src="<?php echo base_url(); ?>assets/static/js/bootstrap.bundle.min.js"></script>
+	<script src="<?php echo base_url(); ?>assets/static/js/dataTables.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+	<script src="<?php echo base_url(); ?>assets/static/js/main.js"></script>
 
+	
+</body>
+</html>

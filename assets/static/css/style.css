@@ -214,6 +214,22 @@ p{
 	/*color: #000;*/
 	background: #ff815b;
 }
+.nav_drpdown{
+	background: #ff815b;
+	color: #fff!important;
+}
+.nav_drpdown .nav-link .dropdown-toggle{
+	/*background: #ff815b;*/
+	color: #fff!important;
+}
+.header_menu .nav-link.active, .header_menu .nav-link.show {
+	color: #fff;
+	background: #ed673e;
+}
+.header_menu .nav-link:focus {
+	color: #fff;
+	/*background: #ed673e;*/
+}
 .logo_part{
 	width: 220px;
 	display: flex;

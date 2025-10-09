@@ -1,33 +1,22 @@
+	<div class="container-fluid">
+								<div class="row px-3 ">
+									<div class="col-12 bg_grey">
+										<div class="">
+											
+											<div class="row justify-content-center pb-5">
+												<div class="col-md-12">
+                                       <div class="row pb-3">
+												<div class="col-auto">
+													<h3>Create Patient</h3>
+												</div>
+												<div class="col-auto ms-auto">
+													<a href="<?php echo base_url(); ?>patient"  class="btn btn_bg">Patient List</a>
+												</div>
+											</div>
+													<form action="" class="input_form">
+									      				<div class="row mb-3">
 
-  <!-- Content Header (Page header) -->
-            <section class="content-header">
-            
-               <div >
-               <h4>Patient</h4>
-               </div>
-            </section>
-            <!-- Main content -->
-            <section class="content">
-               <div class="row">
-                  <!-- Form controls -->
-                  <div class="col-md-12 ">
-                     <div class="panel panel-bd ">
-                        <div class="panel-heading">
-                        <div class="btn-group panel-defalut-two" >
-                     
-                     <h4>Create Patient</h4>
-
-          
-                     <a type="button" class="btn btn-labeled btn-success m-b-5" href="<?php echo base_url(); ?>staff">
-               <span class="btn-label"><i class="glyphicon glyphicon-list"></i></span>Patient List
-               </a>
-              
-            
-               </div>
-                        </div>
-                        <div class="panel-body">
-                           <form  action="<?php echo base_url(); ?>staff/create" method="post" enctype="multipart/form-data">
-                           <div class="form-group col-md-3">
+                                              <div class="form-group col-md-3">
                                  <label for="registration_id">Registration ID</label>
                                  <input type="text" id="registration_id" class="form-control" name="registration_id"  value="<?php echo rand("10000",999999); ?>" >
                                  <span class="text-red small"><?php echo form_error('registration_id'); ?></span>
@@ -182,64 +171,17 @@
                                  <input type="text" id="bed" class="form-control" name="bed"  value="<?php echo set_value('bed'); ?>" >
                                  <span class="text-red small"><?php echo form_error('bed'); ?></span>
                               </div>
-                                <div class="form-group col-md-3">
-                                 <label for="patient_name">Patient Name</label>
-                                 <input type="text" id="patient_name" class="form-control" name="patient_name"  value="<?php echo set_value('patient_name'); ?>" >
-                                 <span class="text-red small"><?php echo form_error('patient_name'); ?></span>
-                              </div>
-                            
-
-                                <div class="form-group col-md-3">
-                                 <label for="patient_name">Patient Name</label>
-                                 <input type="text" id="patient_name" class="form-control" name="patient_name"  value="<?php echo set_value('patient_name'); ?>" >
-                                 <span class="text-red small"><?php echo form_error('patient_name'); ?></span>
-                              </div>
-                            
-                            
-                             
-                           
-                          
-                              <div class="form-group col-sm-12">
-                              <div class="reset-button left">
-                                 <button   type="reset" class="btn btn-warning"><?php echo display('reset'); ?></button>
-                                 <button type="submit" class="btn btn-success"><?php echo display('save'); ?></button>
-                              </div></div>
-                           </form>
-                        </div>
-                     </div>
-                  </div>
-
-
-
- 
-               
-                      
-               </div>
-            </section>
-            <!-- /.content -->
-
-       <script>
-        $(document).ready(function() {
-            $('#district_id').change(function() {
-                var district_id = $(this).val();
-
-                if (district_id) {
-                    $.ajax({
-                        url: '<?= base_url('patient/fetch_upazilla') ?>',
-                        type: 'POST',
-                        data: { district_id: district_id },
-                        dataType: 'json',
-                        success: function(data) {
-                            $('#upazilla_id').empty().append('<option value="">Select District</option>');
-                            
-                            $.each(data, function(index, subcategory) {
-                                $('#upazilla_id').append('<option value="' + subcategory.id + '">' + subcategory.name + '</option>');
-                            });
-                        }
-                    });
-                } else {
-                    $('#upazilla_id').empty().append('<option value="">Select Upazilla</option>');
-                }
-            });
-        });
-    </script>
+									      					
+									      		</div>	
+									      				<div class="row">
+									      					<div class="col-12">
+									      						<a href="Articles.html"  class="btn btn_bg">Save</a>
+									      					</div>
+									      				</div>
+									      			</form>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
