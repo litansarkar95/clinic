@@ -17,7 +17,14 @@
 										          	<li><a href="<?php echo base_url(); ?>patient/occupation">Occupation</a></li>
 										          </ul>
 										        </li>
-												 <li class="nav-item">
+
+										          <li class="nav-item">
+										          <a class="nav-link" href="#">Test Information <i class="fas fa-caret-down"></i></a>
+										          <ul class="nav_sub_menu">
+										          	<li><a href="<?php echo base_url(); ?>testinfo">Test Information</a></li>
+										          </ul>
+										        </li>
+											<li class="nav-item">
 										          <a class="nav-link" href="#">Patient <i class="fas fa-caret-down"></i></a>
 										          <ul class="nav_sub_menu">
 										          	<li><a href="<?php echo base_url(); ?>patient/create">Patient Create</a></li>

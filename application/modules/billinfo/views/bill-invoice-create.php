@@ -469,7 +469,7 @@ $("#registration_date,.to_date").val(today);
                 var rowCount = $('#selectedItemsTable tbody tr').length + 1;
                 var newRow = '<tr>' +
                     '<td>' + rowCount + '</td>' +
-                    '<td>' + item.value + '<input type="hidden" required name="product_id[]" value="' + item.id + '"></td>' +
+                    '<td>' + item.value + '<input type="" required name="product_id[]" value="' + item.id + '"></td>' +
                     '<td>' + 
                         '<input type="text" class="form-control price" name="price[]" value="' + item.price + '" onchange="calculateTotal()">' +
                     '</td>' +

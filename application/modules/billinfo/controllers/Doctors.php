@@ -1,13 +1,10 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Testinfo extends CI_Controller {
+class Doctors extends CI_Controller {
 
     public function __construct() {
         parent::__construct();
-        if (!$this->session->userdata("loggedin")) {
-            redirect(base_url() . "login", "refresh");
-        }
        // $this->load->model("products_model");
           
     }
@@ -17,9 +14,9 @@ class Testinfo extends CI_Controller {
         $data = array();
         $data['active'] = "test_information";
         $data['title'] = "Test Info"; 
-        $data['allPdt'] = $this->common_model->view_data("testinfo", "", "id", "DESC");
+        $data['allPdt'] = $this->common_model->view_data("doctor", "", "id", "DESC");
        // echo "<pre>"; print_r($data['allPdt']);exit();
-        $data['content'] = $this->load->view("testinfo/testinfo-list", $data, TRUE);
+        $data['content'] = $this->load->view("doctors-list", $data, TRUE);
        $this->load->view('layout/master', $data);
 
     }
@@ -27,7 +24,6 @@ class Testinfo extends CI_Controller {
     public function create()
     {
       $this->form_validation->set_rules("name", display('name'), "required");
-      $this->form_validation->set_rules("testFee", "Test Fee", "required");
 
       if ($this->form_validation->run() == NULL) {
       
@@ -35,15 +31,15 @@ class Testinfo extends CI_Controller {
         $date = date("Y-m-d H:i:s");
         $data = array(   
             "name"                        => $this->common_model->xss_clean($this->input->post("name")),   
-            "testFee"                     => $this->common_model->xss_clean($this->input->post("testFee")),
+            "mobile"                      => $this->common_model->xss_clean($this->input->post("mobile_no")),
+            "degree"                      => $this->common_model->xss_clean($this->input->post("degree")),
             "is_active"                   => 1,
-            "create_date"                 => strtotime($date),
           
            
         );
         
    
-        if ($this->common_model->save_data("testinfo", $data)) {
+        if ($this->common_model->save_data("doctor", $data)) {
           $id=$this->common_model->Id;
     
           $this->session->set_flashdata('success', 'Save Successfully');
@@ -52,34 +48,35 @@ class Testinfo extends CI_Controller {
               $this->session->set_flashdata('error', 'Something error.');
           }
         
-       redirect(base_url() . "testinfo", "refresh");
+       redirect(base_url() . "billinfo/doctors", "refresh");
       }
 
 
       $data = array();
       $data['active'] = "test_information";
       $data['title'] = "Test Info"; 
-      $data['allPdt'] = $this->common_model->view_data("testinfo", "", "id", "DESC");
-      $data['content'] = $this->load->view("testinfo/testinfo-list", $data, TRUE);
+      $data['allPdt'] = $this->common_model->view_data("doctor", "", "id", "DESC");
+     // echo "<pre>"; print_r($data['allPdt']);exit();
+      $data['content'] = $this->load->view("doctors-list", $data, TRUE);
      $this->load->view('layout/master', $data);
     }
 
     public function delete($id) {
 
-        $dt = $this->common_model->view_data("testinfo", array("id" => $id), "id", "asc");
+        $dt = $this->common_model->view_data("doctor", array("id" => $id), "id", "asc");
        
        
         if ($dt) {
     
              
-            $this->common_model->delete_data("testinfo", array("id" => $id));
+            $this->common_model->delete_data("doctor", array("id" => $id));
             $this->session->set_flashdata('success', 'Delete Successfully');
           
         } else {
             $this->session->set_flashdata('error', 'Something error.');
         }
       
-        redirect(base_url() . "testinfo", "refresh");
+        redirect(base_url() . "billinfo/doctors", "refresh");
       
       }
 
