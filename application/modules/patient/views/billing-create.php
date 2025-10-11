@@ -31,30 +31,37 @@ $("#registration_date,.to_date").val(today);
 												<div class="col-md-12">
                                        <div class="row pb-3">
 												<div class="col-auto">
-													<h3>Create Patient</h3>
+													<h3>Create Billing</h3>
 												</div>
 												<div class="col-auto ms-auto">
-													<a href="<?php echo base_url(); ?>patient"  class="btn btn_bg">Patient List</a>
+													<a href="<?php echo base_url(); ?>billing"  class="btn btn_bg">Billing List</a>
 												</div>
 											</div>
 													
-                                            <form  class="input_form" action="<?php echo base_url(); ?>patient/create" method="post" enctype="multipart/form-data">
+                                            <form  class="input_form" action="<?php echo base_url(); ?>patient/billing/create" method="post" enctype="multipart/form-data">
 									      				<div class="row mb-3">
 
                                               <div class="form-group col-md-3">
-                                 <label for="registration_id">Registration ID</label>
+                                 <label for="registration_id">Invoice ID</label>
                                  <input type="text" id="registration_id" class="form-control" name="registration_id"  value="<?php echo $registration_no; ?>" readonly>
                                  <span class="text-red small"><?php echo form_error('registration_id'); ?></span>
                               </div> 
                            <div class="form-group col-md-3">
-                                 <label for="registration_date">Registration Date</label>
+                                 <label for="registration_date">Invoice Date</label>
                                  <input type="text" id="registration_date" class="form-control " name="registration_date"  value="<?php echo set_value('registration_date'); ?>" >
                                  <span class="text-red small"><?php echo form_error('registration_date'); ?></span>
                               </div>
                               <div class="form-group col-md-3">
-                                 <label for="patient_name">Patient Name</label>
-                                 <input type="text" id="patient_name" class="form-control" name="patient_name"  value="<?php echo set_value('patient_name'); ?>" >
-                                 <span class="text-red small"><?php echo form_error('patient_name'); ?></span>
+                                 <label for="patient_id">Patient Name</label>
+                               <select type="text" id="patient_id" class="form-control" name="patient_id"  >
+                                    <option value=""><?php echo display('select'); ?></option>
+                                    <?php
+                                        foreach ($allDst as $dis){
+                                      echo "<option value='{$dis->id}'>{$dis->name}</option>";
+                                        }
+                                    ?>
+                                    </select>
+                                 <span class="text-red small"><?php echo form_error('patient_id'); ?></span>
                               </div>
                                 <div class="form-group col-md-3">
                                  <label for="father_husband_name">Father/Husband Name </label>
@@ -109,7 +116,7 @@ $("#registration_date,.to_date").val(today);
                               </div>
 
                                 <div class="form-group col-md-3">
-                                 <label for="occupation_id">Occupation</label>
+                                 <label for="occupation_id">Balance</label>
                                <select type="text" id="occupation_id" class="form-control" name="occupation_id"  >
                                     <option value=""><?php echo display('select'); ?></option>
                                     <?php
@@ -167,7 +174,7 @@ $("#registration_date,.to_date").val(today);
                                     </select>
                                  <span class="text-red small"><?php echo form_error('adult_child'); ?></span>
                               </div>
-                             
+                              
 									      					
 									      		</div>	
 									      				<div class="row">
@@ -210,7 +217,35 @@ $("#registration_date,.to_date").val(today);
             });
         });
 
-
-
+  $(document).ready(function() {
  
+    $('#ref_name').change(function() {
+        var ref_name_id = $(this).val();  
+
+        if(ref_name_id != '') {
+            $.ajax({
+                url: '<?php echo site_url('patient/get_doctor_id_by_ref_name'); ?>',  
+                type: 'POST',
+                dataType: 'json',
+                data: { ref_name_id: ref_name_id },
+                success: function(response) {
+                    if(response) {
+                        $('#doctor_id').val(response.id_no); 
+                    } else {
+                        $('#doctor_id').val('');
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.log('AJAX Error: ' + status + ' - ' + error);
+                    $('#doctor_id').val('');
+                }
+            });
+        } else {
+            $('#doctor_id').val('');
+        }
+    });
+});
+
+
+
     </script>

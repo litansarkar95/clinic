@@ -24,7 +24,7 @@
       <script src="<?php echo base_url(); ?>public/toastr/toastr.min.js"></script>
       <!-- Sweet Alerts js -->
       <script src="<?php echo base_url(); ?>public/sweetalert2/sweetalert2.min.js"></script>
-	<title>Admin Panel</title>
+	 <title><?php if (isset($title)) { echo $title; } ?> </title>
 </head>
 <body>
 	<div class="wrapper_container">

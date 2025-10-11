@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Patient extends CI_Controller {
+class Billing extends CI_Controller {
 
     public function __construct() {
         parent::__construct();
@@ -12,8 +12,8 @@ class Patient extends CI_Controller {
     {
       
         $data = array();
-        $data['active']     = "patient";
-        $data['title']      = "Patient"; 
+        $data['active']     = "billing";
+        $data['title']      = "Billing"; 
         $data['allPdt']            = $this->patient_model->patientList();
         $data['content']    = $this->load->view("patient-list", $data, TRUE);
         $this->load->view('layout/master', $data);
@@ -63,6 +63,8 @@ class Patient extends CI_Controller {
             "nationality_id"        => $this->common_model->xss_clean($this->input->post("nationality")),
             "doctor_id"             => $this->common_model->xss_clean($this->input->post("ref_name")),
             "adult_child"           => $this->common_model->xss_clean($this->input->post("adult_child")),
+            "bed_type"              => $this->common_model->xss_clean($this->input->post("bed_type")),
+            "bed"                   => $this->common_model->xss_clean($this->input->post("bed")),
             "is_active"             => 1,
             "create_date"           => strtotime($date),
            
@@ -94,7 +96,7 @@ class Patient extends CI_Controller {
         $data['serial_no']  = $this->patient_model->get_daily_serial($day, $month, $year);
         // registration_no
         $data['registration_no'] = $registration_no;       
-        $data['content']    = $this->load->view("patient-create", $data, TRUE);
+        $data['content']    = $this->load->view("billing-create", $data, TRUE);
         $this->load->view('layout/master', $data);
 
     }

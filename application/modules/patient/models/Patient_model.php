@@ -22,4 +22,53 @@ class Patient_model extends CI_Model {
         $query = $this->db->get('upazila');
         return $query->result_array();
     }
+  public function patientList($id = NULL)
+    {
+        if ($id) {
+            $this->db->where("patients.id", $id);
+        }
+    
+        $this->db->select("patients.*, districts.name districts "); 
+                           
+        $this->db->from("patients");
+        $this->db->join('districts', 'patients.district_id = districts.id', 'left');
+        $this->db->order_by("patients.id", "DESC");
+        return $this->db->get()->result(); 
+    }
+
+
+  
+    public function get_daily_serial($day, $month, $year) {
+        $this->db->select_max('serial_no');
+        $this->db->where('day', $day);
+        $this->db->where('month', $month);
+        $this->db->where('year', $year);
+        $query = $this->db->get('patients');
+        $result = $query->row();
+        return isset($result->serial_no) ? $result->serial_no + 1 : 1;
+    }
+
+    
+ public function get_next_registration_int_no($month, $year) {
+    $this->db->select('registration_int_no');
+    $this->db->where('month', $month);
+    $this->db->where('year', $year);
+    $this->db->order_by('registration_int_no', 'DESC');
+    $this->db->limit(1);
+    $query = $this->db->get('patients');
+    $result = $query->row();
+
+    return isset($result->registration_int_no) ? $result->registration_int_no + 1 : 1;
+}
+
+
+
+
+     public function get_doctor_by_ref_name($ref_name_id) {
+         $this->db->select('id_no');
+        $this->db->where('id', $ref_name_id);  
+        $query = $this->db->get('doctors');  
+
+        return $query->row(); 
+    }
 }

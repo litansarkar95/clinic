@@ -12,9 +12,9 @@ class Doctors extends CI_Controller {
     public function index()
     {
         $data = array();
-        $data['active'] = "test_information";
-        $data['title'] = "Test Info"; 
-        $data['allPdt'] = $this->common_model->view_data("doctor", "", "id", "DESC");
+        $data['active'] = "doctors";
+        $data['title'] = "Doctors"; 
+        $data['allPdt'] = $this->common_model->view_data("doctors", "", "id", "DESC");
        // echo "<pre>"; print_r($data['allPdt']);exit();
         $data['content'] = $this->load->view("doctors-list", $data, TRUE);
        $this->load->view('layout/master', $data);
@@ -30,6 +30,7 @@ class Doctors extends CI_Controller {
       } else {
         $date = date("Y-m-d H:i:s");
         $data = array(   
+            "id_no"                       => $this->common_model->xss_clean($this->input->post("doctor_id")),   
             "name"                        => $this->common_model->xss_clean($this->input->post("name")),   
             "mobile"                      => $this->common_model->xss_clean($this->input->post("mobile_no")),
             "degree"                      => $this->common_model->xss_clean($this->input->post("degree")),
@@ -39,7 +40,7 @@ class Doctors extends CI_Controller {
         );
         
    
-        if ($this->common_model->save_data("doctor", $data)) {
+        if ($this->common_model->save_data("doctors", $data)) {
           $id=$this->common_model->Id;
     
           $this->session->set_flashdata('success', 'Save Successfully');
@@ -48,35 +49,35 @@ class Doctors extends CI_Controller {
               $this->session->set_flashdata('error', 'Something error.');
           }
         
-       redirect(base_url() . "billinfo/doctors", "refresh");
+       redirect(base_url() . "doctors/create", "refresh");
       }
 
 
       $data = array();
-      $data['active'] = "test_information";
-      $data['title'] = "Test Info"; 
-      $data['allPdt'] = $this->common_model->view_data("doctor", "", "id", "DESC");
+      $data['active'] = "doctors";
+      $data['title'] = "Create Doctor "; 
+      $data['allPdt'] = $this->common_model->view_data("doctors", "", "id", "DESC");
      // echo "<pre>"; print_r($data['allPdt']);exit();
-      $data['content'] = $this->load->view("doctors-list", $data, TRUE);
+      $data['content'] = $this->load->view("doctors-create", $data, TRUE);
      $this->load->view('layout/master', $data);
     }
 
     public function delete($id) {
 
-        $dt = $this->common_model->view_data("doctor", array("id" => $id), "id", "asc");
+        $dt = $this->common_model->view_data("doctors", array("id" => $id), "id", "asc");
        
        
         if ($dt) {
     
              
-            $this->common_model->delete_data("doctor", array("id" => $id));
+            $this->common_model->delete_data("doctors", array("id" => $id));
             $this->session->set_flashdata('success', 'Delete Successfully');
           
         } else {
             $this->session->set_flashdata('error', 'Something error.');
         }
       
-        redirect(base_url() . "billinfo/doctors", "refresh");
+        redirect(base_url() . "doctors", "refresh");
       
       }
 

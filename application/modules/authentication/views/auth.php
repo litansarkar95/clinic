@@ -11,6 +11,11 @@
 		<link rel="stylesheet" href="<?php echo base_url(); ?>assets/static/css/responsive.css">
 		<title>Admin Panel</title>
 	</head>
+	<style>
+.text-red{
+	color:red;
+}
+		</style>
 	<body class="bg_login">
 		<div class="wrapper_login">
 			<div class="container ">
@@ -73,11 +78,7 @@
 														<button type="submit" class="btn btn_bg login_btn"><i class="fas fa-key"></i> Login</button>
 													</div>
 												</div>
-												<div class="row">
-													<div class="col-12 text-center">
-														<a href="" class="forget_link">Create New Account</a>
-													</div>
-												</div>
+												
 											</form>
 										</div>
 									</div>
