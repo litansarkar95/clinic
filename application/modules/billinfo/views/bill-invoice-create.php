@@ -183,7 +183,7 @@ $("#registration_date,.to_date").val(today);
                          <div class="row">
       <div class="col-md-6">
 
-      <div class="col-md-12">
+                                                     <div class="col-md-12">
                                                       
 
                                                       <input type="text" class="form-control" name="batch_number_s" id="batch_number_s" placeholder="Search Test By Name here..">

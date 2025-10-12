@@ -27,9 +27,9 @@
 											<li class="nav-item">
 										          <a class="nav-link" href="#">Patient <i class="fas fa-caret-down"></i></a>
 										          <ul class="nav_sub_menu">
-										          	<li><a href="<?php echo base_url(); ?>patient/create">Patient Create</a></li>
+										          	<li><a href="<?php echo base_url(); ?>patient/create">Patient Registration</a></li>
 										          	<li><a href="<?php echo base_url(); ?>patient">Patient List</a></li>
-										          	<li><a href="<?php echo base_url(); ?>patient/billing/create">Create Patient Billing </a></li>
+										          	<li><a href="<?php echo base_url(); ?>billinfo">Create Patient Billing </a></li>
 										          	<li><a href="<?php echo base_url(); ?>patient/billing">Patient Billing</a></li>
 										          </ul>
 										        </li>

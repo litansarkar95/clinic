@@ -17,6 +17,34 @@ class Billinfo extends CI_Controller {
         $day = date('d');
         $month = date('m');
         $year = date('Y');
+
+        
+
+
+        $this->form_validation->set_rules("patient_name", "Patient Name", "required");
+        $this->form_validation->set_rules("mobile_no","Mobile No", "required");
+      if ($this->form_validation->run() == NULL) {
+      
+      } else {
+    //      echo '<pre>';
+    // print_r($_POST);
+    // echo '</pre>';
+    // exit;
+       
+        
+        $sales_id = $this->billinfo_model->create();
+       
+        if ($sales_id) {
+           $this->session->set_flashdata('success', display('save_successfully'));
+            redirect(base_url() . "billinfo/invoice/$sales_id", "refresh");
+          }else{
+            
+              $this->session->set_flashdata('error',  display('please_try_again'));
+          }
+        
+       redirect(base_url() . "patient/districts", "refresh");
+      }
+
       
         $data = array();
         $data['active']     = "bill_invoice";
@@ -33,7 +61,7 @@ class Billinfo extends CI_Controller {
        // $data['serial_no']  = $this->billinfo_model->get_daily_serial($day, $month, $year);
         // registration_no
         $data['registration_no'] = $registration_no;  
-        $data['content']    = $this->load->view("bill-invoice-create", $data, TRUE);
+        $data['content']    = $this->load->view("billing-create", $data, TRUE);
         $this->load->view('layout/master', $data);
 
     }
@@ -80,42 +108,25 @@ class Billinfo extends CI_Controller {
 
     } 
 
-    public function get_address($category_id) {
-        $subcategories = $this->sales_model->get_address_by_customer($category_id);
-        
-        // Return subcategories as JSON
-        echo json_encode($subcategories);
-    }
+     public function searchPatient() {
+        // Get the search query
+        $search_query = $this->input->post('search_query');
 
+        // Get the patients matching the search query
+        $patients = $this->billinfo_model->searchPatients($search_query);
 
-    public function assign(){
-          // login auth
-          $date = date("Y-m-d H:i:s");
-          $data = array(   
-          
-            "sales_id"            => $this->common_model->xss_clean($this->input->post("id")),
-            "sales_person_id"     => $this->common_model->xss_clean($this->input->post("shipping_method")),
-            "status_id"           => $this->common_model->xss_clean($this->input->post("status_id")),
-            "remarks"              => $this->common_model->xss_clean($this->input->post("remarks")),
-            "create_date"         => strtotime($date),
-        );        
-    
-        if ($this->common_model->save_data("delivery_status", $data)) {
-            $sales_id  = $this->common_model->xss_clean($this->input->post("id"));
+        if ($patients) {
+            $response = [
+                'status' => 'success',
+                'data' => $patients
+            ];
+        } else {
+            $response = [
+                'status' => 'error',
+                'message' => 'No patients found'
+            ];
+        }
 
-            $updatedata = array(   
-                "status_id"              => $this->common_model->xss_clean($this->input->post("status_id")),
-                "delivery_person_id"     => $this->common_model->xss_clean($this->input->post("shipping_method")),
-               
-            );      
-            $this->common_model->update_data("sales", $updatedata,array("id"=>$sales_id));
-
-            $this->session->set_flashdata('success', 'Update Successfully');
-            redirect(base_url() . "sales", "refresh");
-            }else{
-              
-                $this->session->set_flashdata('error', 'Something error.');
-            }
-            redirect(base_url() . "sales", "refresh");
+        echo json_encode($response);
     }
 }

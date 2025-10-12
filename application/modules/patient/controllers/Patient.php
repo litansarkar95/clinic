@@ -29,6 +29,8 @@ class Patient extends CI_Controller {
         $int_no = $this->patient_model->get_next_registration_int_no($month, $year);
         $registration_no = 'R-' . str_pad($int_no, 4, '0', STR_PAD_LEFT);
 
+         $serial_no = $this->patient_model->get_daily_serial($day, $month, $year);
+
 
        $this->form_validation->set_rules("patient_name", "Name", "required");
        $this->form_validation->set_rules("father_husband_name", "Father/Husband Name", "required");
@@ -47,6 +49,7 @@ class Patient extends CI_Controller {
             'month'                 => $month,
             'day'                   => $day,
             'year'                  => $year,
+            'serial_no'             => $serial_no,
             'registration_int_no'   => $int_no,
             'registration_no'       => $registration_no,
             "name"                  => $this->common_model->xss_clean($this->input->post("patient_name")),
@@ -72,21 +75,23 @@ class Patient extends CI_Controller {
           $id = $this->common_model->Id;
     
           $this->session->set_flashdata('success', 'Save Successfully');
+                 redirect(base_url() . "patient/invoice/$id", "refresh");
           }else{
             
               $this->session->set_flashdata('error', 'Something error.');
+                redirect(base_url() . "patient/patient/create", "refresh");
           }
         
-       redirect(base_url() . "patient", "refresh");
+       redirect(base_url() . "patient/patient/create", "refresh");
       }
       
         $data = array();
         $data['active']     = "patient_create";
-        $data['title']      = "Patient Create"; 
+        $data['title']      = "Patient Registration"; 
         $data['allDst']     =  $this->common_model->view_data("districts", array("is_active" => 1), "id", "DESC");
         $data['allOccu']    =  $this->common_model->view_data("occupation", array("is_active" => 1), "name", "ASC");
         $data['allCountry']    =  $this->common_model->view_data("country", array("is_active" => 1), "name", "ASC");
-        $data['allDoctors']    =  $this->common_model->view_data("doctors", array("is_active" => 1), "name", "ASC");
+        $data['allDoctors']    =  $this->common_model->view_data("doctors", array("is_active" => 1), "id", "ASC");
         
        
        
@@ -98,6 +103,20 @@ class Patient extends CI_Controller {
         $this->load->view('layout/master', $data);
 
     }
+
+
+       public function invoice($id)
+    {
+        $data = array();
+        $data['active']     = "sales";
+        $data['title']      = "Sales Invoice"; 
+
+        $data['allSup']     = $this->main_model->InvoiceHeader();
+       $data['patient']      = $this->patient_model->patientBillList($id);
+     //print_r( $data['allSup'] );exit();
+        $this->load->view('patient-invoice', $data);
+
+    } 
 
      public function fetch_upazilla() {
        $district_id = $this->input->post('district_id');
@@ -111,4 +130,24 @@ class Patient extends CI_Controller {
         $doctor_info = $this->patient_model->get_doctor_by_ref_name($ref_name_id);
         echo json_encode($doctor_info);
     }
+
+
+        public function delete($id) {
+
+        $dt = $this->common_model->view_data("patients", array("id" => $id), "id", "asc");
+       
+       
+        if ($dt) {
+           
+          
+            $this->common_model->delete_data("patients", array("id" => $id));
+            $this->session->set_flashdata('success', 'Delete Successfully');
+          
+        } else {
+            $this->session->set_flashdata('error', 'Something error.');
+        }
+      
+        redirect(base_url() . "patient", "refresh");
+      
+      }
 }

@@ -35,6 +35,17 @@ class Patient_model extends CI_Model {
         $this->db->order_by("patients.id", "DESC");
         return $this->db->get()->result(); 
     }
+public function patientBillList($id)
+{
+    $this->db->select("patients.*, districts.name as districts , upazila.name upazilla , doctors.name doctor");
+    $this->db->from("patients");
+    $this->db->join('districts', 'patients.district_id = districts.id', 'left');
+    $this->db->join('upazila', 'patients.upazilla_id = upazila.id', 'left');
+    $this->db->join('doctors', 'patients.doctor_id = doctors.id', 'left');
+    $this->db->where("patients.id", $id);
+    $this->db->order_by("patients.id", "DESC");
+    return $this->db->get()->row(); 
+}
 
 
   

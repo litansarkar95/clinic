@@ -29,15 +29,15 @@ $("#registration_date,.to_date").val(today);
 											
 											<div class="row justify-content-center pb-5">
 												<div class="col-md-12">
-                                       <div class="row pb-3">
+                                                  <div class="row pb-3">
 												<div class="col-auto">
-													<h3>Create Patient</h3>
+													<h3>Patient Registration</h3>
 												</div>
 												<div class="col-auto ms-auto">
 													<a href="<?php echo base_url(); ?>patient"  class="btn btn_bg">Patient List</a>
 												</div>
 											</div>
-													        <?php echo form_open_multipart('billinfo/insertorder',array('class' => 'form-vertical input_form', 'id' => 'insert_purchase','name' => 'insert_purchase'))?>
+										 <?php echo form_open_multipart('patient/create',array('class' => 'form-vertical input_form', 'id' => 'insert_purchase','name' => 'insert_purchase'))?>
                                           
 									      				<div class="row mb-3">
 
@@ -46,7 +46,7 @@ $("#registration_date,.to_date").val(today);
                                  <input type="text" id="registration_id" class="form-control" name="registration_id"  value="<?php echo $registration_no; ?>" readonly>
                                  <span class="text-red small"><?php echo form_error('registration_id'); ?></span>
                               </div> 
-                           <div class="form-group col-md-3">
+                               <div class="form-group col-md-3">
                                  <label for="registration_date">Registration Date</label>
                                  <input type="text" id="registration_date" class="form-control " name="registration_date"  value="<?php echo set_value('registration_date'); ?>" >
                                  <span class="text-red small"><?php echo form_error('registration_date'); ?></span>
@@ -145,9 +145,9 @@ $("#registration_date,.to_date").val(today);
                                  <span class="text-red small"><?php echo form_error('nationality'); ?></span>
                               </div>
                                  <div class="form-group col-md-3">
-                                 <label for="ref_name">Ref. Name</label>
+                                 <label for="ref_name">Doctor Referance Name</label>
                                  <select type="text" id="ref_name" class="form-control" name="ref_name"  >
-                                    <option value=""><?php echo display('select'); ?></option>
+                           
                                     <?php
                                         foreach ($allDoctors as $doct){
                                       echo "<option value='{$doct->id}'>{$doct->name} - {$doct->mobile}</option>";
@@ -174,132 +174,55 @@ $("#registration_date,.to_date").val(today);
 									      			
 												</div>
 											</div>
+                                            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group ">
+                                                <label for="token">Token</label>
+                                                <input type="text" id="token" class="form-control" name="token"  value="<?php echo $serial_no; ?>" disable>
+                                                <span class="text-red small"><?php echo form_error('token'); ?></span>
+                                            </div>
+
+                                    </div>
+
+
+                                                     <div class="col-md-8">
+                                            <div class="table-responsive">
+                                            <table id="selectedItemsTable" class="table table-bordered table-striped table-hover">
+                                                <thead>
+                                                    <tr class="info">
+                                                        <th>Test Name</th>
+                                                        <th width="150px">Test Fee</th>
+                                                     
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="selectedItemsBody">
+                                                     <td id="totalQty">OUT DOOR FEE</td>
+                                                        <td>100</td>
+                                                </tbody>
+                                               
+                                            </table>
+                                            	</div>
+									</div>
+
+</div>
+														     
+					<div class="row">
+									      					        <div class="reset-button left">
+									      						<button type="submit" class="btn btn_bg">Save</button>
+									      					</div>
+									      				</div>									     
+
 										</div>
 									</div>
 								</div>
 							</div>
 
 
-                         <div class="row">
-      <div class="col-md-6">
-
-      <div class="col-md-12">
-                                                      
-
-                                                      <input type="text" class="form-control" name="batch_number_s" id="batch_number_s" placeholder="Search Test By Name here..">
-                                                      <span class="text-danger"></span>
-                                                      <input type="hidden" id="search_product_id" class="form-control"/>
-                                                      <input type="hidden" value="0" id="ganak">
-                                                
-                                                           </div><!-- .col-md-6 -->
+                                                 
 
 
 
-                                                           <div class="col-md-12">
-                                            <div class="table-responsive">
-                                            <table id="selectedItemsTable" class="table table-bordered table-striped table-hover">
-                                                <thead>
-                                                    <tr class="info">
-                                                        <th width="60px">S.L</th>
-                                                        <th>Test Name</th>
-                                                        <th width="150px">Test Fee</th>
-                                                        <th>Comments</th>
-                                                        <th>Action</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody id="selectedItemsBody">
-                                                    <!-- Selected items will appear here -->
-                                                </tbody>
-                                                <!-- <tfoot>
-                                                    <tr>
-                                                        <td colspan="2"><strong>Total</strong></td>
-                                                        <td id="totalQty">0</td>
-                                                        <td></td>
-                                                    </tr>
-                                                </tfoot> -->
-                                            </table>
-                                            
-                                         
-                                        </div>
-                                          
-                                            </div>  <!-- col-md-6 -->
-      </div><!-- .col-md-6 -->
-      <div class="col-md-6">
-      <div class="col-md-12">
-                                            <p hidden id="pay-amount"></p>
-                                            <p hidden id="change-amount"></p>
-                                            
-                                            <div class="panel-body ">
-                                           
-                                           
-                                        
-                                          
-                                                <table class="table table-bordered table-striped table-hover">
-                                                    <tr>
-                                                        <th>Total Amount</th>
-                                                        <td>
-                                                            <span class="text-red small"></span>
-                                                            <input type="number" name="gtotal_amount" id="grandTotal" class="form-control grandTotal text-right"  value="0"  required 
-  min="1" 
-  step="1" tabindex="7"  
->
-                                                        </td>
-                                                    </tr>
-                                                    
-                                                    <tr>
-                                                        <th>Discount 
-                                                            <select name="discount_type" class="form-select discount_type form-control" id="form-ware" aria-invalid="false">
-                                                                <option value="flat">Flat (৳)</option>
-                                                                <option value="percent">Percent (%)</option>
-                                                            </select>
-                                                        </th>
-                                                        <td>
-                                                            <input type="number" step="any" name="discountAmount" id="discount_amount" min="0" class="form-control right-start-input" placeholder="0">
-                                                        </td>
-                                                    </tr>
-                                                    
-                                                    <tr>
-                                                        <th>Total Amount</th>
-                                                        <td>
-                                                            <span class="text-red small"></span>
-                                                            <input type="number" name="dis_grandTotal"  id="dis_grandTotal" class="form-control dis_grandTotal text-right" value="0"  required 
-  min="6"  tabindex="7">
-                                                        </td>
-                                                    </tr>
-                                                    
-                                                    <tr>
-                                                        <th>Payment Amount</th>
-                                                        <td>
-                                                            <input type="text" name="payment_amount" id="paymentAmount" class="form-control payment_amount text-right" placeholder="0.00" value="0" min="0" tabindex="7">
-                                                        </td>
-                                                    </tr>
-                                                    
-                                                    <tr>
-                                                        <th>Due Amount</th>
-                                                        <td>
-                                                            <input type="text" name="due_amount" id="dueAmount"  class="form-control due_amount text-right" placeholder="0.00" value="0"  min="0" tabindex="7">
-                                                        </td>
-                                                    </tr>
-                                                </table>
-                                                
-                                                <input type="hidden" id="orderData" name="order_data">
-                                                <div class="form-group col-sm-12">
-                                                    <div class="reset-button left">
-                                                        <button type="reset" class="btn btn-warning">Reset</button>
-                                                        <button type="submit"  class="btn btn-success">Save</button>
-                                                    </div>
-                                                </div>
-                                            </div>
 
-                                            </div>
-      </div><!-- .col-md-6 -->
-      </div>
-
-                            
-                            
-                            
-                                                  
-                          
                     
                     </form>
             </div>

@@ -30,7 +30,7 @@ class Billinfo_model extends CI_Model {
 		$isPaid = "Partially";
 	 }
 	
- echo $productIds = $this->input->post('product_id');exit();
+
 	
         $day = date('d');
         $month = date('m');
@@ -38,44 +38,15 @@ class Billinfo_model extends CI_Model {
         $int_no = $this->get_next_registration_int_no($month, $year);
         $registration_no = 'R-' . str_pad($int_no, 4, '0', STR_PAD_LEFT);
 
-	$psdata = array(
-            'month'                 => $month,
-            'day'                   => $day,
-            'year'                  => $year,
-            'registration_int_no'   => $int_no,
-            'registration_no'       => $registration_no,
-            "name"                  => $this->common_model->xss_clean($this->input->post("patient_name")),
-            "registration_date"     => strtotime($this->common_model->xss_clean($this->input->post("registration_date"))),
-            "father_husband_name"   => $this->common_model->xss_clean($this->input->post("father_husband_name")),
-            "mobile_no"             => $this->common_model->xss_clean($this->input->post("mobile_no")),
-            "gender"                => $this->common_model->xss_clean($this->input->post("gender")),
-            "age"                   => $this->common_model->xss_clean($this->input->post("age")),
-            "district_id"           => $this->common_model->xss_clean($this->input->post("district_id")),
-            "upazilla_id"           => $this->common_model->xss_clean($this->input->post("upazilla_id")),
-            "village"               => $this->common_model->xss_clean($this->input->post("village")),
-            "occupation_id"         => $this->common_model->xss_clean($this->input->post("occupation_id")),
-            "religion"              => $this->common_model->xss_clean($this->input->post("religion")),
-            "nationality_id"        => $this->common_model->xss_clean($this->input->post("nationality")),
-            "doctor_id"             => $this->common_model->xss_clean($this->input->post("ref_name")),
-            "adult_child"           => $this->common_model->xss_clean($this->input->post("adult_child")),
-            "is_active"             => 1,
-            "create_date"           => strtotime($date),
-           // 'pat_age_type'  => $this->input->post('pat_age_type')
-        );
-		if( $this->db->insert("patients",$psdata)){
-			$patient_id = $this->db->insert_id();
-
-		}
-	
 
 
 	 $data=array(
-		 'ip_address'		=> $_SERVER['REMOTE_ADDR'],
+		 'ip_address'		        => $_SERVER['REMOTE_ADDR'],
 		 'date_code'	            => date("y"),
-		 'month_code' 		=> date("m"),
-		 'code_random'		=> $sales_id,
+		 'month_code' 		        => date("m"),
+		 'code_random'		        => $sales_id,
 		 'invoiceNumber'	       	=> $sales_number,
-		 'patient_id'	            => $patient_id,
+		 'patient_id'	            => $this->input->post('patient_id', TRUE),
 		 'subTotal'			                =>	$this->input->post('gtotal_amount', TRUE),
 		 'discountType'	                    =>	$this->input->post('discount_type',TRUE),
 		 'discountAmount'	                =>	$this->input->post('discountAmount',TRUE),
@@ -117,9 +88,9 @@ class Billinfo_model extends CI_Model {
 					foreach ($productIds as $index => $productId) {
 						$data1 = array(
 							'bill_id'       => $returnid,
-							//'test_info_id'  => $productId,
-							//'price'         => isset($prices[$index]) ? $prices[$index] : null,
-							//'comments'      => isset($comments[$index]) ? $comments[$index] : null,
+							'test_info_id'  => $productId,
+						 'price'         => isset($prices[$index]) ? $prices[$index] : null,
+							'comments'      => isset($comments[$index]) ? $comments[$index] : null,
 						);
 						
 
@@ -176,7 +147,7 @@ class Billinfo_model extends CI_Model {
 			$this->db->select("bill_info.* , patients.name , patients.mobile_no , patients.registration_no ,  patients.gender , patients.age , patients.adult_child, doctors.name , doctors.degree");
 			$this->db->from("bill_info");
 			$this->db->join('patients', "bill_info.patient_id = patients.id ",'left');
-			;;$this->db->join('doctors', "patients.doctor_id = doctors.id ",'left');
+			$this->db->join('doctors', "patients.doctor_id = doctors.id ",'left');
 			$this->db->where("bill_info.id",$id); 
 			$this->db->order_by("id", "DESC");
 			return $this->db->get()->result();
@@ -206,4 +177,25 @@ public function get_next_registration_int_no($month, $year) {
 
     return isset($result->registration_int_no) ? $result->registration_int_no + 1 : 1;
 }
+
+public function searchPatients($search_query) {
+    $this->db->select('patients.*, doctors.name as doctor');
+    $this->db->from('patients');
+    
+    $this->db->group_start(); 
+    $this->db->like('patients.name', $search_query);
+    $this->db->or_like('patients.mobile_no', $search_query);
+    $this->db->or_like('patients.registration_no', $search_query);
+    $this->db->group_end();
+    
+    $this->db->join('doctors', 'patients.doctor_id = doctors.id', 'left');
+    $query = $this->db->get();
+
+    if ($query->num_rows() > 0) {
+        return $query->result();
+    } else {
+        return false;  
+    }
+}
+
 }
