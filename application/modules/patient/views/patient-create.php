@@ -195,9 +195,20 @@ $("#registration_date,.to_date").val(today);
                                                      
                                                     </tr>
                                                 </thead>
-                                                <tbody id="selectedItemsBody">
-                                                     <td id="totalQty">OUT DOOR FEE</td>
-                                                        <td>100</td>
+                                                <tbody id="">
+                                                        <?php
+                                                        if(isset($allTest)){
+                                        foreach ($allTest as $test){
+                                        
+                                            ?>
+                                                    <tr>
+                                                     <td id=""><?php echo $test->name; ?></td>
+                                                         <td id=""><?php echo $test->testFee; ?></td>
+                                        </tr>
+                                                        <?php
+                                        }
+                                    }
+                                                        ?>
                                                 </tbody>
                                                
                                             </table>

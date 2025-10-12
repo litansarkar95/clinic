@@ -42,8 +42,7 @@ class Patient extends CI_Controller {
 
 
         $date = date("Y-m-d H:i:s");
-      
-    
+     
         $data = array(
 
             'month'                 => $month,
@@ -73,7 +72,20 @@ class Patient extends CI_Controller {
 
         if ($this->common_model->save_data("patients", $data)) {
           $id = $this->common_model->Id;
-    
+
+       $allTest      = $this->patient_model->TestListWhere();
+
+        foreach($allTest as $test){
+
+        $pdata = array(
+            "registration_id"        => $id,
+            "test_info_id"           => $test->id,
+            "price"                  => $test->testFee,
+            "create_date"            => strtotime($date),
+           
+        );
+           $this->common_model->save_data("bill_details", $pdata);
+      }
           $this->session->set_flashdata('success', 'Save Successfully');
                  redirect(base_url() . "patient/invoice/$id", "refresh");
           }else{
@@ -93,7 +105,8 @@ class Patient extends CI_Controller {
         $data['allCountry']    =  $this->common_model->view_data("country", array("is_active" => 1), "name", "ASC");
         $data['allDoctors']    =  $this->common_model->view_data("doctors", array("is_active" => 1), "id", "ASC");
         
-       
+        $data['allTest']      = $this->patient_model->TestListWhere();
+      // print_r($data['allTest']);exit();
        
         //serial_no
         $data['serial_no']  = $this->patient_model->get_daily_serial($day, $month, $year);
@@ -112,8 +125,9 @@ class Patient extends CI_Controller {
         $data['title']      = "Sales Invoice"; 
 
         $data['allSup']     = $this->main_model->InvoiceHeader();
-       $data['patient']      = $this->patient_model->patientBillList($id);
-     //print_r( $data['allSup'] );exit();
+        $data['patient']      = $this->patient_model->patientBillList($id);
+        $data['allTest']      = $this->patient_model->TestInvoiceWhere($id);
+    // print_r( $data['allTest'] );exit();
         $this->load->view('patient-invoice', $data);
 
     } 

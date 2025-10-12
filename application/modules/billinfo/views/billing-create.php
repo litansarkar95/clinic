@@ -179,6 +179,10 @@ $("#registration_date,.to_date").val(today);
                                  <span class="text-red small"><?php echo form_error('adult_child'); ?></span>
                               </div>
 
+
+                             
+                        
+
                
 
                               

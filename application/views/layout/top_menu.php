@@ -12,6 +12,7 @@
 										        <li class="nav-item">
 										          <a class="nav-link" href="#">Base <i class="fas fa-caret-down"></i></a>
 										          <ul class="nav_sub_menu">
+										          	<li><a href="<?php echo base_url(); ?>billinfo/categories">Categories</a></li>
 										          	<li><a href="<?php echo base_url(); ?>patient/districts">District</a></li>
 										          	<li><a href="<?php echo base_url(); ?>patient/upazila">Upazila</a></li>
 										          	<li><a href="<?php echo base_url(); ?>patient/occupation">Occupation</a></li>

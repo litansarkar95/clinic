@@ -46,7 +46,14 @@ public function patientBillList($id)
     $this->db->order_by("patients.id", "DESC");
     return $this->db->get()->row(); 
 }
-
+public function TestListWhere()
+{
+    $this->db->select("testinfo.*");
+    $this->db->from("testinfo");
+    $this->db->limit(1);
+    $this->db->order_by("testinfo.id", "ASC");
+   return $this->db->get()->result(); 
+}
 
   
     public function get_daily_serial($day, $month, $year) {
@@ -72,7 +79,16 @@ public function patientBillList($id)
     return isset($result->registration_int_no) ? $result->registration_int_no + 1 : 1;
 }
 
-
+    public function TestInvoiceWhere($id)
+    {
+    
+        $this->db->select("bill_details.*, testinfo.name as tname");
+        $this->db->from("bill_details");
+        $this->db->join('testinfo', 'bill_details.test_info_id = testinfo.id', 'left');
+        $this->db->where("bill_details.registration_id", $id);
+        $this->db->order_by("bill_details.id", "ASC");
+        return $this->db->get()->result(); 
+    }
 
 
      public function get_doctor_by_ref_name($ref_name_id) {

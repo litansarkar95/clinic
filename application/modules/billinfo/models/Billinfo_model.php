@@ -89,8 +89,9 @@ class Billinfo_model extends CI_Model {
 						$data1 = array(
 							'bill_id'       => $returnid,
 							'test_info_id'  => $productId,
-						 'price'         => isset($prices[$index]) ? $prices[$index] : null,
+						            'price'         => isset($prices[$index]) ? $prices[$index] : null,
 							'comments'      => isset($comments[$index]) ? $comments[$index] : null,
+							'create_date'   => $createdate
 						);
 						
 

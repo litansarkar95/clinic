@@ -210,10 +210,20 @@
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <td>OUT DOOR FEE</td>
-        <td>100.00</td>
-      </tr>
+       <tbody id="">
+                   <?php
+                                                        if(isset($allTest)){
+                                        foreach ($allTest as $test){
+                                        
+                                            ?>
+                                                    <tr>
+                                                     <td id=""><?php echo $test->tname; ?></td>
+                                                         <td id=""><?php echo $test->price; ?></td>
+                                        </tr>
+                                                        <?php
+                                        }
+                                    }
+                                                        ?>
     </tbody>
   </table>
 

@@ -8,7 +8,7 @@ class Testinfo extends CI_Controller {
         if (!$this->session->userdata("loggedin")) {
             redirect(base_url() . "login", "refresh");
         }
-       // $this->load->model("products_model");
+        $this->load->model("testinfo_model");
           
     }
 
@@ -17,7 +17,8 @@ class Testinfo extends CI_Controller {
         $data = array();
         $data['active'] = "test_information";
         $data['title'] = "Test Info"; 
-        $data['allPdt'] = $this->common_model->view_data("testinfo", "", "id", "DESC");
+        $data['allPdt'] = $this->testinfo_model->TestinfoList();
+        $data['allCat'] = $this->common_model->view_data("categories", "", "id", "ASC");
        // echo "<pre>"; print_r($data['allPdt']);exit();
         $data['content'] = $this->load->view("testinfo/testinfo-list", $data, TRUE);
        $this->load->view('layout/master', $data);
@@ -35,6 +36,7 @@ class Testinfo extends CI_Controller {
         $date = date("Y-m-d H:i:s");
         $data = array(   
             "name"                        => $this->common_model->xss_clean($this->input->post("name")),   
+            "categories_id"               => $this->common_model->xss_clean($this->input->post("categories_id")),
             "testFee"                     => $this->common_model->xss_clean($this->input->post("testFee")),
             "is_active"                   => 1,
             "create_date"                 => strtotime($date),
@@ -93,7 +95,8 @@ class Testinfo extends CI_Controller {
         $selPdt=$this->common_model->view_data("testinfo",array("id"=>$id),"id","desc");
       
         $data = array(
-            "name"                        => $this->common_model->xss_clean($this->input->post("ename")),   
+            "name"                        => $this->common_model->xss_clean($this->input->post("ename")), 
+            "categories_id"               => $this->common_model->xss_clean($this->input->post("ecategories_id")),  
             "testFee"                     => $this->common_model->xss_clean($this->input->post("etestFee")),
             "is_active"                  => $this->common_model->xss_clean($this->input->post("is_active")),
                         

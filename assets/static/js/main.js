@@ -58,5 +58,15 @@ $('#showPw').click(function(){
     }
 });
 $(document).ready(function() {
-    $('.js-example-basic-single').select2();
+    $('.select2').select2();
 });
+
+
+
+// toggle buttom 
+
+
+$('.pricing-toggle').click(function(){
+    $(this).toggleClass('frm_toggle_select frm_toggle_deselect');
+    $(this).toggleClass('select_toggle_container deselect_toggle_container');
+})
