@@ -10,13 +10,23 @@
     margin: 0;
     background: #f5f6f8;
   }
+.btn {
+  background: green;
+  color: white;
+  padding: 10px 15px;
+  border: 1px solid #ccc;
+  text-decoration: none;
+  border-radius: 4px;
+  font-weight: bold;
+}
 
-  .print-btn {
+
+  .print-btn  , .btn{
     text-align: center;
     margin: 20px 0;
   }
 
-  .print-btn button {
+  .print-btn button  {
     background: #0078d7;
     color: white;
     border: none;
@@ -157,6 +167,7 @@
 
 <div class="print-btn">
   <button onclick="window.print()">🖨️ Print / Save as PDF (A5)</button>
+  <a class="btn" href="<?php echo base_url()."patient/registrationinvoice/$id"?>">🖨️ Print Form</a>
 </div>
 
 <div class="form-container">

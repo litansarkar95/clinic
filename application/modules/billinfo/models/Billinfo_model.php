@@ -64,6 +64,22 @@ class Billinfo_model extends CI_Model {
 	 );
 	 if( $this->db->insert("bill_info",$data)){
 		$returnid = $this->db->insert_id();
+
+		/// Accounts  
+		$is_surgery = $this->input->post('is_surgery') ? 1 : 0;
+		if($is_surgery  == 1){
+			$surgery_data = array(
+							'bill_id'           => $returnid,
+							'date'              => $this->input->post('surgery_date', TRUE),
+							'patient_id'	    => $this->input->post('patient_id', TRUE),
+							'serial'            => $this->input->post('serial', TRUE),
+							'created_at'	    =>	$createdate
+						);
+
+						$this->db->insert('operation', $surgery_data);
+					}
+		
+		// end Accounts
 		
 		/// Accounts  
 			$accdata = array(
@@ -198,5 +214,21 @@ public function searchPatients($search_query) {
         return false;  
     }
 }
+
+
+public function get_next_serial_for_date($date)
+{
+    $this->db->select_max('serial');
+    $this->db->where('date', $date);
+    $query = $this->db->get('operation');
+
+    $row = $query->row();
+    if ($row && $row->serial) {
+        return $row->serial + 1;
+    } else {
+        return 1;
+    }
+}
+
 
 }

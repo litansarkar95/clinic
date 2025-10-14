@@ -65,11 +65,20 @@ linear 0.3s;
     $(document).ready(function() {
    
 
-   $("#registration_date,to_date").datepicker({
+   $("#registration_date").datepicker({
   dateFormat: "dd-mm-yy",
   changeMonth: true,
   changeYear: true,
   yearRange: "1900:2100",
+});
+$("#surgery_date").datepicker({
+  dateFormat: "yy-mm-dd",
+  changeMonth: true,
+  changeYear: true,
+  yearRange: "1900:2100",
+  onSelect: function(dateText) {
+    fetchSerial(dateText);
+  }
 });
 
 // Set a default date (e.g., today's date)
@@ -124,39 +133,39 @@ $("#registration_date,.to_date").val(today);
                                          
 									      				<div class="row mb-3">
                             <input type="hidden" id="patient_id" class="form-control " name="patient_id"  value="<?php echo set_value('patient_id'); ?>" >
-                                   <div class="form-group col-md-3">
+                                   <div class="form-group col-md-3 mb-3">
                                  <label for="registration_id">Invoice ID</label>
                                  <input type="text" id="registration_id" class="form-control" name="registration_id"  value="<?php echo $registration_no; ?>" readonly>
                                  <span class="text-red small"><?php echo form_error('registration_id'); ?></span>
                               </div> 
-                           <div class="form-group col-md-3">
+                           <div class="form-group col-md-3 mb-3">
                                  <label for="registration_date">Invoice Date</label>
                                  <input type="text" id="registration_date" class="form-control " name="registration_date"  value="<?php echo set_value('registration_date'); ?>" >
                                  <span class="text-red small"><?php echo form_error('registration_date'); ?></span>
                               </div>
-                              <div class="form-group col-md-3">
+                              <div class="form-group col-md-3 mb-3">
                                  <label for="patient_name">Patient Name</label>
                                   <input type="text" id="patient_name" class="form-control " name="patient_name"  value="<?php echo set_value('patient_name'); ?>" >
                                  <span class="text-red small"><?php echo form_error('patient_name'); ?></span>
                               </div>
-                                <div class="form-group col-md-3">
+                                <div class="form-group col-md-3 mb-3">
                                  <label for="father_husband_name">Father/Husband Name </label>
                                  <input type="text" id="father_husband_name" class="form-control" name="father_husband_name" value="<?php echo set_value('father_husband_name'); ?>" >
                                  <span class="text-red small"><?php echo form_error('father_husband_name'); ?></span>
                               </div>
-                              <div class="form-group col-md-3">
+                              <div class="form-group col-md-3 mb-3">
                                  <label for="mobile_no">Mobile No</label>
                                  <input type="text" id="mobile_no" class="form-control" name="mobile_no"  value="<?php echo set_value('mobile_no'); ?>" >
                                  <span class="text-red small"><?php echo form_error('mobile_no'); ?></span>
                               </div>
-                               <div class="form-group col-md-3">
+                               <div class="form-group col-md-3 mb-3">
                                  <label for="gender">Gender</label>
                                 <input type="text" id="gender" class="form-control" name="gender"  value="<?php echo set_value('gender'); ?>" >
                                  
                                  <span class="text-red small"><?php echo form_error(''); ?></span>
                               </div>
 
-                              <div class="form-group col-md-3">
+                              <div class="form-group col-md-3 mb-3">
                                  <label for="age">Age</label>
                                  <input type="text" id="age" class="form-control" name="age"  value="<?php echo set_value('age'); ?>" >
                                  <span class="text-red small"><?php echo form_error('age'); ?></span>
@@ -165,14 +174,14 @@ $("#registration_date,.to_date").val(today);
                             
 
                            
-                                 <div class="form-group col-md-3">
+                                 <div class="form-group col-md-3 mb-3">
                                  <label for="ref_name">Ref. Name</label>
                                   <input type="text" id="ref_name" class="form-control" name="ref_name"  value="<?php echo set_value('ref_name'); ?>" >
                                  <span class="text-red small"><?php echo form_error('ref_name'); ?></span>
                               </div>
 
                              
-                                <div class="form-group col-md-3">
+                                <div class="form-group col-md-3 mb-3">
                                  <label for="adult_child">Adult / Child</label>
                               
                                  <input type="text" id="adult_child" class="form-control" name="adult_child"  value="<?php echo set_value('adult_child'); ?>" >
@@ -180,8 +189,35 @@ $("#registration_date,.to_date").val(today);
                               </div>
 
 
-                             
-                        
+                              	  <div class="row">
+  <div class="col-12 mb-3">
+    <div class="switcher-pricing text-left lh-1">
+      <div class="frm_toggle_container">
+        <input type="checkbox" name="is_surgery" id="Issurgery" class="pricing-toggle frm_toggle_deselect deselect_toggle_container" value="1">
+      
+        <label for="myInput">Save This Session</label>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- The div you want to show/hide -->
+<div id="surgerySection" style="display: none; ">
+ <div class="row">
+   <div class="form-group col-md-3 mb-3">
+                                 <label for="surgery_date">Surgery Date</label>
+                                 <input type="text" id="surgery_date" class="form-control " name="surgery_date"  value="<?php echo set_value('surgery_date'); ?>" >
+                                 <span class="text-red small"><?php echo form_error('surgery_date'); ?></span>
+                              </div>
+                              <div class="form-group col-md-3 mb-3">
+                                 <label for="serial">Surgery Serial</label>
+                                  <input type="text" id="serial" class="form-control " name="serial"  value="<?php echo set_value('serial'); ?>" >
+                                 <span class="text-red small"><?php echo form_error('serial'); ?></span>
+                              </div>
+</div>
+</div>
+
+
 
                
 
@@ -494,4 +530,38 @@ $("#registration_date,.to_date").val(today);
         });
     </script>
 
+
+
+<script>
+document.getElementById("Issurgery").addEventListener("change", function() {
+  var surgeryDiv = document.getElementById("surgerySection");
+  if (this.checked && this.value === "1") {
+    surgeryDiv.style.display = "block";
+  } else {
+    surgeryDiv.style.display = "none";
+  }
+});
+</script>
+
+
     	
+<script>
+function fetchSerial(selectedDate) {
+  fetch("<?= base_url('billinfo/get_next_serial'); ?>", {
+    method: "POST",
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded'
+    },
+    body: "date=" + encodeURIComponent(selectedDate)
+  })
+  .then(response => response.json())
+  .then(data => {
+    $("#serial").val(data.next_serial);
+  })
+  .catch(error => {
+    console.error("Error:", error);
+  });
+}
+
+</script>
+

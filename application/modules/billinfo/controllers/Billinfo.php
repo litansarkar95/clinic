@@ -30,8 +30,12 @@ class Billinfo extends CI_Controller {
     // print_r($_POST);
     // echo '</pre>';
     // exit;
+    
+
+ 
        
         
+
         $sales_id = $this->billinfo_model->create();
        
         if ($sales_id) {
@@ -78,20 +82,7 @@ class Billinfo extends CI_Controller {
     }
 
 
-    public function insertorder() {
-     
-      
-        $sales_id = $this->billinfo_model->create();
-        if ($sales_id) {
-
-            $this->session->set_flashdata('success', display('save_successfully'));
-            redirect(base_url() . "billinfo/invoice/$sales_id", "refresh");
-           } else {
-            $this->session->set_flashdata('error',  display('please_try_again'));
-           }
-           redirect(base_url() . "billinfo", "refresh"); 
-
-    }
+  
 
     
     public function invoice($id)
@@ -129,4 +120,19 @@ class Billinfo extends CI_Controller {
 
         echo json_encode($response);
     }
+
+
+
+    public function get_next_serial()
+{
+    $date = $this->input->post('date');
+    
+    if ($date) {
+        $next_serial = $this->billinfo_model->get_next_serial_for_date($date);
+        echo json_encode(['next_serial' => $next_serial]);
+    } else {
+        echo json_encode(['next_serial' => 1]);
+    }
+}
+
 }

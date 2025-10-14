@@ -123,12 +123,29 @@ class Patient extends CI_Controller {
         $data = array();
         $data['active']     = "sales";
         $data['title']      = "Sales Invoice"; 
+        $data['id']  = $id;
 
         $data['allSup']     = $this->main_model->InvoiceHeader();
         $data['patient']      = $this->patient_model->patientBillList($id);
         $data['allTest']      = $this->patient_model->TestInvoiceWhere($id);
     // print_r( $data['allTest'] );exit();
         $this->load->view('patient-invoice', $data);
+
+    } 
+
+    
+       public function registrationinvoice($id)
+    {
+        $data = array();
+        $data['active']     = "sales";
+        $data['title']      = "Sales Invoice"; 
+        $data['id']  = $id;
+
+        $data['allSup']     = $this->main_model->InvoiceHeader();
+        $data['patient']      = $this->patient_model->patientBillList($id);
+        $data['allTest']      = $this->patient_model->TestInvoiceWhere($id);
+    // print_r( $data['allTest'] );exit();
+        $this->load->view('patient-registration-invoice', $data);
 
     } 
 

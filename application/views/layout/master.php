@@ -35,7 +35,7 @@
 						<div class="header_container">
 							<div class="header_left">
 								<div class="logo_part">
-									<a href="<?php echo base_url(); ?>dashboard" class="my_logo">MyLogo</a>
+									<a href="<?php echo base_url(); ?>dashboard" class="my_logo">Clinic</a>
 								</div>
 
 								<!-- sidebar toggle button -->
@@ -108,7 +108,7 @@
 													</li>
 												</ul>
 											</li>
-											<li class="nav-item dropdown header_nav_li">
+											<!-- <li class="nav-item dropdown header_nav_li">
 												<a href="#" class="nav-link " data-bs-toggle="dropdown">
 													<i class="fas fa-envelope"></i>
 												</a>
@@ -154,7 +154,7 @@
 														</a>
 													</li>
 												</ul>
-											</li>
+											</li> -->
 											<li class="nav-item dropdown header_nav_li">
 												<a href="#" class="nav-link " data-bs-toggle="dropdown">
 													<i class="fas fa-user"></i>
@@ -163,8 +163,8 @@
 													<li class="dropdown-item">
 														<div class="use_drpDown">
 															<span><i class="fas fa-user"></i></span>
-															<p class="usr_title">Monir Hossain</p>
-															<p class="usr_email">abcd@gmail.com</p>
+															<p class="usr_title">Admin</p>
+															<p class="usr_email">admin@gmail.com</p>
 														</div>
 													</li>
 													<li class="dropdown-item">
@@ -178,7 +178,7 @@
 														</a>
 													</li>
 													<li class="dropdown-item">
-														<a href="login.html">
+														<a href="<?php echo base_url(); ?>logout">
 															<div class="usr_note">
 																<i class="fa-solid fa-share-from-square "></i> 
 															</div>
