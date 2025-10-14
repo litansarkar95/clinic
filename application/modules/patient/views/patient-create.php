@@ -48,28 +48,28 @@ $("#registration_date,.to_date").val(today);
                               </div> 
                                <div class="form-group col-md-3">
                                  <label for="registration_date">Registration Date</label>
-                                 <input type="text" id="registration_date" class="form-control " name="registration_date"  value="<?php echo set_value('registration_date'); ?>" >
+                                 <input type="text" id="registration_date" class="form-control " name="registration_date"  value="<?php echo set_value('registration_date'); ?>"  required>
                                  <span class="text-red small"><?php echo form_error('registration_date'); ?></span>
                               </div>
                               <div class="form-group col-md-3">
                                  <label for="patient_name">Patient Name</label>
-                                 <input type="text" id="patient_name" class="form-control" name="patient_name"  value="<?php echo set_value('patient_name'); ?>" >
+                                 <input type="text" id="patient_name" class="form-control" name="patient_name"  value="<?php echo set_value('patient_name'); ?>" required>
                                  <span class="text-red small"><?php echo form_error('patient_name'); ?></span>
                               </div>
                                 <div class="form-group col-md-3">
                                  <label for="father_husband_name">Father/Husband Name </label>
-                                 <input type="text" id="father_husband_name" class="form-control" name="father_husband_name" value="<?php echo set_value('father_husband_name'); ?>" >
+                                 <input type="text" id="father_husband_name" class="form-control" name="father_husband_name" value="<?php echo set_value('father_husband_name'); ?>" required>
                                  <span class="text-red small"><?php echo form_error('father_husband_name'); ?></span>
                               </div>
                               <div class="form-group col-md-3">
                                  <label for="mobile_no">Mobile No</label>
-                                 <input type="text" id="mobile_no" class="form-control" name="mobile_no"  value="<?php echo set_value('mobile_no'); ?>" >
+                                 <input type="text" id="mobile_no" class="form-control" name="mobile_no"  value="<?php echo set_value('mobile_no'); ?>" required>
                                  <span class="text-red small"><?php echo form_error('mobile_no'); ?></span>
                               </div>
                                <div class="form-group col-md-3">
                                  <label for="gender">Gender</label>
                               
-                                 <select type="text" id="gender" class="form-control frm_select" name="gender"  >
+                                 <select type="text" id="gender" class="form-control frm_select" name="gender"  required>
                                     <option value="Male">Male</option>
                                     <option value="Female">Female</option>
                                     <option value="Others">Others</option>
@@ -79,12 +79,12 @@ $("#registration_date,.to_date").val(today);
 
                               <div class="form-group col-md-3">
                                  <label for="age">Age</label>
-                                 <input type="text" id="age" class="form-control" name="age"  value="<?php echo set_value('age'); ?>" >
+                                 <input type="text" id="age" class="form-control" name="age"  value="<?php echo set_value('age'); ?>" required>
                                  <span class="text-red small"><?php echo form_error('age'); ?></span>
                               </div>
                                <div class="form-group col-md-3">
                                  <label for="district_id">District</label>
-                                 <select type="text" id="district_id" class="form-control" name="district_id"  >
+                                 <select type="text" id="district_id" class="form-control" name="district_id"  required>
                                     <option value=""><?php echo display('select'); ?></option>
                                     <?php
                                         foreach ($allDst as $dis){
@@ -104,13 +104,13 @@ $("#registration_date,.to_date").val(today);
                               </div>
                                 <div class="form-group col-md-3">
                                  <label for="village">Village</label>
-                                 <input type="text" id="village" class="form-control" name="village"  value="<?php echo set_value('village'); ?>" >
+                                 <input type="text" id="village" class="form-control" name="village"  value="<?php echo set_value('village'); ?>" required>
                                  <span class="text-red small"><?php echo form_error('village'); ?></span>
                               </div>
 
                                 <div class="form-group col-md-3">
                                  <label for="occupation_id">Occupation</label>
-                               <select type="text" id="occupation_id" class="form-control" name="occupation_id"  >
+                               <select type="text" id="occupation_id" class="form-control" name="occupation_id" required >
                                     <option value=""><?php echo display('select'); ?></option>
                                     <?php
                                         foreach ($allOccu as $occu){
@@ -134,7 +134,7 @@ $("#registration_date,.to_date").val(today);
                               </div>
                               <div class="form-group col-md-3">
                                  <label for="nationality">Nationality</label>
-                                 <select type="text" id="nationality" class="form-control" name="nationality"  >
+                                 <select type="text" id="nationality" class="form-control" name="nationality"  required>
                              
                                     <?php
                                         foreach ($allCountry as $contry){
@@ -146,7 +146,7 @@ $("#registration_date,.to_date").val(today);
                               </div>
                                  <div class="form-group col-md-3">
                                  <label for="ref_name">Doctor Referance Name</label>
-                                 <select type="text" id="ref_name" class="form-control" name="ref_name"  >
+                                 <select type="text" id="ref_name" class="form-control" name="ref_name"  required>
                            
                                     <?php
                                         foreach ($allDoctors as $doct){
@@ -161,14 +161,19 @@ $("#registration_date,.to_date").val(today);
                                 <div class="form-group col-md-3">
                                  <label for="adult_child">Adult / Child</label>
                               
-                                 <select type="text" id="adult_child" class="form-control" name="adult_child"  >
+                                 <select type="text" id="adult_child" class="form-control" name="adult_child" required >
                                     <option value="Adult">Adult</option>
                                     <option value="Child">Child</option>
                                     </select>
                                  <span class="text-red small"><?php echo form_error('adult_child'); ?></span>
                               </div>
                              
-									      					
+									      		            <div class="form-group col-md-3 mb-3">
+                                                                           <label for="adult_child"></label>
+									      					        <div class="reset-button left">
+									      						<button type="submit" class="btn btn_bg">Save Registration</button>
+									      					</div>
+									      				</div>			
 									      		</div>	
 									      			
 									      			
@@ -217,11 +222,7 @@ $("#registration_date,.to_date").val(today);
 
 </div>
 														     
-					<div class="row">
-									      					        <div class="reset-button left">
-									      						<button type="submit" class="btn btn_bg">Save</button>
-									      					</div>
-									      				</div>									     
+					                                    									     
 
 										</div>
 									</div>

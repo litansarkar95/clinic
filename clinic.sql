@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.1
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 14, 2025 at 01:09 PM
--- Server version: 10.4.32-MariaDB
--- PHP Version: 8.2.12
+-- Generation Time: Oct 14, 2025 at 06:18 PM
+-- Server version: 10.4.27-MariaDB
+-- PHP Version: 7.4.33
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -45,12 +45,13 @@ CREATE TABLE `account_statement` (
 --
 
 INSERT INTO `account_statement` (`id`, `sales_id`, `type`, `transaction_date`, `description`, `debit`, `adjustment`, `credit`, `balance`, `created_at`) VALUES
-(1213, 1208, '', 1760119200, NULL, 500.00, 0.00, 0.00, 0.00, '2025-10-11 16:19:49'),
-(1214, 1209, '', 1760119200, NULL, 500.00, 0.00, 0.00, 0.00, '2025-10-11 16:20:58'),
-(1215, 1210, '', 1760119200, NULL, 500.00, 0.00, 0.00, 0.00, '2025-10-11 16:21:41'),
-(1216, 1211, '', 1760205600, NULL, 500.00, 0.00, 0.00, 0.00, '2025-10-12 10:43:45'),
-(1217, 1212, '', 1760205600, NULL, 100.00, 0.00, 0.00, 0.00, '2025-10-12 17:48:44'),
-(1218, 1213, '', 1760378400, NULL, 100.00, 0.00, 0.00, 0.00, '2025-10-14 10:54:47');
+(1213, 1208, '', 1760119200, NULL, '500.00', '0.00', '0.00', '0.00', '2025-10-11 16:19:49'),
+(1214, 1209, '', 1760119200, NULL, '500.00', '0.00', '0.00', '0.00', '2025-10-11 16:20:58'),
+(1215, 1210, '', 1760119200, NULL, '500.00', '0.00', '0.00', '0.00', '2025-10-11 16:21:41'),
+(1216, 1211, '', 1760205600, NULL, '500.00', '0.00', '0.00', '0.00', '2025-10-12 10:43:45'),
+(1217, 1212, '', 1760205600, NULL, '100.00', '0.00', '0.00', '0.00', '2025-10-12 17:48:44'),
+(1218, 1213, '', 1760378400, NULL, '100.00', '0.00', '0.00', '0.00', '2025-10-14 10:54:47'),
+(1219, 1214, '', 1760378400, NULL, '100.00', '0.00', '0.00', '0.00', '2025-10-14 15:35:31');
 
 -- --------------------------------------------------------
 
@@ -95,7 +96,9 @@ INSERT INTO `bill_details` (`id`, `bill_id`, `registration_id`, `test_info_id`, 
 (1266, 0, 1229, 51, 100, '', 1760290501),
 (1267, 1212, 0, 52, 100, '', 1760291324),
 (1268, 0, 1230, 51, 100, '', 1760433860),
-(1269, 1213, 0, 52, 100, '', 1760439286);
+(1269, 1213, 0, 52, 100, '', 1760439286),
+(1270, 0, 1231, 51, 100, '', 1760453489),
+(1271, 1214, 0, 52, 100, '', 1760456131);
 
 -- --------------------------------------------------------
 
@@ -132,17 +135,18 @@ CREATE TABLE `bill_info` (
 --
 
 INSERT INTO `bill_info` (`id`, `ip_address`, `date_code`, `month_code`, `code_random`, `invoiceNumber`, `patient_id`, `doctor_id`, `subTotal`, `discountType`, `discountAmount`, `totalDisAmount`, `isPaid`, `totalAmount`, `paidAmount`, `dueAmount`, `paymentType`, `invoice_date`, `status`, `created_at`, `updated_at`) VALUES
-(1203, '::1', '2025', 10, 1, 'INV-000001', 1216, 0, 500, 'flat', 0, 0, 'Due', 500, 0, 500, 'Cash', 1760119200, 1, 1760198729, 0),
-(1204, '::1', '2025', 10, 2, 'INV-000002', 1217, 0, 500, 'flat', 0, 0, 'Due', 500, 0, 500, 'Cash', 1760119200, 1, 1760199299, 0),
-(1205, '::1', '2025', 10, 3, 'INV-000003', 1218, 0, 500, 'flat', 0, 0, 'Due', 500, 0, 500, 'Cash', 1760119200, 1, 1760199393, 0),
-(1206, '::1', '2025', 10, 4, 'INV-000004', 1219, 0, 500, 'flat', 0, 0, 'Due', 500, 0, 500, 'Cash', 1760119200, 1, 1760199410, 0),
-(1207, '::1', '2025', 10, 5, 'INV-000005', 1220, 0, 534, 'flat', 0, 0, 'Due', 534, 0, 534, 'Cash', 1760119200, 1, 1760199439, 0),
-(1208, '::1', '2025', 10, 6, 'INV-000006', 1221, 0, 500, 'flat', 0, 0, 'Due', 500, 0, 500, 'Cash', 1760119200, 1, 1760199589, 0),
-(1209, '::1', '2025', 10, 7, 'INV-000007', 1222, 0, 500, 'flat', 0, 0, 'Due', 500, 0, 500, 'Cash', 1760119200, 1, 1760199657, 0),
-(1210, '::1', '2025', 10, 8, 'INV-000008', 1223, 0, 500, 'flat', 0, 0, 'Due', 500, 0, 500, 'Cash', 1760119200, 1, 1760199701, 0),
-(1211, '::1', '2025', 10, 9, 'INV-000009', 1224, 0, 500, 'flat', 0, 0, 'Due', 500, 0, 500, 'Cash', 1760205600, 1, 1760265824, 0),
-(1212, '::1', '2025', 10, 10, 'INV-000010', 1225, 0, 100, 'flat', 0, 0, 'Due', 100, 0, 100, 'Cash', 1760205600, 1, 1760291324, 0),
-(1213, '::1', '2025', 10, 11, 'INV-000011', 1224, 0, 100, 'flat', 0, 0, 'Due', 100, 0, 100, 'Cash', 1760378400, 1, 1760439286, 0);
+(1203, '::1', 2025, 10, 1, 'INV-000001', 1216, 0, 500, 'flat', 0, 0, 'Due', 500, 0, 500, 'Cash', 1760119200, 1, 1760198729, 0),
+(1204, '::1', 2025, 10, 2, 'INV-000002', 1217, 0, 500, 'flat', 0, 0, 'Due', 500, 0, 500, 'Cash', 1760119200, 1, 1760199299, 0),
+(1205, '::1', 2025, 10, 3, 'INV-000003', 1218, 0, 500, 'flat', 0, 0, 'Due', 500, 0, 500, 'Cash', 1760119200, 1, 1760199393, 0),
+(1206, '::1', 2025, 10, 4, 'INV-000004', 1219, 0, 500, 'flat', 0, 0, 'Due', 500, 0, 500, 'Cash', 1760119200, 1, 1760199410, 0),
+(1207, '::1', 2025, 10, 5, 'INV-000005', 1220, 0, 534, 'flat', 0, 0, 'Due', 534, 0, 534, 'Cash', 1760119200, 1, 1760199439, 0),
+(1208, '::1', 2025, 10, 6, 'INV-000006', 1221, 0, 500, 'flat', 0, 0, 'Due', 500, 0, 500, 'Cash', 1760119200, 1, 1760199589, 0),
+(1209, '::1', 2025, 10, 7, 'INV-000007', 1222, 0, 500, 'flat', 0, 0, 'Due', 500, 0, 500, 'Cash', 1760119200, 1, 1760199657, 0),
+(1210, '::1', 2025, 10, 8, 'INV-000008', 1223, 0, 500, 'flat', 0, 0, 'Due', 500, 0, 500, 'Cash', 1760119200, 1, 1760199701, 0),
+(1211, '::1', 2025, 10, 9, 'INV-000009', 1224, 0, 500, 'flat', 0, 0, 'Due', 500, 0, 500, 'Cash', 1760205600, 1, 1760265824, 0),
+(1212, '::1', 2025, 10, 10, 'INV-000010', 1225, 0, 100, 'flat', 0, 0, 'Due', 100, 0, 100, 'Cash', 1760205600, 1, 1760291324, 0),
+(1213, '::1', 2025, 10, 11, 'INV-000011', 1224, 0, 100, 'flat', 0, 0, 'Due', 100, 0, 100, 'Cash', 1760378400, 1, 1760439286, 0),
+(1214, '::1', 2025, 10, 12, 'INV-000012', 1231, 0, 100, 'flat', 0, 0, 'Due', 100, 0, 100, 'Cash', 1760378400, 1, 1760456131, 0);
 
 -- --------------------------------------------------------
 
@@ -219,7 +223,7 @@ CREATE TABLE `customers` (
 --
 
 INSERT INTO `customers` (`id`, `ip_address`, `name`, `contact_no`, `email`, `city`, `state`, `zip`, `country_id`, `nid`, `address`, `party_type`, `picture`, `opening_balance`, `current_balance`, `is_active`, `create_user`, `create_date`) VALUES
-(9, '::1', 'Md Litan Sarkar', '01829107469', 'email', '', '', 'ww', 0, '', 'dhaka', 'Retailer', '', 0.00, 0.00, 1, 0, 1741678803);
+(9, '::1', 'Md Litan Sarkar', '01829107469', 'email', '', '', 'ww', 0, '', 'dhaka', 'Retailer', '', '0.00', '0.00', 1, 0, 1741678803);
 
 -- --------------------------------------------------------
 
@@ -251,7 +255,7 @@ CREATE TABLE `departments` (
 --
 
 INSERT INTO `departments` (`id`, `name`, `commission`, `imap_username`, `email`, `email_from_header`, `host`, `password`, `encryption`, `folder`, `delete_after_import`, `calendar_id`, `hidefromclient`, `is_active`, `create_user`, `create_date`) VALUES
-(6, 'Laber ', 0.00, '', '', 0, '', '', '', 'INBOX', 0, NULL, 0, 1, 0, 1734514677);
+(6, 'Laber ', '0.00', '', '', 0, '', '', '', 'INBOX', 0, NULL, 0, 1, 0, 1734514677);
 
 -- --------------------------------------------------------
 
@@ -655,7 +659,7 @@ CREATE TABLE `login_credential` (
 
 INSERT INTO `login_credential` (`id`, `user_id`, `username`, `password`, `role`, `active`, `last_login`, `created_at`, `updated_at`) VALUES
 (1, 1, 'litan@gmail.com', 'UHZVdVBOTWI0VkwrN0MvQjRRRUZkdz09', 1, 1, '2024-12-18 10:29:18', '2024-10-21 15:42:57', '2025-03-11 12:50:11'),
-(2, 6, 'admin@gmail.com', 'UHZVdVBOTWI0VkwrN0MvQjRRRUZkdz09', 2, 1, '2025-10-12 22:12:09', '2024-11-16 23:35:56', '2025-10-12 22:12:09'),
+(2, 6, 'admin@gmail.com', 'UHZVdVBOTWI0VkwrN0MvQjRRRUZkdz09', 2, 1, '2025-10-14 20:50:35', '2024-11-16 23:35:56', '2025-10-14 20:50:35'),
 (14, 9, '01829107469', 'UHZVdVBOTWI0VkwrN0MvQjRRRUZkdz09', 7, 1, '2025-04-08 22:42:01', '2025-03-11 13:40:03', '2025-04-08 22:42:01'),
 (15, 12, 'niloy@gmail.com', 'UHZVdVBOTWI0VkwrN0MvQjRRRUZkdz09', 5, 1, NULL, '2025-03-13 13:00:36', '2025-03-13 13:00:36'),
 (16, 13, '01712', 'UHZVdVBOTWI0VkwrN0MvQjRRRUZkdz09', 5, 1, '2025-03-23 15:14:59', '2025-03-20 13:23:31', '2025-03-23 15:14:59'),
@@ -689,7 +693,9 @@ INSERT INTO `logs` (`id`, `message`, `record_id`, `user_id`, `action`, `ip_addre
 (1, 'New Record inserted On patients id 1229', 1229, 6, 'Insert', '::1', 'Windows 10', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWeb', '2025-10-12 17:35:01', '2025-10-12'),
 (2, 'New Record inserted On bill_details id 1266', 1266, 6, 'Insert', '::1', 'Windows 10', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWeb', '2025-10-12 17:35:01', '2025-10-12'),
 (3, 'New Record inserted On patients id 1230', 1230, 6, 'Insert', '::1', 'Windows 10', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWeb', '2025-10-14 09:24:21', '2025-10-14'),
-(4, 'New Record inserted On bill_details id 1268', 1268, 6, 'Insert', '::1', 'Windows 10', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWeb', '2025-10-14 09:24:21', '2025-10-14');
+(4, 'New Record inserted On bill_details id 1268', 1268, 6, 'Insert', '::1', 'Windows 10', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWeb', '2025-10-14 09:24:21', '2025-10-14'),
+(5, 'New Record inserted On patients id 1231', 1231, 6, 'Insert', '::1', 'Windows 10', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWeb', '2025-10-14 14:51:29', '2025-10-14'),
+(6, 'New Record inserted On bill_details id 1270', 1270, 6, 'Insert', '::1', 'Windows 10', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWeb', '2025-10-14 14:51:30', '2025-10-14');
 
 -- --------------------------------------------------------
 
@@ -733,7 +739,8 @@ CREATE TABLE `operation` (
 
 INSERT INTO `operation` (`id`, `bill_id`, `date`, `patient_id`, `serial`, `created_at`) VALUES
 (1, 0, '2025-10-15', 1, 1, 0),
-(2, 1213, '2025-10-16', 1224, 1, 1760439286);
+(2, 1213, '2025-10-16', 1224, 1, 1760439286),
+(3, 1214, '0000-00-00', 1231, 0, 1760456131);
 
 -- --------------------------------------------------------
 
@@ -780,7 +787,8 @@ INSERT INTO `patients` (`id`, `month`, `day`, `year`, `serial_no`, `registration
 (1227, 10, 12, 2025, 4, 'R-0014', 'Monira', 1760205600, 'Iddis', '01829293837', 'Female', '21', 1, 0, 'Cumilla Sader', 1, 'Islam', 1, 14, 'Adult', '', '', 1, 1760289532, 14),
 (1228, 10, 12, 2025, 5, 'R-0015', 'sdsad', 1760205600, 'saddsd', 'dssd', 'Others', '33', 1, 2, '33', 1, 'Hindu', 1, 14, 'Adult', '', '', 1, 1760290347, 15),
 (1229, 10, 12, 2025, 6, 'R-0016', 'sdsad', 1760205600, 'saddsd', 'dssd', 'Others', '33', 1, 2, '33', 1, 'Hindu', 1, 14, 'Adult', '', '', 1, 1760290501, 16),
-(1230, 10, 14, 2025, 1, 'R-0017', 'Md Litan', 1760378400, 's', 'ss', 'Male', '32', 1, 3, '33', 1, 'Islam', 1, 14, 'Adult', '', '', 1, 1760433860, 17);
+(1230, 10, 14, 2025, 1, 'R-0017', 'Md Litan', 1760378400, 's', 'ss', 'Male', '32', 1, 3, '33', 1, 'Islam', 1, 14, 'Adult', '', '', 1, 1760433860, 17),
+(1231, 10, 14, 2025, 2, 'R-0018', 'joli ', 1760378400, 'hasan', '01928273', 'Male', '21', 1, 3, 'ddd', 1, 'Islam', 1, 14, 'Child', '', '', 1, 1760453489, 18);
 
 -- --------------------------------------------------------
 
@@ -900,9 +908,9 @@ CREATE TABLE `staff` (
 --
 
 INSERT INTO `staff` (`id`, `employee_id`, `department`, `designation_id`, `ip_address`, `first_name`, `last_name`, `email`, `roles_id`, `qualification`, `work_exp`, `father_name`, `mother_name`, `contact_no`, `emergency_contact_no`, `dob`, `marital_status`, `date_of_joining`, `date_of_leaving`, `local_address`, `permanent_address`, `gender`, `account_title`, `bank_account_no`, `bank_name`, `lang_id`, `bank_branch`, `basic_salary`, `staff_type`, `hourly_rate`, `facebook`, `twitter`, `linkedin`, `instagram`, `resume`, `joining_letter`, `is_active`, `picture`, `create_user`, `create_date`) VALUES
-(1, '', 0, 0, '', 'Admin', '', 'litan@gmail.com', 1, '', '', '', '', '', '', 0, '', 0, 0, '', '', '', '', '', '', '', '', 0.00, 0, 0.00, '', '', '', '', '', '', 1, '0.png', 0, 0),
-(14, '', 0, 4, '', 'Alim ', '', 'alim@gmail.com', 6, '', '', '', '', '01123', '', 1742580000, '', 1742580000, 0, '', '', 'Male', '', '', '', '', '', 0.00, 1, 0.00, '', '', '', '', '', '', 1, '0.png', 0, 1742629052),
-(15, '', 0, 0, '', 'ABU RASEL ', ' Kabir', 'admin2@gmail.com', 2, '', '', '', '', 'admin2@gmail.com', '', 1744912800, '', 1744912800, 0, '', '', '', '', '', '', '', '', 0.00, 1, 0.00, '', '', '', '', '', '', 1, '0.png', 0, 1744970425);
+(1, '', 0, 0, '', 'Admin', '', 'litan@gmail.com', 1, '', '', '', '', '', '', 0, '', 0, 0, '', '', '', '', '', '', '', '', '0.00', 0, '0.00', '', '', '', '', '', '', 1, '0.png', 0, 0),
+(14, '', 0, 4, '', 'Alim ', '', 'alim@gmail.com', 6, '', '', '', '', '01123', '', 1742580000, '', 1742580000, 0, '', '', 'Male', '', '', '', '', '', '0.00', 1, '0.00', '', '', '', '', '', '', 1, '0.png', 0, 1742629052),
+(15, '', 0, 0, '', 'ABU RASEL ', ' Kabir', 'admin2@gmail.com', 2, '', '', '', '', 'admin2@gmail.com', '', 1744912800, '', 1744912800, 0, '', '', '', '', '', '', '', '', '0.00', 1, '0.00', '', '', '', '', '', '', 1, '0.png', 0, 1744970425);
 
 -- --------------------------------------------------------
 
@@ -924,8 +932,8 @@ CREATE TABLE `testinfo` (
 --
 
 INSERT INTO `testinfo` (`id`, `name`, `categories_id`, `testFee`, `is_active`, `create_date`) VALUES
-(51, 'OUT DOOR FEE', 2, 100, 1, 1760196810),
-(52, 'Test One Part', 2, 100, 1, 1760282265);
+(51, 'OUT DOOR FEE', 2, '100', 1, 1760196810),
+(52, 'Test One Part', 2, '100', 1, 1760282265);
 
 -- --------------------------------------------------------
 
@@ -1099,7 +1107,7 @@ ALTER TABLE `upazila`
 -- AUTO_INCREMENT for table `account_statement`
 --
 ALTER TABLE `account_statement`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1219;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1220;
 
 --
 -- AUTO_INCREMENT for table `auth_users_info`
@@ -1111,13 +1119,13 @@ ALTER TABLE `auth_users_info`
 -- AUTO_INCREMENT for table `bill_details`
 --
 ALTER TABLE `bill_details`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1270;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1272;
 
 --
 -- AUTO_INCREMENT for table `bill_info`
 --
 ALTER TABLE `bill_info`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1214;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1215;
 
 --
 -- AUTO_INCREMENT for table `categories`
@@ -1177,7 +1185,7 @@ ALTER TABLE `login_credential`
 -- AUTO_INCREMENT for table `logs`
 --
 ALTER TABLE `logs`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `occupation`
@@ -1189,13 +1197,13 @@ ALTER TABLE `occupation`
 -- AUTO_INCREMENT for table `operation`
 --
 ALTER TABLE `operation`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `patients`
 --
 ALTER TABLE `patients`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1231;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1232;
 
 --
 -- AUTO_INCREMENT for table `roles`

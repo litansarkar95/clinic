@@ -1,186 +1,227 @@
 <!DOCTYPE html>
-<html lang="bn">
+<html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>অস্ত্রোপচারের সম্মতিপত্র | ROTARY EYE HOSPITAL</title>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Bengali&display=swap" rel="stylesheet">
-
+<title> Consent Letter</title>
 <style>
-  body {
-    font-family: 'Noto Serif Bengali', serif;
-    background: #f5f6f8;
-    margin: 0;
-    padding: 0;
-  }
-
-  .toolbar {
-    text-align: center;
-    padding: 10px;
-    background: #eef2ff;
-    border-bottom: 1px solid #ccc;
-  }
-  .toolbar button {
-    background: #0b66a3;
-    color: white;
-    border: none;
-    padding: 8px 16px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 15px;
-    font-weight: bold;
-  }
-
-  .page {
-    width: 210mm;
-    min-height: 297mm;
-    background: #fff;
-    margin: 20px auto;
-    padding: 25mm;
-    box-shadow: 0 0 10px rgba(0,0,0,0.15);
-  }
-
-  .header {
-    text-align: center;
-    position: relative;
-    margin-bottom: 15px;
-  }
-  .header img.logo-left {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 90px;
-  }
-  .header img.logo-right {
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 90px;
-  }
-  .header h1 {
-    font-size: 28px;
-    margin: 0;
-  }
-  .header h2 {
-    font-size: 18px;
-    margin: 4px 0;
-  }
-  .header p {
-    font-size: 13px;
-    margin: 2px 0 10px;
-  }
-  .title {
-    text-align: center;
-    border: 1px solid #000;
-    display: inline-block;
-    padding: 3px 25px;
-    font-weight: bold;
-    margin: 10px 0;
-    font-size: 16px;
-  }
-
-  .content {
-    font-size: 15px;
-    line-height: 1.8;
-    text-align: justify;
-  }
-
-  .dotted {
-    border-bottom: 1px dotted #000;
-    display: inline-block;
-    min-width: 200px;
-  }
-
-  /* ✅ Signature section fully right side */
-  .signature-div {
-    margin-top: 50px;
-    display: flex;
-    justify-content: flex-end;
-  }
-
-  .signature {
-    width: 50%;
-    text-align: justify;
-    line-height: 1.8;
-  }
-
-  .signature p {
-    margin: 5px 0;
-  }
-
-  .footer {
-    text-align: center;
-    margin-top: 25px;
-    font-size: 12px;
-    color: #555;
-  }
-
-  /* Print setup */
-  @page {
-    size: A4 portrait;
-    margin: 15mm;
-  }
-  @media print {
     body {
-      background: white;
-      margin: 0;
-      padding: 0;
+       
+        margin: 0;
+        padding: 20px;
+        background: #eee;
     }
+
+    .print-btn {
+        display: inline-block;
+        padding: 8px 14px;
+        background: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        margin-bottom: 15px;
+    }
+
+    .print-btn:hover {
+        background: #0056b3;
+    }
+
     .page {
-      box-shadow: none;
-      margin: 0;
-      padding: 15mm;
+        width: 210mm;
+        min-height: 297mm;
+        background: #fff;
+        margin: auto;
+        padding: 20mm;
+        border: 1px solid #000;
+        box-sizing: border-box;
+        position: relative;
     }
-    .toolbar {
-      display: none !important;
+
+    header {
+        text-align: center;
+        border-bottom: 1px solid #000;
+        padding-bottom: 5px;
+        margin-bottom: 10px;
+        position: relative;
     }
-  }
+
+    .header-logos {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 5px;
+    }
+
+    .header-logos img {
+        height: 60px;
+        width: auto;
+    }
+
+    header h1 {
+        font-size: 26px;
+        margin: 0;
+        font-weight: bold;
+    }
+
+    header h2 {
+        font-size: 18px;
+        margin: 0;
+        font-weight: normal;
+    }
+
+    header p {
+        font-size: 14px;
+        margin: 5px 0 0 0;
+        font-weight: bold;
+        background: #000;
+        color: #fff;
+        display: inline-block;
+        padding: 2px 8px;
+        border-radius: 3px;
+    }
+
+    .info {
+        display: flex;
+        justify-content: space-between;
+        font-size: 14px;
+        margin-top: 10px;
+        margin-bottom: 25px;
+    }
+
+    .content {
+        min-height: 350px;
+        /* border: 1px dashed #aaa; */
+        margin-bottom: 40px;
+        padding: 15px;
+        font-size: 16px;
+    }
+
+    .eye-table {
+        width: 60%;
+        border: 1px solid #000;
+        border-collapse: collapse;
+        margin-bottom: 40px;
+    }
+
+    .eye-table th, .eye-table td {
+        border: 1px solid #000;
+        padding: 5px;
+        text-align: center;
+        font-size: 13px;
+    }
+
+    .signature {
+        text-align: right;
+        margin-top: 60px;
+    }
+
+    .signature span {
+        border-top: 1px solid #000;
+        padding-top: 5px;
+        display: inline-block;
+        width: 150px;
+        text-align: center;
+    }
+
+    footer {
+        position: absolute;
+        bottom: 20px;
+        left: 0;
+        width: 100%;
+        text-align: center;
+        font-size: 12px;
+        line-height: 1.4;
+    }
+.btn {
+  background: green;
+  color: white;
+  padding: 10px 15px;
+  border: 1px solid #ccc;
+  text-decoration: none;
+  border-radius: 4px;
+  font-weight: bold;
+}
+
+    footer strong {
+        background: #000;
+        color: #fff;
+        padding: 2px 6px;
+        border-radius: 2px;
+    }
+
+    @media print {
+        .print-btn { display: none; }
+        body { background: #fff; margin: 0; }
+        .page { border: none; padding: 15mm; }
+    }
 </style>
 </head>
 <body>
 
-<div class="toolbar no-print">
-  <button onclick="window.print()">🖨 প্রিন্ট / Print</button>
-</div>
 
+  <a class="btn" href="<?php echo base_url()."dashboard"?>">Dashboard </a>
+<button class="print-btn" onclick="window.print()">🖨️ Print</button>
 <div class="page">
-  <div class="header">
-    <img src="https://i.ibb.co/9YgbrqC/rotary-eye-logo.png" class="logo-left" alt="Logo Left">
-    <img src="https://i.ibb.co/3hkg6db/rotary-wheel.png" class="logo-right" alt="Logo Right">
-    <h1>রোটারী চক্ষু হাসপাতাল</h1>
-    <h2>ROTARY EYE HOSPITAL</h2>
-    <p>বিবির বাজার রোড, ঝাউতলা, আদর্শ সদর, কুমিল্লা-৩৫০০</p>
-    <div class="title">অস্ত্রোপচারের সম্মতিপত্র</div>
-  </div>
+    <header>
+        <div class="header-logos">
+            <!-- বাম পাশের লোগো -->
+            <img src="left-logo.png" alt="Left Logo">
+            
+            <div>
+                <h1><?php echo $allSup['name'] ?></h1>
+                <h2><?php echo $allSup['address'] ?></h2>
+                <h2><?php echo $allSup['phone'] ?></h2>
+                <p>বহিঃ বিভাগের রোগীর চেকআপ</p>
+            </div>
 
-  <div class="content">
-    চিকিৎসার প্রার্থী <span class="dotted"></span> বয়স <span class="dotted"></span> পুরুষ/স্ত্রী <span class="dotted"></span>
-    জাতীয়তা <span class="dotted"></span> পেশা <span class="dotted"></span> ধর্ম <span class="dotted"></span>
-    পিতা/মাতা/অভিভাবকের নাম <span class="dotted" style="width: 300px;"></span>
+            <!-- ডান পাশের লোগো -->
+            <img src="right-logo.png" alt="Right Logo">
+        </div>
+    </header>
 
-    চিকিৎসার প্রার্থী আমি নিজে অথবা পুত্র/কন্যা/ভাই/বোন/স্বামী/স্ত্রী <span class="dotted" style="width: 250px;"></span>
-    উপরোক্ত চিকিৎসার প্রার্থী হিসেবে অনুমতি দিচ্ছি যে, প্রয়োজনীয় হলে অস্ত্রোপচার <span class="dotted" style="width: 200px;"></span> করা হবে।
-
-    আমি অস্ত্রোপচার ও তার পার্শ্বপ্রতিক্রিয়া সম্পর্কে চিকিৎসকের সাথে পরামর্শ করেছি এবং চিকিৎসা সহযোগী বিশেষজ্ঞদের পরামর্শ অনুযায়ী মনোনীত চিকিৎসা গ্রহণে সম্মত আছি। অস্ত্রোপচারের প্রক্রিয়ায় কোন নতুন সমস্যা দেখা দিলে বা পরবর্তীতে জটিলতা সৃষ্টি হলে আমি তার জন্য চিকিৎসক বা হাসপাতাল কর্তৃপক্ষকে দায়ী করবো না।<br><br>
-
-    অজ্ঞান করার দায়িত্বপ্রাপ্ত চিকিৎসক (anaesthesia) বিষয়টি ব্যাখ্যা করেছেন এবং আমি তা বুঝেছি।<br><br>
-
-    উপরোক্ত বিষয়াদি সম্পূর্ণ বুঝে শুনে আমি এই সম্মতিপত্রে স্বাক্ষর করছি।
-  </div>
-
-  <!-- ✅ Signature section right side -->
-  <div class="signature-div">
-    <div class="signature">
-      <p>স্বাক্ষর: ..............................................................</p>
-      <p>স্বাক্ষর দাতার নাম: .....................................................</p>
-      <p>পিতা/মাতা/অভিভাবকের নাম: ............................................</p>
-      <p>ঠিকানা: ...............................................................</p>
-      <p>মোবাইল: ..............................................................</p>
-       <p>তারিখ: ...............................................................</p>
+    <div class="info">
+        <div>রেজি. নাম্বার: <strong>R-<?= $patient->registration_int_no; ?></strong></div>
+        <div>রোগীর নাম: <strong><?= $patient->name; ?></strong></div>
+        <div>তারিখ: <strong><?= date("d/m/Y",$patient->registration_date); ?></strong></div>
     </div>
-  </div>
 
- 
+    <div class="content">
+      
+    </div>
+
+    <table class="eye-table">
+        <tr>
+            <th colspan="3">RIGHT</th>
+            <th colspan="3">LEFT</th>
+        </tr>
+        <tr>
+            <td>Sph</td><td>Cyl</td><td>Axis</td>
+            <td>Sph</td><td>Cyl</td><td>Axis</td>
+        </tr>
+        <tr>
+            <td colspan="3" style="text-align:left;">Dist:</td>
+            <td colspan="3" style="text-align:left;">Dist:</td>
+        </tr>
+        <tr>
+            <td colspan="3" style="text-align:left;">Near:</td>
+            <td colspan="3" style="text-align:left;">Near:</td>
+        </tr>
+    </table>
+
+    <div class="info" style="margin-top: -25px;">
+        <div>Serial: <strong><?= $patient->serial_no; ?></strong></div>
+    </div>
+
+    <div class="signature">
+        <span>Signature</span>
+    </div>
+
+    <footer>
+        রোগী দেখার সময় : সকাল ৯টা - দুপুর ২টা, পরবর্তীতে স্বাক্ষরিত ব্যবস্থাপত্রটি সাথে আনিবেন।<br>
+        <strong>শুক্রবার ও সরকারি ছুটির দিন বন্ধ</strong><br>
+        Software Developed by Master It Solution | www.masteritsolution.com.bd
+    </footer>
 </div>
 
 </body>

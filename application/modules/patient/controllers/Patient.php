@@ -146,6 +146,7 @@ class Patient extends CI_Controller {
         $data['allTest']      = $this->patient_model->TestInvoiceWhere($id);
     // print_r( $data['allTest'] );exit();
         $this->load->view('patient-registration-invoice', $data);
+       // $this->load->view('patient-registration-invoice', $data);
 
     } 
 

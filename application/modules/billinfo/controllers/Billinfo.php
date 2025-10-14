@@ -90,15 +90,29 @@ class Billinfo extends CI_Controller {
         $data = array();
         $data['active']     = "sales";
         $data['title']      = "Sales Invoice"; 
+        $data['id']         = $id;
 
         $data['allSup']     = $this->main_model->InvoiceHeader();
         $data['allPdt']     = $this->billinfo_model->BillList($id);
         $data['allDdt']     = $this->billinfo_model->BillDetailsList($id);
-     //print_r( $data['allSup'] );exit();
+       // print_r( $data['allPdt'] );exit();
         $this->load->view('billinfo/billinfo-invoice', $data);
 
     } 
+ public function surgicalinvoice($id)
+    {
+        $data = array();
+        $data['active']     = "sales";
+        $data['title']      = "Sales Invoice"; 
+        $data['id']         = $id;
 
+        $data['allSup']     = $this->main_model->InvoiceHeader();
+        $data['allPdt']     = $this->billinfo_model->BillList($id);
+        $data['allDdt']     = $this->billinfo_model->BillDetailsList($id);
+       // print_r( $data['allPdt'] );exit();
+        $this->load->view('billinfo/surgical-consent-form', $data);
+
+    } 
      public function searchPatient() {
         // Get the search query
         $search_query = $this->input->post('search_query');

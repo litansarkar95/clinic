@@ -167,7 +167,7 @@
 
 <div class="print-btn">
   <button onclick="window.print()">🖨️ Print / Save as PDF (A5)</button>
-  <a class="btn" href="<?php echo base_url()."patient/registrationinvoice/$id"?>">🖨️ Print Form</a>
+  <a class="btn" href="<?php echo base_url()."patient/registrationinvoice/$id"?>">Consent Letter </a>
 </div>
 
 <div class="form-container">

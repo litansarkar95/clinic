@@ -187,12 +187,24 @@
         .summary-container {
             width: 65%;
         }
+
+        .btn {
+  background: #ff0f0fff;
+  color: white;
+  padding: 10px 15px;
+  border: 1px solid #ccc;
+  text-decoration: none;
+  border-radius: 4px;
+  font-weight: bold;
+}
     </style>
 </head>
 <body>
   
     <div class="print-button">
+        
         <button onclick="window.print()">Print Receipt</button>
+          <a class="btn" href="<?php echo base_url()."billinfo/surgicalinvoice/$id"?>">Consent Letter </a>
     </div>
 <?php
 
@@ -239,7 +251,7 @@ $logo =  $allSup['logo'];
         </tr>
         <tr>
             <td class="label">Ref. Doctor:</td>
-            <td colspan="3"><?php echo $pdt->name." - ".$pdt->degree; ?></td>
+            <td colspan="3"><?php echo $pdt->doctors_name." - ".$pdt->degree; ?></td>
         </tr>
     </table>
 
@@ -310,7 +322,7 @@ $logo =  $allSup['logo'];
     
     <div class="signature-area">
         <div class="signature-line">
-         <p> Farhad </p>
+         <!-- <p> Farhad </p> -->
             <div class="signature-space"></div>
            <!-- <div class="signature-name">Entry by</div> -->
         </div>
