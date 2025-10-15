@@ -38,7 +38,7 @@ class Billinfo_model extends CI_Model {
         $int_no = $this->get_next_registration_int_no($month, $year);
         $registration_no = 'R-' . str_pad($int_no, 4, '0', STR_PAD_LEFT);
 
-
+$is_surgery = $this->input->post('is_surgery') ? 1 : 0;
 
 	 $data=array(
 		 'ip_address'		        => $_SERVER['REMOTE_ADDR'],
@@ -57,6 +57,7 @@ class Billinfo_model extends CI_Model {
 		 'dueAmount'	                    =>	$this->input->post('due_amount',TRUE),
 		 'paymentType'	                    =>	"Cash",
 		 'invoice_date'		                =>	$sales_newdate,
+ 		 'is_surgery'	                    =>	$is_surgery,
  		 'status'	                        =>	1,
 // 		 'create_user'			            =>	$saveid,
 		 'created_at'			            =>	$createdate
@@ -72,6 +73,7 @@ class Billinfo_model extends CI_Model {
 							'bill_id'           => $returnid,
 							'date'              => $this->input->post('surgery_date', TRUE),
 							'patient_id'	    => $this->input->post('patient_id', TRUE),
+							'surgery_dr_id'	    => $this->input->post('surgery_dr_name', TRUE),
 							'serial'            => $this->input->post('serial', TRUE),
 							'created_at'	    =>	$createdate
 						);
@@ -191,7 +193,7 @@ public function get_next_registration_int_no($month, $year) {
     $this->db->where('year', $year);
     $this->db->order_by('registration_int_no', 'DESC');
     $this->db->limit(1);
-    $query = $this->db->get('patients');
+    $query = $this->db->get('bill_info');
     $result = $query->row();
 
     return isset($result->registration_int_no) ? $result->registration_int_no + 1 : 1;

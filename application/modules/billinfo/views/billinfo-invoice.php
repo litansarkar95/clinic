@@ -197,13 +197,17 @@
   border-radius: 4px;
   font-weight: bold;
 }
+.btn-back{
+    background:orange;
+  }
     </style>
 </head>
 <body>
   
     <div class="print-button">
-        
+        <a class="btn btn-back" href="<?php echo base_url()."patient/create"?>">Back</a>
         <button onclick="window.print()">Print Receipt</button>
+          <a class="btn" href="<?php echo base_url()."billinfo/surgeryaplication/$id"?>">Surgery Application</a>
           <a class="btn" href="<?php echo base_url()."billinfo/surgicalinvoice/$id"?>">Consent Letter </a>
     </div>
 <?php

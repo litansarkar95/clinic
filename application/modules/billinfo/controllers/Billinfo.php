@@ -58,9 +58,9 @@ class Billinfo extends CI_Controller {
         $data['allCountry']    =  $this->common_model->view_data("country", array("is_active" => 1), "name", "ASC");
         $data['allDoctors']    =  $this->common_model->view_data("doctors", array("is_active" => 1), "name", "ASC");
         
-        $int_no = $this->billinfo_model->get_next_registration_int_no($month, $year);
-        $registration_no = 'R-' . str_pad($int_no, 4, '0', STR_PAD_LEFT);
-       
+  
+        $int_no = $this->billinfo_model->number_generator();
+  	    $registration_no = 'R-'.str_pad($int_no,6,"0",STR_PAD_LEFT);
         //serial_no
        // $data['serial_no']  = $this->billinfo_model->get_daily_serial($day, $month, $year);
         // registration_no
@@ -99,7 +99,23 @@ class Billinfo extends CI_Controller {
         $this->load->view('billinfo/billinfo-invoice', $data);
 
     } 
- public function surgicalinvoice($id)
+ public function surgeryaplication($id)
+    {
+        $data = array();
+        $data['active']     = "sales";
+        $data['title']      = "Sales Invoice"; 
+        $data['id']         = $id;
+
+        $data['allSup']     = $this->main_model->InvoiceHeader();
+        $data['allPdt']     = $this->billinfo_model->BillList($id);
+        $data['allDdt']     = $this->billinfo_model->BillDetailsList($id);
+       // print_r( $data['allPdt'] );exit();
+        $this->load->view('billinfo/surgery-aplication', $data);
+
+    } 
+
+
+     public function surgicalinvoice($id)
     {
         $data = array();
         $data['active']     = "sales";

@@ -27,9 +27,9 @@ class Patient extends CI_Controller {
         $month = date('m');
         $year = date('Y');
         $int_no = $this->patient_model->get_next_registration_int_no($month, $year);
-        $registration_no = 'R-' . str_pad($int_no, 4, '0', STR_PAD_LEFT);
+        $registration_no = 'P-' . str_pad($int_no, 4, '0', STR_PAD_LEFT);
 
-         $serial_no = $this->patient_model->get_daily_serial($day, $month, $year);
+        $serial_no = $this->patient_model->get_daily_serial($day, $month, $year);
 
 
        $this->form_validation->set_rules("patient_name", "Name", "required");

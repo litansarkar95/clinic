@@ -5,167 +5,179 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title> Consent Letter</title>
 <style>
-    body {
-       
-        margin: 0;
-        padding: 20px;
-        background: #eee;
-    }
-
-    .print-btn {
-        display: inline-block;
-        padding: 8px 14px;
-        background: #007bff;
-        color: #fff;
-        border: none;
-        border-radius: 6px;
-        cursor: pointer;
-        margin-bottom: 15px;
-    }
-
-    .print-btn:hover {
-        background: #0056b3;
-    }
-
-    .page {
-        width: 210mm;
-        min-height: 297mm;
-        background: #fff;
-        margin: auto;
-        padding: 20mm;
-        border: 1px solid #000;
-        box-sizing: border-box;
-        position: relative;
-    }
-
-    header {
-        text-align: center;
-        border-bottom: 1px solid #000;
-        padding-bottom: 5px;
-        margin-bottom: 10px;
-        position: relative;
-    }
-
-    .header-logos {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 5px;
-    }
-
-    .header-logos img {
-        height: 60px;
-        width: auto;
-    }
-
-    header h1 {
-        font-size: 26px;
-        margin: 0;
-        font-weight: bold;
-    }
-
-    header h2 {
-        font-size: 18px;
-        margin: 0;
-        font-weight: normal;
-    }
-
-    header p {
-        font-size: 14px;
-        margin: 5px 0 0 0;
-        font-weight: bold;
-        background: #000;
-        color: #fff;
-        display: inline-block;
-        padding: 2px 8px;
-        border-radius: 3px;
-    }
-
-    .info {
-        display: flex;
-        justify-content: space-between;
-        font-size: 14px;
-        margin-top: 10px;
-        margin-bottom: 25px;
-    }
-
-    .content {
-        min-height: 350px;
-        /* border: 1px dashed #aaa; */
-        margin-bottom: 40px;
-        padding: 15px;
-        font-size: 16px;
-    }
-
-    .eye-table {
-        width: 60%;
-        border: 1px solid #000;
-        border-collapse: collapse;
-        margin-bottom: 40px;
-    }
-
-    .eye-table th, .eye-table td {
-        border: 1px solid #000;
-        padding: 5px;
-        text-align: center;
-        font-size: 13px;
-    }
-
-    .signature {
-        text-align: right;
-        margin-top: 60px;
-    }
-
-    .signature span {
-        border-top: 1px solid #000;
-        padding-top: 5px;
-        display: inline-block;
-        width: 150px;
-        text-align: center;
-    }
-
-    footer {
-        position: absolute;
-        bottom: 20px;
-        left: 0;
-        width: 100%;
-        text-align: center;
-        font-size: 12px;
-        line-height: 1.4;
-    }
-.btn {
-  background: green;
-  color: white;
-  padding: 10px 15px;
-  border: 1px solid #ccc;
-  text-decoration: none;
-  border-radius: 4px;
-  font-weight: bold;
+   body {
+    margin: 0;
+    padding: 20px;
+    background: #eee;
 }
 
-    footer strong {
-        background: #000;
-        color: #fff;
-        padding: 2px 6px;
-        border-radius: 2px;
-    }
+.print-btn {
+    display: inline-block;
+    padding: 8px 14px;
+    background: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-bottom: 15px;
+}
 
-    @media print {
-        .print-btn { display: none; }
-        body { background: #fff; margin: 0; }
-        .page { border: none; padding: 15mm; }
-    }
+.print-btn:hover {
+    background: #0056b3;
+}
+
+.page {
+    width: 210mm;
+    min-height: 297mm;
+    background: #fff;
+    margin: auto;
+    padding: 20mm;
+    border: 1px solid #000;
+    box-sizing: border-box;
+    position: relative;
+}
+
+header {
+    text-align: center;
+    border-bottom: 1px solid #000; /* Increased border thickness for header */
+    padding-bottom: 5px;
+    margin-bottom: 10px;
+    position: relative;
+}
+
+.header-logos {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+.header-logos img {
+    height: 60px;
+    width: auto;
+}
+
+header h1 {
+    font-size: 26px;
+    margin: 0;
+    font-weight: bold;
+}
+
+header h2 {
+    font-size: 18px;
+    margin: 0;
+    font-weight: normal;
+}
+
+header p {
+    font-size: 14px;
+    margin: 5px 0 0 0;
+    font-weight: bold;
+    background: #000;
+    color: #fff;
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 3px;
+}
+
+.info {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    margin-top: 10px;
+    margin-bottom: 25px;
+    padding: 10px;
+    border: 1px solid #000; /* Border for info section */
+    border-radius: 5px; /* Optional rounded corners */
+    background-color: #f9f9f9; /* Light background */
+}
+.serial-info{
+ border: 1px solid #000;
+    width: 150px; padding: 10px;
+}
+.content {
+    min-height: 400px;
+    margin-bottom: 40px;
+    padding: 15px;
+    font-size: 16px;
+}
+
+.eye-table {
+    width: 60%;
+    border: 1px solid #000;
+    border-collapse: collapse;
+    margin-bottom: 40px;
+}
+
+.eye-table th, .eye-table td {
+    border: 1px solid #000;
+    padding: 5px;
+    text-align: center;
+    font-size: 13px;
+}
+
+.signature {
+    text-align: right;
+    margin-top: 60px;
+    margin-bottom:20px;
+}
+
+.signature span {
+    border-top: 1px solid #000;
+    padding-top: 5px;
+    display: inline-block;
+    width: 150px;
+    text-align: center;
+}
+
+footer {
+   
+    border-top: 1px solid #000;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    font-size: 12px;
+    line-height: 1.4;
+    padding: 15px;
+}
+
+
+
+.btn {
+    background: green;
+    color: white;
+    padding: 10px 15px;
+    border: 1px solid #ccc;
+    text-decoration: none;
+    border-radius: 4px;
+    font-weight: bold;
+}
+
+footer strong {
+    background: #000;
+    color: #fff;
+    padding: 2px 6px;
+    border-radius: 2px;
+}
+
+@media print {
+    .print-btn { display: none; }
+      .print-btn { display: none; }
+    body { background: #fff; margin: 0; }
+    .page { border: none; padding: 15mm; }
+}
+
 </style>
 </head>
 <body>
 
-
-  <a class="btn" href="<?php echo base_url()."dashboard"?>">Dashboard </a>
-<button class="print-btn" onclick="window.print()">🖨️ Print</button>
-<div class="page">
+  <a class="btn print-btn" href="<?php echo base_url()."dashboard"?>">Dashboard </a>
+  <button class="print-btn" onclick="window.print()">🖨️ Print</button>
+  
+  <div class="page">
     <header>
         <div class="header-logos">
-            <!-- বাম পাশের লোগো -->
+            <!-- Left Logo -->
             <img src="left-logo.png" alt="Left Logo">
             
             <div>
@@ -175,7 +187,7 @@
                 <p>বহিঃ বিভাগের রোগীর চেকআপ</p>
             </div>
 
-            <!-- ডান পাশের লোগো -->
+            <!-- Right Logo -->
             <img src="right-logo.png" alt="Right Logo">
         </div>
     </header>
@@ -187,7 +199,7 @@
     </div>
 
     <div class="content">
-      
+        <!-- Your content here -->
     </div>
 
     <table class="eye-table">
@@ -209,7 +221,7 @@
         </tr>
     </table>
 
-    <div class="info" style="margin-top: -25px;">
+    <div class="serial-info" style="margin-top: -25px;">
         <div>Serial: <strong><?= $patient->serial_no; ?></strong></div>
     </div>
 
@@ -218,11 +230,13 @@
     </div>
 
     <footer>
-        রোগী দেখার সময় : সকাল ৯টা - দুপুর ২টা, পরবর্তীতে স্বাক্ষরিত ব্যবস্থাপত্রটি সাথে আনিবেন।<br>
-        <strong>শুক্রবার ও সরকারি ছুটির দিন বন্ধ</strong><br>
-        Software Developed by Master It Solution | www.masteritsolution.com.bd
+     
+            রোগী দেখার সময় : সকাল ৯টা - দুপুর ২টা, পরবর্তীতে স্বাক্ষরিত ব্যবস্থাপত্রটি সাথে আনিবেন।<br>
+            <strong>শুক্রবার ও সরকারি ছুটির দিন বন্ধ</strong>
+     
+ 
     </footer>
-</div>
+  </div>
 
 </body>
 </html>

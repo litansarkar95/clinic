@@ -103,7 +103,9 @@
     letter-spacing: 0.5px;
     background: #fcfcfc;
   }
-
+.btn-back{
+    background:orange;
+  }
   .divider {
     height: 1px;
     background: #000;
@@ -161,12 +163,14 @@
       padding: 10mm;
     }
   }
+  
 </style>
 </head>
 <body>
 
 <div class="print-btn">
-  <button onclick="window.print()">🖨️ Print / Save as PDF (A5)</button>
+  <a class="btn btn-back" href="<?php echo base_url()."patient/create"?>">Back</a>
+  <button onclick="window.print()">🖨️ Print Invoice</button>
   <a class="btn" href="<?php echo base_url()."patient/registrationinvoice/$id"?>">Consent Letter </a>
 </div>
 

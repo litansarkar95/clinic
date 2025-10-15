@@ -42,7 +42,7 @@ class Testinfo extends CI_Controller {
     $data['to_date'] = $end_date;
 
     // Optionally, if you need to debug the result:
-    // echo "<pre>"; print_r($data['allPdt']);exit();
+    echo "<pre>"; print_r($data['allPdt']);exit();
 
     // Load the view with the data
     $this->load->view('reports/testinfo-summary', $data);

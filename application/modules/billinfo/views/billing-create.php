@@ -38,7 +38,7 @@
 
 /* Ensure search results have some margin */
 #search_results {
-    margin-top: 10px;
+    margin-top: 5px;
 }
 
 /* No results message style */
@@ -98,10 +98,21 @@ $("#registration_date,.to_date").val(today);
 											
 											<div class="row justify-content-center pb-5">
 												<div class="col-md-12">
-                           <div class="row pb-3">
+                                                <div class="row pb-3">
 												<div class="col-auto">
 													<h3>Create Billing</h3>
 												</div>
+                                                	<div class="col-auto ms-auto" style="width:600px">
+												
+                                                    <div class="search_bar">
+                                                
+                                                                <input type="text" class="form-control" id="search_input" placeholder="Search Name or Mobile No or Registration No" aria-label="Recipient’s username" aria-describedby="basic-addon2">
+                                                  
+                                                  
+                                                </div>
+                                                       <div id="search_results"></div>
+												</div>
+                                                
 												<div class="col-auto ms-auto">
 													<a href="<?php echo base_url(); ?>billing"  class="btn btn_bg">Billing List</a>
 												</div>
@@ -110,20 +121,10 @@ $("#registration_date,.to_date").val(today);
 
                      
 
-                <div class="row px-3">
-                    <div class="col-12">
-                        <div class="search_bar">
-                      
-                                <div class="input-group mb-3">
-                                    <input type="text" class="form-control" id="search_input" placeholder="Search Name or Mobile No or Registration No" aria-label="Recipient’s username" aria-describedby="basic-addon2">
-                                </div>
-                            
-                        </div>
-                    </div>
-                </div>
+              
 
 <!-- The search result container will appear here -->
-<div id="search_results"></div>
+
 
  <?php echo form_open_multipart('billinfo',array('class' => 'form-vertical', 'id' => 'insert_purchase','name' => 'insert_purchase'))?>
      
@@ -133,12 +134,12 @@ $("#registration_date,.to_date").val(today);
                                          
 									      				<div class="row mb-3">
                             <input type="hidden" id="patient_id" class="form-control " name="patient_id"  value="<?php echo set_value('patient_id'); ?>" >
-                                   <div class="form-group col-md-3 mb-3">
+                                   <div class="form-group col-md-2 mb-3">
                                  <label for="registration_id">Invoice ID</label>
                                  <input type="text" id="registration_id" class="form-control" name="registration_id"  value="<?php echo $registration_no; ?>" readonly>
                                  <span class="text-red small"><?php echo form_error('registration_id'); ?></span>
                               </div> 
-                           <div class="form-group col-md-3 mb-3">
+                           <div class="form-group col-md-2 mb-3">
                                  <label for="registration_date">Invoice Date</label>
                                  <input type="text" id="registration_date" class="form-control " name="registration_date"  value="<?php echo set_value('registration_date'); ?>" >
                                  <span class="text-red small"><?php echo form_error('registration_date'); ?></span>
@@ -153,19 +154,19 @@ $("#registration_date,.to_date").val(today);
                                  <input type="text" id="father_husband_name" class="form-control" name="father_husband_name" value="<?php echo set_value('father_husband_name'); ?>" >
                                  <span class="text-red small"><?php echo form_error('father_husband_name'); ?></span>
                               </div>
-                              <div class="form-group col-md-3 mb-3">
+                              <div class="form-group col-md-2 mb-3">
                                  <label for="mobile_no">Mobile No</label>
                                  <input type="text" id="mobile_no" class="form-control" name="mobile_no"  value="<?php echo set_value('mobile_no'); ?>" >
                                  <span class="text-red small"><?php echo form_error('mobile_no'); ?></span>
                               </div>
-                               <div class="form-group col-md-3 mb-3">
+                               <div class="form-group col-md-3 mb-3" style="display:none;">
                                  <label for="gender">Gender</label>
                                 <input type="text" id="gender" class="form-control" name="gender"  value="<?php echo set_value('gender'); ?>" >
                                  
                                  <span class="text-red small"><?php echo form_error(''); ?></span>
                               </div>
 
-                              <div class="form-group col-md-3 mb-3">
+                              <div class="form-group col-md-3 mb-3" style="display:none;">
                                  <label for="age">Age</label>
                                  <input type="text" id="age" class="form-control" name="age"  value="<?php echo set_value('age'); ?>" >
                                  <span class="text-red small"><?php echo form_error('age'); ?></span>
@@ -174,14 +175,14 @@ $("#registration_date,.to_date").val(today);
                             
 
                            
-                                 <div class="form-group col-md-3 mb-3">
+                                 <div class="form-group col-md-3 mb-3" style="display:none;">
                                  <label for="ref_name">Ref. Name</label>
                                   <input type="text" id="ref_name" class="form-control" name="ref_name"  value="<?php echo set_value('ref_name'); ?>" >
                                  <span class="text-red small"><?php echo form_error('ref_name'); ?></span>
                               </div>
 
                              
-                                <div class="form-group col-md-3 mb-3">
+                                <div class="form-group col-md-3 mb-3" style="display:none;">
                                  <label for="adult_child">Adult / Child</label>
                               
                                  <input type="text" id="adult_child" class="form-control" name="adult_child"  value="<?php echo set_value('adult_child'); ?>" >
@@ -195,7 +196,7 @@ $("#registration_date,.to_date").val(today);
       <div class="frm_toggle_container">
         <input type="checkbox" name="is_surgery" id="Issurgery" class="pricing-toggle frm_toggle_deselect deselect_toggle_container" value="1">
       
-        <label for="myInput">Save This Session</label>
+        <label for="myInput">Does this patient need surgery?</label>
       </div>
     </div>
   </div>
@@ -214,15 +215,22 @@ $("#registration_date,.to_date").val(today);
                                   <input type="text" id="serial" class="form-control " name="serial"  value="<?php echo set_value('serial'); ?>" >
                                  <span class="text-red small"><?php echo form_error('serial'); ?></span>
                               </div>
-</div>
-</div>
-
-
-
-               
-
                               
-									      					
+                                <div class="form-group col-md-3">
+                                 <label for="surgery_dr_name">Surgery Doctor  Name</label>
+                                 <select type="text" id="surgery_dr_name" class="form-control" name="surgery_dr_name"  >
+                                     <option value="0">Select Doctor</option>
+                                    <?php
+                                        foreach ($allDoctors as $doct){
+                                      echo "<option value='{$doct->id}'>{$doct->name} - {$doct->mobile}</option>";
+                                        }
+                                    ?>
+                                    </select>
+                                 <span class="text-red small"><?php echo form_error('surgery_dr_name'); ?></span>
+                              </div>
+                                </div>
+                                </div>
+			
 									          		</div>	
 									      				
                                 	</div>
@@ -232,7 +240,7 @@ $("#registration_date,.to_date").val(today);
 
                                       <div class="input_form input_form_new" >
 									      				<div class="row mb-3">
-                                  <div class="col-md-6">
+                                  <div class="col-md-8">
 
                                   <div class="col-md-12">
                                                       
@@ -266,7 +274,7 @@ $("#registration_date,.to_date").val(today);
 
 
                                     </div> 
-                                    <div class="col-md-6">
+                                    <div class="col-md-4">
                   <table class="table table-bordered table-striped table-hover">
                                                     <tbody><tr>
                                                         <th>Total Amount</th>
@@ -320,8 +328,8 @@ $("#registration_date,.to_date").val(today);
 									      					
 									          		</div>	
                                       <div class="row">
-                                        <div class="col-12">
-                                          <button type="submit"   class="btn btn_bg">Save</button>
+                                        <div class="col-12 text-end">
+                                          <button type="submit"   class="btn btn_bg"> Save Bill</button>
                                         </div>
                                       </div>
 

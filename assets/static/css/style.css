@@ -657,6 +657,7 @@ p{
 }
 .card_bottom h3{
 	font-size: 13px;
+	text-transform: uppercase;
 	font-weight: 600;
 	color: #6c757d;
 	margin-top: 20px;
