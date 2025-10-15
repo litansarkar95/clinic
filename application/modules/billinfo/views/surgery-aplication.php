@@ -141,8 +141,8 @@
 
   <div class="page">
     <div class="header">
-      <img src="https://upload.wikimedia.org/wikipedia/en/9/9d/Rotary_International_logo.svg" class="left" alt="Logo Left">
-      <img src="https://upload.wikimedia.org/wikipedia/en/9/9d/Rotary_International_logo.svg" class="right" alt="Logo Right">
+      <img src="<?php echo base_url()?>assets/static/imgs/rotary-eye.jpg" class="left" alt="Logo Left">
+      <img src="<?php echo base_url()?>assets/static/imgs/rotary-logo.jpg" class="right" alt="Logo Right">
       <h1>রোটারী চোখ হাসপাতাল</h1>
       <h2>ROTARY EYE HOSPITAL</h2>
       <p>বিরিঞ্চ বাজার রোড, জয়শংকরপুর, আদর্শ সদর, কুমিল্লা, ৩৫০০।</p>

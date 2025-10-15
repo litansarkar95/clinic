@@ -178,7 +178,7 @@ footer strong {
     <header>
         <div class="header-logos">
             <!-- Left Logo -->
-            <img src="left-logo.png" alt="Left Logo">
+            <img src="<?php echo base_url()?>assets/static/imgs/rotary-eye.jpg" alt="Left Logo">
             
             <div>
                 <h1><?php echo $allSup['name'] ?></h1>
@@ -188,7 +188,7 @@ footer strong {
             </div>
 
             <!-- Right Logo -->
-            <img src="right-logo.png" alt="Right Logo">
+            <img src="<?php echo base_url()?>assets/static/imgs/rotary-logo.jpg" alt="Right Logo">
         </div>
     </header>
 

@@ -99,22 +99,9 @@
 
 </style>
 </head>
-<?php
-// Group by category name
-$grouped = [];
 
-$grand_total = 0;
 
-foreach ($allPdt as $row) {
-    $cat_name = strtoupper(trim($row->category_name));
 
-    if (!isset($grouped[$cat_name])) {
-        $grouped[$cat_name] = [];
-    }
-
-    $grouped[$cat_name][] = $row;
-}
-?>
 <body>
   <button class="print-btn no-print" onclick="window.print()">🖨 Print</button>
 <div class="container">
@@ -128,8 +115,10 @@ foreach ($allPdt as $row) {
    <p><strong>From:</strong> <?= $from_date ?> &nbsp; <strong>To:</strong> <?= $to_date ?></p>
   </div>
 
-  <?php foreach ($grouped as $category => $items): ?>
-        <div class="section-title"><?= $category ?></div>
+  <?php
+  $grand_total = 0;
+  foreach ($bill_summary as $bill) { ?>
+        <div class="section-title"><?= $bill->category_name ?></div>
         <table>
             <thead>
                 <tr>
@@ -141,22 +130,25 @@ foreach ($allPdt as $row) {
             <tbody>
                 <?php
                 $subtotal = 0;
-                foreach ($items as $item):
-                    $qty = 1; // If you have a quantity column, use that
-                    $line_total = $item->price; // Already from bill_details
-                    $subtotal += $line_total;
+                foreach ($testinfo_summary as $item){
+                    if($item->cid == $bill->cid){
+                    
                 ?>
                     <tr>
                         <td><?= $item->test_name ?></td>
-                        <td><?= $qty ?></td>
-                        <td><?= number_format($line_total, 2) ?></td>
+                        <td><?= $item->total_count ?></td>
+                        <td><?= number_format($item->total_test_fee, 2) ?></td>
                     </tr>
-                <?php endforeach; ?>
+                <?php 
+                 $subtotal += $item->total_test_fee;
+              } 
+                }
+                ?>
             </tbody>
         </table>
-        <div class="total">Sub Total (<?= $category ?>): Tk. <?= number_format($subtotal, 2) ?></div>
-        <?php $grand_total += $subtotal; ?>
-    <?php endforeach; ?>
+        <div class="total">Sub Total : Tk. <?= number_format( $bill->total_test_fee, 2) ?></div>
+          <?php $grand_total += $subtotal; // Now correctly add subtotal to grand_total ?>
+    <?php } ?>
  
 
     <div class="total grand-total">Grand Total: Tk. <?= number_format($grand_total , 2) ?></div>
@@ -167,6 +159,7 @@ foreach ($allPdt as $row) {
     <p>Authorized Signature</p>
   </div>
 </div>
+
 
 </body>
 </html>

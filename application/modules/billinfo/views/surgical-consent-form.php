@@ -145,8 +145,8 @@
 
 <div class="page">
   <div class="header">
-    <!-- <img src="https://i.ibb.co/9YgbrqC/rotary-eye-logo.png" class="logo-left" alt="Logo Left">
-    <img src="https://i.ibb.co/3hkg6db/rotary-wheel.png" class="logo-right" alt="Logo Right"> -->
+    <img src="<?php echo base_url()?>assets/static/imgs/rotary-eye.jpg" class="logo-left" alt="Logo Left">
+    <img src="<?php echo base_url()?>assets/static/imgs/rotary-logo.jpg" class="logo-right" alt="Logo Right">
     <h1><?php echo $allSup['name'] ?></h1>
     <!-- <h2>ROTARY EYE HOSPITAL</h2> -->
     <p><?php echo $allSup['address'] ?></p>

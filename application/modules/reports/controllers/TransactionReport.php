@@ -36,7 +36,7 @@ class TransactionReport extends CI_Controller {
           $filters['from_date'] = $this->input->post('from_date');
           $filters['to_date'] = $this->input->post('to_date');
       }
-
+      $data['allSup']     = $this->main_model->InvoiceHeader();
       $data['allPdt'] = $this->reports_model->TransactionReports($filters);
     
       $data['from_date'] =        $this->input->post('from_date');

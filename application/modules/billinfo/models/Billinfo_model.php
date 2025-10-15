@@ -16,7 +16,7 @@ class Billinfo_model extends CI_Model {
 	
 
 	 $sales_id = $this->number_generator();
-	 $sales_number = 'INV-'.str_pad($sales_id,6,"0",STR_PAD_LEFT);
+	 $sales_number = 'R-'.str_pad($sales_id,4,"0",STR_PAD_LEFT);
 	 
 	 $createdate  = strtotime(date('Y-m-d H:i:s'));
 

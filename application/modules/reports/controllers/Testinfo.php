@@ -29,22 +29,17 @@ class Testinfo extends CI_Controller {
     $end_date   = $this->input->post('to_date');
     
     if ($start_date && $end_date) {
-        // Convert 'from_date' and 'to_date' to timestamps
         $filters['from_date'] = strtotime($start_date); 
-        $filters['to_date'] = strtotime($end_date . ' 23:59:59'); // End of day for 'to_date'
+        $filters['to_date'] = strtotime($end_date . ' 23:59:59'); 
     }
-
-    // Fetch the data based on date range
-    $data['allPdt'] = $this->reports_model->get_bill_details_by_date($filters);
+    $data['allSup']     = $this->main_model->InvoiceHeader();
+    $data['bill_summary'] = $this->reports_model->get_bill_details_by_date($filters);
+    $data['testinfo_summary'] = $this->reports_model->get_testinfo_summary_by_category($filters);
     
-    // Pass the selected dates back to the view
     $data['from_date'] = $start_date;
     $data['to_date'] = $end_date;
+    //echo "<pre>"; print_r($data['testinfo_summary']);exit();
 
-    // Optionally, if you need to debug the result:
-    echo "<pre>"; print_r($data['allPdt']);exit();
-
-    // Load the view with the data
     $this->load->view('reports/testinfo-summary', $data);
 }
 
