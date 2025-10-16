@@ -65,7 +65,7 @@ public function get_testinfo_summary_by_category($filters)
     return $query->result();
 }
      public function DueTransactionReports($filters = []) {
-        $this->db->select("account_statement.*  , bill_info.invoiceNumber");
+        $this->db->select("account_statement.*  , bill_info.invoiceNumber, bill_info.dueAmount");
         $this->db->from('account_statement');
        
         $this->db->join('bill_info', "account_statement.sales_id = bill_info.id", 'left');
@@ -76,10 +76,66 @@ public function get_testinfo_summary_by_category($filters)
             $this->db->where('account_statement.transaction_date >=', $from_date_timestamp);
             $this->db->where('account_statement.transaction_date <=', $to_date_timestamp);
         }
-         $this->db->where('account_statement.type', "DUE");
+         $this->db->where('bill_info.isPaid', "DUE");
         $query = $this->db->get();
         return $query->result();
         
     }
 
+        public function get_testinfo_Operation($filters = []) {
+        $this->db->select("operation.*  , patients.name, patients.mobile_no , doctors.name doctor_name");
+        $this->db->from('operation');
+       
+        $this->db->join('doctors', "operation.surgery_dr_id = doctors.id", 'left');
+        $this->db->join('patients', "operation.patient_id = patients.id", 'left');
+        if (!empty($filters['from_date']) && !empty($filters['to_date'])) {
+         
+
+            $from_date_time = date("Y-m-d",$filters['from_date']);
+            $to_date_time = date("Y-m-d",$filters['to_date']);
+
+            $surgery_dr_id = $filters['surgery_dr_id'];
+        
+            $this->db->where('operation.date >=', $from_date_time);
+            $this->db->where('operation.date <=', $to_date_time);
+        }
+
+            if (!empty($filters['surgery_dr_id'])) {
+         
+            $this->db->where('operation.surgery_dr_id', $surgery_dr_id);
+        }
+        $query = $this->db->get();
+        return $query->result();
+        
+    }
+  public function get_patient($filters = []) {
+        $this->db->select("patients.*  , doctors.name doctor_name , country.name as nationality , districts.name district, upazila.name upazilla ,occupation.name as occupation" );
+        $this->db->from('patients');
+       
+        $this->db->join('doctors', "patients.doctor_id = doctors.id", 'left');
+        $this->db->join('country', "patients.nationality_id = country.id", 'left');
+        $this->db->join('districts', "patients.district_id = districts.id", 'left');
+        $this->db->join('upazila', "patients.upazilla_id = upazila.id", 'left');
+        $this->db->join('occupation', "patients.occupation_id = occupation.id", 'left');
+        if (!empty($filters['from_date']) && !empty($filters['to_date'])) {
+         
+
+            $from_date_time = $filters['from_date'];
+            $to_date_time   = $filters['to_date'];
+
+          
+        
+            $this->db->where('patients.registration_date >=', $from_date_time);
+            $this->db->where('patients.registration_date <=', $to_date_time);
+        }
+          $patient_id = $filters['patient_id'];
+
+            if (!empty($filters['patient_id'])) {
+         
+            $this->db->where('patients.id', $patient_id);
+        }
+        $query = $this->db->get();
+        return $query->result();
+        
+    }
 }

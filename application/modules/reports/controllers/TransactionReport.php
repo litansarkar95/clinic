@@ -70,18 +70,18 @@ class TransactionReport extends CI_Controller {
 
       $filters = [];
      
-      if ($this->input->post('from_date') && $this->input->post('to_date')) {
-          $filters['from_date'] = $this->input->post('from_date');
-          $filters['to_date'] = $this->input->post('to_date');
+      if ($this->input->post('due_from_date') && $this->input->post('due_to_date')) {
+          $filters['from_date'] = $this->input->post('due_from_date');
+          $filters['to_date'] = $this->input->post('due_to_date');
       }
 
       $data['allPdt'] = $this->reports_model->DueTransactionReports($filters);
     
-      $data['from_date'] =        $this->input->post('from_date');
-      $data['to_date'] =         $this->input->post('to_date');
+      $data['from_date'] =        $this->input->post('due_from_date');
+      $data['to_date'] =         $this->input->post('due_to_date');
     
      
-     // echo "<pre>"; print_r($data['allPdt']);exit();
+      //echo "<pre>"; print_r($data['allPdt']);exit();
 
      $this->load->view('reports/transaction/due-summary', $data);
     }

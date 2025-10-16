@@ -31,7 +31,7 @@
 										          	<li><a href="<?php echo base_url(); ?>patient/create">Patient Registration</a></li>
 										          	<li><a href="<?php echo base_url(); ?>patient">Patient List</a></li>
 										          	<li><a href="<?php echo base_url(); ?>billinfo">Create Patient Billing </a></li>
-										          	<li><a href="<?php echo base_url(); ?>patient/billing">Patient Billing</a></li>
+										          	<li><a href="<?php echo base_url(); ?>billinfo/list">Patient Billing</a></li>
 										          </ul>
 										        </li>
 
@@ -48,6 +48,14 @@
 										          <a class="nav-link" href="#">Reports <i class="fas fa-caret-down"></i></a>
 										          <ul class="nav_sub_menu">
 										          	<li><a href="<?php echo base_url(); ?>reports/testinfo"> Test  Reports</a></li>
+										          
+										          </ul>
+										        </li>
+
+												<li class="nav-item">
+										          <a class="nav-link" href="#">Settings <i class="fas fa-caret-down"></i></a>
+										          <ul class="nav_sub_menu">
+										          	<li><a href="<?php echo base_url()."settings/general_settings"; ?>"> General Settings</a></li>
 										          
 										          </ul>
 										        </li>

@@ -1,82 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta charset="UTF-8">
     <title>Hospital Receipt</title>
-    <style type="text/css">
-
+    <style>
         @page {
             size: A5;
             margin: 0;
-			
         }
         body {
             font-family: Arial, sans-serif;
-            width: 14.8cm; /* A5 width */
-            height: 21cm; /* A5 height */
+            width: 14.8cm;
+            height: 21cm;
             margin: 0 auto;
-            padding: 0.5cm; /* Reduced padding for A5 */
-            color: #000;
+            padding: 1cm;
+            font-size: 8pt;
             background: #fff;
-            font-size: 8pt; /* Reduced font size for A5 */
-            position: relative; /* Required for absolute positioning of the watermark */
+            position: relative;
         }
-        .header {
+        .logo-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 5px;
+        }
+        .logo-header img {
+            height: 50px;
+        }
+        .hospital-info {
             text-align: center;
-            margin-bottom: 10px;
-            padding-bottom: 5px;
-            border-bottom: 1px solid #000;
+            flex-grow: 1;
         }
         .hospital-name {
-            font-size: 16pt; /* Reduced font size */
-           
-            margin-bottom: 3px;
+            font-size: 14pt;
+            font-weight: bold;
         }
-        .hospital-address {
-            font-size: 8pt;
-            margin-bottom: 3px;
-        }
+        .hospital-address,
         .hospital-contact {
             font-size: 8pt;
         }
         .receipt-title {
-            font-size: 15pt; /* Reduced font size */
-           
+            font-size: 13pt;
             text-align: center;
             margin: 10px 0;
             padding: 3px;
             border: 1px solid #000;
             background-color: #f0f0f0;
         }
-        .patient-info {
+        .patient-info, .items-table, .summary-table {
             width: 100%;
             border-collapse: collapse;
             margin-bottom: 10px;
         }
-        .patient-info td {
-            padding: 3px; /* Reduced padding */
+        .patient-info td, .items-table td, .items-table th, .summary-table td {
             border: 1px solid #000;
+            padding: 3px;
         }
         .patient-info .label {
-           
-            width: 20%;
             background-color: #f0f0f0;
-        }
-        .items-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 10px;
+            width: 20%;
         }
         .items-table th {
             background-color: #f0f0f0;
-           
-            padding: 3px; /* Reduced padding */
-            border: 1px solid #000;
-            text-align: center;
-        }
-        .items-table td {
-            padding: 3px; /* Reduced padding */
-            border: 1px solid #000;
         }
         .items-table .sl {
             width: 5%;
@@ -89,45 +74,44 @@
             width: 30%;
             text-align: right;
         }
-        .summary-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 10px;
-        }
-        .summary-table td {
-            padding: 3px; /* Reduced padding */
-            border: 1px solid #000;
-        }
         .summary-table .label {
-           
+            background-color: #f0f0f0;
             width: 70%;
             text-align: right;
-            background-color: #f0f0f0;
         }
         .summary-table .value {
-            width: 30%;
             text-align: right;
-           
+        }
+        .inwords {
+            font-style: italic;
+            padding: 5px;
+            border: 1px dashed #000;
+            margin-top: 5px;
+        }
+        .signature-area {
+            margin-top: 20px;
+        }
+        .signature-space {
+            width: 120px;
+            border-top: 1px solid #000;
+            margin: 0 auto;
         }
         .footer {
-            margin-top: 10px;
             text-align: center;
-            font-size: 7pt; /* Reduced font size */
+            font-size: 7pt;
             border-top: 1px solid #000;
+            margin-top: 10px;
             padding-top: 5px;
         }
         .watermark {
             position: absolute;
-            opacity: 0.2; /* Slightly transparent */
-            font-size: 40pt; /* Adjusted for A5 size */
-           
+            opacity: 0.1;
+            font-size: 50pt;
             color: #000;
-            transform: translate(0, -50%) rotate(-45deg); /* Adjusted to left side and rotated */
-            left: 20%; /* Positioned to the left */
-            top: 45%; /* Center vertically */
-            z-index: -1; /* Ensure it stays in the background */
-            pointer-events: none; /* Prevents interaction with the watermark */
-            white-space: nowrap;
+            transform: rotate(-45deg);
+            top: 40%;
+            left: 20%;
+            z-index: -1;
         }
         .print-button {
             display: none;
@@ -138,216 +122,156 @@
                 text-align: center;
                 margin-bottom: 10px;
             }
-            .print-button button {
-                padding: 10px 20px;
-                background-color: #4CAF50;
-                color: white;
+            .print-button .btn {
+                padding: 10px 15px;
+                margin: 0 5px;
+                font-size: 8pt;
+                text-decoration: none;
                 border: none;
                 border-radius: 4px;
+                color: white;
                 cursor: pointer;
-                font-size: 8pt; /* Reduced font size */
             }
+            .btn-print { background-color: green; }
+            .btn-back { background-color: orange; }
+            .btn-consent { background-color: #e91e63; }
+            .btn-surgery { background-color: #3f51b5; }
         }
-        .inwords {
-            font-style: italic;
-            margin-top: 5px;
-            padding: 3px;
-            border: 1px dashed #000;
-        }
-        .signature-area {
-            margin-top: 15px;
-            width: 100%;
-            text-align: left;
-        }
-		.signature-area p{
-			  text-align: center;
-		}
-        .signature-line {
-            display: inline-block;
-            margin: 0 20px;
-            text-align: left;
-        }
-        .signature-name {
-           
-            margin-top: 5px;
-        }
-        .signature-space {
-            border-top: 1px solid #000;
-            width: 100px;
-            display: block;
-            margin: 0 auto;
-        }
-        .content-wrapper {
-            display: flex;
-            justify-content: space-between;
-        }
-        .watermark-container {
-            width: 70%;
-        }
-        .summary-container {
-            width: 65%;
-        }
-
-        .btn {
-  background: #ff0f0fff;
-  color: white;
-  padding: 10px 15px;
-  border: 1px solid #ccc;
-  text-decoration: none;
-  border-radius: 4px;
-  font-weight: bold;
-}
-.btn-back{
-    background:orange;
-  }
     </style>
 </head>
 <body>
-  
-    <div class="print-button">
-        <a class="btn btn-back" href="<?php echo base_url()."patient/create"?>">Back</a>
-        <button onclick="window.print()">Print Receipt</button>
-          <a class="btn" href="<?php echo base_url()."billinfo/surgeryaplication/$id"?>">Surgery Application</a>
-          <a class="btn" href="<?php echo base_url()."billinfo/surgicalinvoice/$id"?>">Consent Letter </a>
-    </div>
-<?php
 
-$logo =  $allSup['logo'];
-?>
-    
-      <div class="header">
-    <div style="display: flex; align-items: center; justify-content: flex-start;">
-        <div style="flex-shrink: 0;">
-            <img src="<?php echo base_url()."assets/images/$logo"?>" alt="Hospital Logo" style="height: 50px; margin-right: 80px;">
-        </div>
-        <div>
-            <div class="hospital-name"><?php echo $allSup['name'] ?></div>
-            <div class="hospital-address"><?php echo $allSup['address'] ?></div>
-            <div class="hospital-contact">Mobile: <?php echo $allSup['phone'] ?></div>
-        </div>
-    </div>
+<div class="print-button">
+    <a class="btn btn-back" href="<?php echo base_url().'patient/create'; ?>">Back</a>
+    <button class="btn btn-print" onclick="window.print()">Print Receipt</button>
+    <a class="btn btn-surgery" href="<?php echo base_url().'billinfo/surgeryaplication/'.$id; ?>">Surgery Application</a>
+    <a class="btn btn-consent" href="<?php echo base_url().'billinfo/surgicalinvoice/'.$id; ?>">Consent Letter</a>
 </div>
+
 <?php
-    if(isset($allPdt)){
-        foreach($allPdt as $pdt){
-    
-    ?>
-    <div class="receipt-title">Invoice: <?php echo $pdt->invoiceNumber; ?></div>
-    
-    <table class="patient-info">
-        <tr>
-            <td class="label">Patient Name:</td>
-            <td><?php echo $pdt->name; ?></td>
-            <td class="label">Age:</td>
-            <td><?php echo $pdt->age." ".$pdt->adult_child; ?></td>
-        </tr>
-        <tr>
-            <td class="label">Sex:</td>
-            <td><?php echo $pdt->gender; ?></td>
-            <td class="label">Bill Date:</td>
-            <td><?php echo date("d F, Y",$pdt->invoice_date); ?></td>
-        </tr>
-        <tr>
-            <td class="label">Registration No:</td>
-            <td><?php echo $pdt->registration_no; ?></td>
-            <td class="label">Mobile No:</td>
-            <td><?php echo $pdt->mobile_no; ?></td>
-        </tr>
-        <tr>
-            <td class="label">Ref. Doctor:</td>
-            <td colspan="3"><?php echo $pdt->doctors_name." - ".$pdt->degree; ?></td>
-        </tr>
-    </table>
+$logo = $allSup['logo'];
+if (isset($allPdt)) {
+    foreach ($allPdt as $pdt) {
+?>
 
-    <table class="items-table">
-        <thead>
-            <tr>
-                <th class="sl">SL</th>
-                <th class="description">Particulars</th>
-                <th class="amount">Amount (৳)</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php
-            $i =1;
-            if(isset($allDdt)){
-                foreach($allDdt as $del){
-            
-            ?>
-            <tr>
-                <td class="sl"><?php echo $i; $i++; ?></td>
-                <td class="description"><?php echo $del->name; ?></td>
-                <td class="amount"><?php echo $del->price; ?></td>
-            </tr>
-            <?php
-                }
+<div class="logo-header">
+    <img src="<?php echo base_url()?>assets/static/imgs/rotary-eye.jpg" alt="Logo Left">
+    <div class="hospital-info">
+        <div class="hospital-name"><?php echo $allSup['name']; ?></div>
+        <div class="hospital-address"><?php echo $allSup['address']; ?></div>
+        <div class="hospital-contact">Mobile: <?php echo $allSup['phone']; ?></div>
+    </div>
+    <img src="<?php echo base_url()?>assets/static/imgs/rotary-logo.jpg" alt="Logo Right">
+</div>
+
+<div class="receipt-title">Invoice: <?php echo $pdt->invoiceNumber; ?></div>
+
+<table class="patient-info">
+    <tr>
+        <td class="label">Patient Name:</td>
+        <td><?php echo $pdt->name; ?></td>
+        <td class="label">Age:</td>
+        <td><?php echo $pdt->age." ".$pdt->adult_child; ?></td>
+    </tr>
+    <tr>
+        <td class="label">Sex:</td>
+        <td><?php echo $pdt->gender; ?></td>
+        <td class="label">Bill Date:</td>
+        <td><?php echo date("d F, Y", $pdt->invoice_date); ?></td>
+    </tr>
+    <tr>
+        <td class="label">Registration No:</td>
+        <td><?php echo $pdt->registration_no; ?></td>
+        <td class="label">Mobile No:</td>
+        <td><?php echo $pdt->mobile_no; ?></td>
+    </tr>
+    <tr>
+        <td class="label">Ref. Doctor:</td>
+        <td colspan="3"><?php echo $pdt->doctors_name." - ".$pdt->degree; ?></td>
+    </tr>
+</table>
+
+<table class="items-table">
+    <thead>
+        <tr>
+            <th class="sl">SL</th>
+            <th class="description">Particulars</th>
+            <th class="amount">Amount (৳)</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php
+        $i = 1;
+        if (isset($allDdt)) {
+            foreach ($allDdt as $item) {
+        ?>
+        <tr>
+            <td class="sl"><?php echo $i++; ?></td>
+            <td class="description"><?php echo $item->name; ?></td>
+            <td class="amount"><?php echo $item->price; ?></td>
+        </tr>
+        <?php
             }
-            ?>
-        </tbody>
-    </table>
-    
-    <div class="content-wrapper">
-        <div class="watermark-container">
-            <div class="watermark"><?php echo $pdt->isPaid; ?></div>
-        </div>
-        <div class="summary-container">
-            <table class="summary-table">
-                <tr>
-                    <td class="label">Sub Total:</td>
-                    <td class="value"><?php echo $pdt->subTotal; ?></td>
-                </tr>
-                <tr>
-                    <td class="label">Discount:</td>
-                    <td class="value"><?php echo $pdt->totalDisAmount; ?></td>
-                </tr>
-                <tr>
-                    <td class="label">Grand Total:</td>
-                    <td class="value"><?php echo $pdt->totalAmount; ?></td>
-                </tr>
-                <tr>
-                    <td class="label">Paid Amount:</td>
-                    <td class="value"><?php echo $pdt->paidAmount; ?></td>
-                </tr>
-                <tr>
-                    <td class="label">Due:</td>
-                    <td class="value"><?php echo $pdt->dueAmount; ?></td>
-                </tr>
-            </table>
+        }
+        ?>
+    </tbody>
+</table>
 
-            <div class="inwords">
-                <strong>In words:</strong> <?php
-                    
-                    $words = number_to_words($pdt->totalAmount  );
-                    echo $words;
-                    ?> Only.
-            </div>
-        </div>
-    </div>
-    
-    <div class="signature-area">
-        <div class="signature-line">
-         <!-- <p> Farhad </p> -->
-            <div class="signature-space"></div>
-           <!-- <div class="signature-name">Entry by</div> -->
-        </div>
-    </div>
+<div class="watermark"><?php echo $pdt->isPaid; ?></div>
 
-    <div class="footer">
-        আমাদের সাথে থাকার জন্য আপনাকে ধন্যবাদ। আপনার দ্রুত আরোগ্য কামনা করছি।<br>
-        Software Developed By: <b>Master IT</b> 
-    </div>
+<table class="summary-table">
+    <tr>
+        <td class="label">Sub Total:</td>
+        <td class="value"><?php echo $pdt->subTotal; ?></td>
+    </tr>
+    <tr>
+        <td class="label">Discount:</td>
+        <td class="value"><?php echo $pdt->totalDisAmount; ?></td>
+    </tr>
+    <tr>
+        <td class="label">Grand Total:</td>
+        <td class="value"><?php echo $pdt->totalAmount; ?></td>
+    </tr>
+    <tr>
+        <td class="label">Paid Amount:</td>
+        <td class="value"><?php echo $pdt->paidAmount; ?></td>
+    </tr>
+    <tr>
+        <td class="label">Due:</td>
+        <td class="value"><?php echo $pdt->dueAmount; ?></td>
+    </tr>
+</table>
 
+<div class="inwords">
+    <strong>In words:</strong>
     <?php
-        }
+        $words = number_to_words($pdt->totalAmount);
+        echo $words;
+    ?> Only.
+</div>
+
+<div class="signature-area">
+    <div class="signature-space"></div>
+</div>
+
+<div class="footer">
+    আমাদের সাথে থাকার জন্য আপনাকে ধন্যবাদ। আপনার দ্রুত আরোগ্য কামনা করছি।<br>
+    Software Developed By: <b>Master IT</b>
+</div>
+
+<?php
     }
-    ?>
-    <script>
-        // Automatically trigger print when on screen and not in print preview
-        if (window.location.search.indexOf('print') === -1 && window.location.href.indexOf('print') === -1) {
-            window.addEventListener('afterprint', function() {
-                window.close();
-            });
-        }
-    </script>
+}
+?>
+
+<script>
+    // Auto close after print (optional)
+    if (window.location.search.indexOf('print') === -1) {
+        window.addEventListener('afterprint', function () {
+            window.close();
+        });
+    }
+</script>
+
 </body>
 </html>

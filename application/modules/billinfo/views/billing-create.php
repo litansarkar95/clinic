@@ -50,14 +50,21 @@
   border-radius:0px !important;
 }
 
-.input_form_new{
+.input_form_new3{
   margin-top:10px;
   padding: 30px;
     background: linear-gradient(121deg, rgba(102, 222, 96, 0.2), rgba(1, 194, 49, 0.5));
     border-radius: 15px;
     transition: all 
-linear 0.3s;
+    linear 0.3s;
     box-shadow: 1px 1px 1px #777;
+}
+
+.ui-widget-content
+ {
+    border: 1px solid #dddddd;
+    background: #0e9f2bff;
+    color: #f1f4f3ff;
 }
 
                         </style>

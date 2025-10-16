@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Transaction Reports</title>
+    <title>Operation Reports</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -97,7 +97,7 @@
         </div>
         <div class="header">
             <h1><?php echo  $com['name']; ?></h1>
-            <h2>Due Transaction Reports</h2>
+            <h2>Operation Reports</h2>
             <p><strong>From:</strong> <?php echo $from_date; ?> <strong>To:</strong> <?php echo $to_date; ?></p>
             <div class="date">Print Date: <?php echo date('Y-m-d H:i:s');  // Format: YYYY-MM-DD HH:MM:SS
 ?></div>
@@ -107,33 +107,29 @@
             <thead>
                 <tr>
                     <th>SL</th>
-                    <th>Bill No</th>
-                    <th>Bill Date</th>
-                    <th>Due Amount</th>
+                    <th>Name</th>
+                    <th>Operation Date</th>
+                    <th>Doctor Name</th>
+                    <th>Operation Serial</th>
                    
                 </tr>
             </thead>
             <tbody>
     <?php
-    $i = 1;
-    $total_subTotal = 0;
-    $total_totalDisAmount = 0;
-    $total_totalAmount = 0;  // Cumulative balance
-    $total_paidAmount = 0;  // Cumulative balance
-    $total_dueAmount = 0;  // Cumulative balance
+  $i = 1;
+$total_count = 0;
 
     if(isset($allPdt)){
         foreach($allPdt as $pdt){
-            // Update total debit and total credit
-            $total_subTotal += $pdt->dueAmount;
-            // Update the balance (cumulative)
+             $total_count++;
          
     ?>
     <tr>
         <td><?php echo $i; $i++; ?></td>
-        <td><?php echo $pdt->invoiceNumber; ?></td>
-        <td><?php echo date("d-m-Y",$pdt->	transaction_date); ?></td>
-        <td><?php echo number_format($pdt->dueAmount, 2); ?></td>
+        <td><?php echo $pdt->name; ?></td>
+        <td><?php echo $pdt->date; ?></td>
+        <td><?php echo $pdt->doctor_name; ?></td>
+        <td><?php echo $pdt->serial; ?></td>
 
        
       
@@ -144,8 +140,8 @@
     ?>
     <!-- Display total debit and credit -->
     <tr>
-        <td colspan="3"><strong>Total</strong></td>
-        <td><strong><?php echo number_format($total_subTotal, 2); ?></strong></td>
+        <td colspan="4"><strong>Total</strong></td>
+         <td><strong><?php echo $total_count; ?></strong></td>
      
     </tr>
 </tbody>

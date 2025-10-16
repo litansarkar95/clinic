@@ -75,7 +75,7 @@ class Billinfo extends CI_Controller {
         $data = array();
         $data['active']     = "bill_invoice_list";
         $data['title']      = "Bill Invoice List"; 
-        $data['allPdt']     = $this->billinfo_model->billinfoList();
+      //  $data['allPdt']     = $this->billinfo_model->billinfoList();
         $data['content']    = $this->load->view("bill-invoice-list", $data, TRUE);
         $this->load->view('layout/master', $data);
 

@@ -28,7 +28,9 @@
     max-width: 800px;
     margin: auto;
   }
-
+   .category-header{
+    background-color: #d1d7c9;
+   }
   .header {
     text-align: center;
     border-bottom: 2px solid #000;
@@ -60,6 +62,7 @@
 
   th {
     background-color: #e2e8f0;
+       text-align: center;
   }
 
   .section-title {
@@ -98,6 +101,7 @@
   }
 
 </style>
+
 </head>
 
 
@@ -118,35 +122,43 @@
   <?php
   $grand_total = 0;
   foreach ($bill_summary as $bill) { ?>
-        <div class="section-title"><?= $bill->category_name ?></div>
-        <table>
-            <thead>
-                <tr>
-                    <th>Test Name</th>
-                    <th>Quantity</th>
-                    <th>Price (Tk)</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php
-                $subtotal = 0;
-                foreach ($testinfo_summary as $item){
-                    if($item->cid == $bill->cid){
-                    
-                ?>
-                    <tr>
-                        <td><?= $item->test_name ?></td>
-                        <td><?= $item->total_count ?></td>
-                        <td><?= number_format($item->total_test_fee, 2) ?></td>
-                    </tr>
-                <?php 
-                 $subtotal += $item->total_test_fee;
-              } 
-                }
-                ?>
-            </tbody>
-        </table>
-        <div class="total">Sub Total : Tk. <?= number_format( $bill->total_test_fee, 2) ?></div>
+
+      <table class="category-table">
+    <thead>
+        <tr>
+            <th class="category-header" colspan="3"><?= $bill->category_name ?></th>
+        </tr>
+        <tr>
+            <th>Test Name</th>
+            <th>Quantity</th>
+            <th>Price (Tk)</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php
+        $subtotal = 0;
+        foreach ($testinfo_summary as $item) {
+            if ($item->cid == $bill->cid) {
+                $subtotal += $item->total_test_fee;
+        ?>
+            <tr>
+                <td><?= $item->test_name ?></td>
+                <td><?= $item->total_count ?></td>
+                <td style="text-align: right;"><?= number_format($item->total_test_fee, 2) ?></td>
+            </tr>
+        <?php 
+            }
+        }
+        ?>
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="2" style="text-align: right;">Sub Total :</td>
+            <td style="text-align: right;"><b>Tk. <?= number_format($bill->total_test_fee, 2) ?></b></td>
+        </tr>
+    </tfoot>
+</table>
+     
           <?php $grand_total += $subtotal; // Now correctly add subtotal to grand_total ?>
     <?php } ?>
  

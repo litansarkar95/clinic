@@ -107,7 +107,18 @@
   .signature p {
     margin: 5px 0;
   }
+.btn-back {
+    display: inline-block;
+    background: #16acceff;
+    color: #fff;
+    border: none;
+    padding: 6px 15px;
+    border-radius: 4px;
+    font-size: 14px;
 
+    cursor: pointer;
+   text-decoration: none;
+  }
   .footer {
     text-align: center;
     margin-top: 25px;
@@ -140,6 +151,7 @@
 <body>
 
 <div class="toolbar no-print">
+  <a class="btn  btn-back" href="<?php echo base_url().'billinfo'; ?>">Back</a>
   <button onclick="window.print()">🖨 প্রিন্ট / Print</button>
 </div>
 

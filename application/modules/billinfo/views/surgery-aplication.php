@@ -17,6 +17,18 @@
     color: #000;
     line-height: 1.4;
   }
+.btn-back {
+    display: inline-block;
+    background: #16acceff;
+    color: #fff;
+    border: none;
+    padding: 6px 15px;
+    border-radius: 4px;
+    font-size: 14px;
+
+    cursor: pointer;
+   text-decoration: none;
+  }
 
   .print-btn {
     display: inline-block;
@@ -127,6 +139,12 @@
     .print-btn {
       display: none !important;
     }
+
+     .btn-back {
+      display: none !important;
+    }
+    
+ 
     .page {
       border: none;
     }
@@ -136,6 +154,7 @@
 
 <body>
   <div style="text-align:center;">
+       <a class="btn  btn-back" href="<?php echo base_url().'billinfo'; ?>">Back</a>
     <button class="print-btn" onclick="window.print()">🖨️ Print</button>
   </div>
 
