@@ -61,8 +61,8 @@
   }
 
   .header img {
-    width: 70px;
-    height: 70px;
+    width: 80px;
+    height: 80px;
     position: absolute;
     top: 0;
   }
@@ -78,6 +78,7 @@
   .header h1 {
     font-size: 22px;
     margin: 0;
+font-weight: 800;
   }
 
   .header h2 {
@@ -160,8 +161,8 @@
 
   <div class="page">
     <div class="header">
-      <img src="<?php echo base_url()?>assets/static/imgs/rotary-eye.jpg" class="left" alt="Logo Left">
-      <img src="<?php echo base_url()?>assets/static/imgs/rotary-logo.jpg" class="right" alt="Logo Right">
+      <img src="<?php echo base_url()."assets/images/".$allSup['favicon']?>" class="left" alt="Logo Left">
+      <img src="<?php echo base_url()."assets/images/".$allSup['logo']?>" class="right" alt="Logo Right">
       <h1>রোটারী চোখ হাসপাতাল</h1>
       <h2>ROTARY EYE HOSPITAL</h2>
       <p>বিরিঞ্চ বাজার রোড, জয়শংকরপুর, আদর্শ সদর, কুমিল্লা, ৩৫০০।</p>

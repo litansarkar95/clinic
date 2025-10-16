@@ -153,17 +153,17 @@ $("#registration_date,.to_date").val(today);
                               </div>
                               <div class="form-group col-md-3 mb-3">
                                  <label for="patient_name">Patient Name</label>
-                                  <input type="text" id="patient_name" class="form-control " name="patient_name"  value="<?php echo set_value('patient_name'); ?>" >
+                                  <input type="text" id="patient_name" class="form-control " name="patient_name"  value="<?php echo set_value('patient_name'); ?>" readonly>
                                  <span class="text-red small"><?php echo form_error('patient_name'); ?></span>
                               </div>
                                 <div class="form-group col-md-3 mb-3">
                                  <label for="father_husband_name">Father/Husband Name </label>
-                                 <input type="text" id="father_husband_name" class="form-control" name="father_husband_name" value="<?php echo set_value('father_husband_name'); ?>" >
+                                 <input type="text" id="father_husband_name" class="form-control" name="father_husband_name" value="<?php echo set_value('father_husband_name'); ?>" readonly>
                                  <span class="text-red small"><?php echo form_error('father_husband_name'); ?></span>
                               </div>
                               <div class="form-group col-md-2 mb-3">
                                  <label for="mobile_no">Mobile No</label>
-                                 <input type="text" id="mobile_no" class="form-control" name="mobile_no"  value="<?php echo set_value('mobile_no'); ?>" >
+                                 <input type="text" id="mobile_no" class="form-control" name="mobile_no"  value="<?php echo set_value('mobile_no'); ?>" readonly>
                                  <span class="text-red small"><?php echo form_error('mobile_no'); ?></span>
                               </div>
                                <div class="form-group col-md-3 mb-3" style="display:none;">

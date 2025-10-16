@@ -53,7 +53,7 @@ header {
 }
 
 .header-logos img {
-    height: 60px;
+    height: 140px;
     width: auto;
 }
 
@@ -93,12 +93,14 @@ header p {
 }
 .serial-info{
  border: 1px solid #000;
-    width: 150px; padding: 10px;
+    width: 150px;
+     padding: 10px;
+        margin-top: 10px;
 }
 .content {
-    min-height: 400px;
-    margin-bottom: 40px;
-    padding: 15px;
+    min-height: 510px;
+    margin-bottom: 10px;
+    padding: 10px;
     font-size: 16px;
 }
 
@@ -106,7 +108,7 @@ header p {
     width: 60%;
     border: 1px solid #000;
     border-collapse: collapse;
-    margin-bottom: 40px;
+    margin-bottom: 4px;
 }
 
 .eye-table th, .eye-table td {
@@ -118,8 +120,8 @@ header p {
 
 .signature {
     text-align: right;
-    margin-top: 60px;
-    margin-bottom:20px;
+    margin-top: 5px;
+    margin-bottom:5px;
 }
 
 .signature span {
@@ -178,7 +180,7 @@ footer strong {
     <header>
         <div class="header-logos">
             <!-- Left Logo -->
-            <img src="<?php echo base_url()?>assets/static/imgs/rotary-eye.jpg" alt="Left Logo">
+            <img src="<?php echo base_url()."assets/images/".$allSup['favicon']?>" alt="Left Logo">
             
             <div>
                 <h1><?php echo $allSup['name'] ?></h1>
@@ -188,13 +190,14 @@ footer strong {
             </div>
 
             <!-- Right Logo -->
-            <img src="<?php echo base_url()?>assets/static/imgs/rotary-logo.jpg" alt="Right Logo">
+            <img src="<?php echo base_url()."assets/images/".$allSup['logo']?>" alt="Right Logo">
         </div>
     </header>
 
     <div class="info">
         <div>রেজি. নাম্বার: <strong>R-<?= $patient->registration_int_no; ?></strong></div>
         <div>রোগীর নাম: <strong><?= $patient->name; ?></strong></div>
+        <div>রোগীর বয়স: <strong><?= $patient->age; ?></strong></div>
         <div>তারিখ: <strong><?= date("d/m/Y",$patient->registration_date); ?></strong></div>
     </div>
 
@@ -221,7 +224,7 @@ footer strong {
         </tr>
     </table>
 
-    <div class="serial-info" style="margin-top: -25px;">
+    <div class="serial-info" style="">
         <div>Serial: <strong><?= $patient->serial_no; ?></strong></div>
     </div>
 

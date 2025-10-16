@@ -49,13 +49,13 @@
     position: absolute;
     top: 0;
     left: 0;
-    width: 90px;
+    width: 110px;
   }
   .header img.logo-right {
     position: absolute;
     top: 0;
     right: 0;
-    width: 90px;
+    width: 110px;
   }
   .header h1 {
     font-size: 28px;
@@ -157,8 +157,8 @@
 
 <div class="page">
   <div class="header">
-    <img src="<?php echo base_url()?>assets/static/imgs/rotary-eye.jpg" class="logo-left" alt="Logo Left">
-    <img src="<?php echo base_url()?>assets/static/imgs/rotary-logo.jpg" class="logo-right" alt="Logo Right">
+    <img src="<?php echo base_url()."assets/images/".$allSup['favicon']?>" class="logo-left" alt="Logo Left">
+    <img src="<?php echo base_url()."assets/images/".$allSup['logo']?>" class="logo-right" alt="Logo Right">
     <h1><?php echo $allSup['name'] ?></h1>
     <!-- <h2>ROTARY EYE HOSPITAL</h2> -->
     <p><?php echo $allSup['address'] ?></p>

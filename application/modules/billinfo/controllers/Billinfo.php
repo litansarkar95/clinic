@@ -75,7 +75,41 @@ class Billinfo extends CI_Controller {
         $data = array();
         $data['active']     = "bill_invoice_list";
         $data['title']      = "Bill Invoice List"; 
-      //  $data['allPdt']     = $this->billinfo_model->billinfoList();
+
+        $invoice_id          = $this->input->post("invoice_id") ;
+        $from_date           = $this->input->post("from_date") ;
+        $to_date             = $this->input->post("to_date") ;
+        $status_id           = $this->input->post("status_id") ;
+
+
+
+        // if( $invoice_id == NULL  ){ 
+        // $invoice_id        =  0;
+        // } 
+        
+        // if( $this->input->post("from_date") != NULL  ){ 
+        // $from_date        =  date("d-m-Y");
+        // } 
+
+        // if( $this->input->post("to_date") != NULL  ){
+        // $to_date        =  date("d-m-Y");
+        // } 
+
+        // if( $status_id == NULL  ){ 
+        // $status_id        =  0;
+        
+        //  } 
+
+
+      $data['invoice_id']        = $this->input->post("invoice_id") ;
+      $data['from_date']         = $this->input->post("from_date") ;
+      $data['to_date']           = $this->input->post("to_date") ;
+      $data['status_id']         = $this->input->post("status_id") ;
+
+
+
+        $data['allPdt']     = $this->billinfo_model->billinfoList($invoice_id,$from_date,$to_date,$status_id );
+        //echo "<pre>";  print_r($data['allPdt']);exit();
         $data['content']    = $this->load->view("bill-invoice-list", $data, TRUE);
         $this->load->view('layout/master', $data);
 
@@ -165,4 +199,37 @@ class Billinfo extends CI_Controller {
     }
 }
 
+
+
+
+public function account(){
+    
+        $id = $this->input->post("id");
+       $totalamount =  $this->common_model->xss_clean($this->input->post("totalamount"));
+
+        $selPdt = $this->common_model->view_data("bill_info",array("id"=>$id),"id","desc");
+        foreach($selPdt as $pdt){
+            $paidAmount = $pdt->paidAmount;
+            $dueAmount = $pdt->dueAmount;
+        }
+      
+        $data = array(
+           "paidAmount"                  => $paidAmount + $totalamount  ,
+           "dueAmount"                   => $dueAmount - $totalamount,
+           "isPaid"                      => $this->common_model->xss_clean($this->input->post("estatus_id")),
+                        
+            );
+
+
+          
+          
+            if ($this->common_model->update_data("bill_info", $data,array("id"=>$id))) {
+                $this->session->set_flashdata('success', 'Update Successfully');
+            }
+            else{
+                $this->session->set_flashdata('error', 'Something error.');
+            }
+            $this->session->set_userdata($sdata);
+            redirect(base_url() . "billinfo/list", "refresh");
+    }
 }

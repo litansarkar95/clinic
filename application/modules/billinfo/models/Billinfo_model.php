@@ -147,17 +147,38 @@ $is_surgery = $this->input->post('is_surgery') ? 1 : 0;
 		 }
 		 
 		 
-		 public function billinfoList($id=NULL) {
-			if($id){
-				$this->db->where("bill_info.id",$id); 
-			}
-			$this->db->select("bill_info.* , patients.name 	, patients.mobile_no");
-			$this->db->from("bill_info");
-			$this->db->join('patients', "bill_info.patient_id = patients.pat_id ",'left');
-		
-			$this->db->order_by("id", "DESC");
-			return $this->db->get()->result();
-		}
+	public function billinfoList($invoice_id, $from_date, $to_date, $status_id) {
+
+    $this->db->select("bill_info.* , patients.name  , patients.mobile_no");
+    $this->db->from("bill_info");
+    $this->db->join('patients', "bill_info.patient_id = patients.id",'left');
+
+    if (!empty($invoice_id)) {
+        $this->db->where("bill_info.invoiceNumber", $invoice_id); 
+
+
+    } else {
+        if (!empty($status_id)) {
+            $this->db->where("bill_info.isPaid", $status_id); 
+        }
+
+        if (!empty($from_date) && !empty($to_date)) {
+            $from_date_str = strtotime($from_date);
+            $to_date_str = strtotime($to_date . ' 23:59:59');
+
+            $this->db->where('bill_info.invoice_date >=', $from_date_str);
+            $this->db->where('bill_info.invoice_date <=', $to_date_str);
+        }
+        if (empty($status_id) && (empty($from_date) || empty($to_date))) {
+            return []; 
+        }
+    }
+
+    $this->db->order_by("id", "DESC");
+    return $this->db->get()->result();
+}
+
+
 
 		public function BillList($id) {
 		

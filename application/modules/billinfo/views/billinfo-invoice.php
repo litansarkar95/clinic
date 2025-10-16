@@ -25,7 +25,7 @@
             margin-bottom: 5px;
         }
         .logo-header img {
-            height: 50px;
+            height: 80px;
         }
         .hospital-info {
             text-align: center;
@@ -155,13 +155,13 @@ if (isset($allPdt)) {
 ?>
 
 <div class="logo-header">
-    <img src="<?php echo base_url()?>assets/static/imgs/rotary-eye.jpg" alt="Logo Left">
+    <img src="<?php echo base_url()."assets/images/".$allSup['favicon']?>" alt="Logo Left">
     <div class="hospital-info">
         <div class="hospital-name"><?php echo $allSup['name']; ?></div>
         <div class="hospital-address"><?php echo $allSup['address']; ?></div>
         <div class="hospital-contact">Mobile: <?php echo $allSup['phone']; ?></div>
     </div>
-    <img src="<?php echo base_url()?>assets/static/imgs/rotary-logo.jpg" alt="Logo Right">
+    <img src="<?php echo base_url()."assets/images/".$allSup['logo']?>" alt="Logo Right">
 </div>
 
 <div class="receipt-title">Invoice: <?php echo $pdt->invoiceNumber; ?></div>

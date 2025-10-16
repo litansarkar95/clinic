@@ -1,6 +1,34 @@
 	  <link rel="stylesheet" href="https://code.jquery.com/ui/1.14.1/themes/base/jquery-ui.css">
   <script src="https://code.jquery.com/ui/1.14.1/jquery-ui.js"></script>
+<style>
+    button {
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+  outline: none;
+  transition: all 0.3s ease;
+}
+.custom-button {
+  background-color: #4CAF50; /* Green background */
+  color: white; /* White text */
+  border-radius: 8px; /* Rounded corners */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
 
+.custom-button:hover {
+  background-color: #509c37ff; /* Darker green on hover */
+  color: white !important; 
+}
+
+.custom-button:active {
+  transform: scale(0.98); /* Slight shrink effect when clicked */
+}
+
+.custom-button:focus {
+  border: 2px solid #2196F3; /* Focus effect with blue border */
+}
+    </style>
      <script>
     $(document).ready(function() {
    
@@ -32,6 +60,10 @@ $("#registration_date,.to_date").val(today);
                                                   <div class="row pb-3">
 												<div class="col-auto">
 													<h3>Patient Registration</h3>
+												</div>
+
+                                                		<div class="col-auto ms-auto">
+													<a href="<?php echo base_url(); ?>billinfo"  class="btn custom-button">Create Patient Billing</a>
 												</div>
 												<div class="col-auto ms-auto">
 													<a href="<?php echo base_url(); ?>patient"  class="btn btn_bg">Patient List</a>
@@ -132,7 +164,7 @@ $("#registration_date,.to_date").val(today);
                                     </select>
                                  <span class="text-red small"><?php echo form_error('religion'); ?></span>
                               </div>
-                              <div class="form-group col-md-3">
+                              <div class="form-group col-md-2">
                                  <label for="nationality">Nationality</label>
                                  <select type="text" id="nationality" class="form-control" name="nationality"  required>
                              
@@ -158,7 +190,7 @@ $("#registration_date,.to_date").val(today);
                               </div>
 
                              
-                                <div class="form-group col-md-3">
+                                <div class="form-group col-md-2">
                                  <label for="adult_child">Adult / Child</label>
                               
                                  <select type="text" id="adult_child" class="form-control" name="adult_child" required >
@@ -167,6 +199,16 @@ $("#registration_date,.to_date").val(today);
                                     </select>
                                  <span class="text-red small"><?php echo form_error('adult_child'); ?></span>
                               </div>
+
+                                 <div class="col-md-2">
+                                            <div class="form-group ">
+                                                <label for="token">Token</label>
+                                                <input type="text" id="token" class="form-control" name="token"  value="<?php echo $serial_no; ?>" readonly>
+                                                <span class="text-red small"><?php echo form_error('token'); ?></span>
+                                            </div>
+
+                                    </div>
+
                              
 									      		            <div class="form-group col-md-3 mb-3">
                                                                            <label for="adult_child"></label>
@@ -177,17 +219,9 @@ $("#registration_date,.to_date").val(today);
 									      		</div>	
 									      			
 									      			
-												</div>
-											</div>
-                                            <div class="row">
-                <div class="col-md-4">
-                    <div class="form-group ">
-                                                <label for="token">Token</label>
-                                                <input type="text" id="token" class="form-control" name="token"  value="<?php echo $serial_no; ?>" disable>
-                                                <span class="text-red small"><?php echo form_error('token'); ?></span>
-                                            </div>
-
-                                    </div>
+										
+										
+                                     
 
 
                                                      <div class="col-md-8">
@@ -221,7 +255,7 @@ $("#registration_date,.to_date").val(today);
 									</div>
 
 </div>
-														     
+														</div>		     
 					                                    									     
 
 										</div>
