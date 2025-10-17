@@ -22,19 +22,37 @@ class Patient_model extends CI_Model {
         $query = $this->db->get('upazila');
         return $query->result_array();
     }
-  public function patientList($id = NULL)
-    {
-        if ($id) {
-            $this->db->where("patients.id", $id);
+ 
+
+    public function patientList($invoice_id, $from_date, $to_date, $status_id) {
+
+    $this->db->select("patients.* ");
+    $this->db->from("patients");
+
+    if (!empty($invoice_id)) {
+        $this->db->where("patients.registration_no", $invoice_id); 
+
+
+    } else {
+        if (!empty($status_id)) {
+            $this->db->where("patients.gender", $status_id); 
         }
-    
-        $this->db->select("patients.*, districts.name districts "); 
-                           
-        $this->db->from("patients");
-        $this->db->join('districts', 'patients.district_id = districts.id', 'left');
-        $this->db->order_by("patients.id", "DESC");
-        return $this->db->get()->result(); 
+
+        if (!empty($from_date) && !empty($to_date)) {
+            $from_date_str = strtotime($from_date);
+            $to_date_str = strtotime($to_date . ' 23:59:59');
+
+            $this->db->where('patients.registration_date >=', $from_date_str);
+            $this->db->where('patients.registration_date <=', $to_date_str);
+        }
+        if (empty($status_id) && (empty($from_date) || empty($to_date))) {
+            return []; 
+        }
     }
+
+    $this->db->order_by("id", "DESC");
+    return $this->db->get()->result();
+}
 public function patientBillList($id)
 {
     $this->db->select("patients.*, districts.name as districts , upazila.name upazilla , doctors.name doctor");

@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>অস্ত্রোপচারের সম্মতিপত্র | ROTARY EYE HOSPITAL</title>
+ <title><?php if (isset($title)) { echo $title; } ?> </title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Bengali&display=swap" rel="stylesheet">
 
 <style>
@@ -159,8 +159,8 @@
   <div class="header">
     <img src="<?php echo base_url()."assets/images/".$allSup['favicon']?>" class="logo-left" alt="Logo Left">
     <img src="<?php echo base_url()."assets/images/".$allSup['logo']?>" class="logo-right" alt="Logo Right">
-    <h1><?php echo $allSup['name'] ?></h1>
-    <!-- <h2>ROTARY EYE HOSPITAL</h2> -->
+    <h1><?php echo $allSup['title'] ?></h1>
+    <h2><?php echo $allSup['name'] ?></h2>
     <p><?php echo $allSup['address'] ?></p>
     <p>Mobile: <?php echo $allSup['phone'] ?></p>
     <div class="title">অস্ত্রোপচারের সম্মতিপত্র</div>

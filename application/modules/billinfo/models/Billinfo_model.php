@@ -195,6 +195,24 @@ $is_surgery = $this->input->post('is_surgery') ? 1 : 0;
 			return $this->db->get()->result();
 		}
 
+
+
+		public function admissionTicket($id) {
+		
+				
+		
+			$this->db->select("bill_info.* , patients.name , patients.mobile_no , patients.registration_no ,  patients.gender , patients.age , patients.religion , patients.father_husband_name, patients.adult_child, doctors.name doctors_name, doctors.degree,  country.name nationality ,occupation.name occupation , operation.serial ");
+			$this->db->from("bill_info");
+			$this->db->join('patients', "bill_info.patient_id = patients.id ",'left');
+			$this->db->join('country', "country.id = patients.nationality_id ",'left');
+			$this->db->join('occupation', "occupation.id = patients.occupation_id ",'left');
+			$this->db->join('operation', "bill_info.id = operation.bill_id ",'left');
+			$this->db->join('doctors', "patients.doctor_id = doctors.id ",'left');
+	
+			$this->db->where("bill_info.id",$id); 
+			$this->db->order_by("id", "DESC");
+			return $this->db->get()->result();
+		}
 		public function BillDetailsList($id) {
 		
 				

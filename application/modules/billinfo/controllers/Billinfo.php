@@ -141,9 +141,9 @@ class Billinfo extends CI_Controller {
         $data['id']         = $id;
 
         $data['allSup']     = $this->main_model->InvoiceHeader();
-        $data['allPdt']     = $this->billinfo_model->BillList($id);
+        $data['allPdt']     = $this->billinfo_model->admissionTicket($id);
         $data['allDdt']     = $this->billinfo_model->BillDetailsList($id);
-       // print_r( $data['allPdt'] );exit();
+       //echo "<pre>"; print_r( $data['allPdt'] );exit();
         $this->load->view('billinfo/surgery-aplication', $data);
 
     } 

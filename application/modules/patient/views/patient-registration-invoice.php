@@ -27,14 +27,18 @@
 }
 
 .page {
-    width: 210mm;
-    min-height: 297mm;
+      width: 210mm;
+    height: 297mm; /* Fixed height for A4 */
     background: #fff;
     margin: auto;
     padding: 20mm;
     border: 1px solid #000;
     box-sizing: border-box;
     position: relative;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Ensures footer stays at bottom */
 }
 
 header {
@@ -131,16 +135,16 @@ header p {
     width: 150px;
     text-align: center;
 }
-
+.main-content {
+    flex-grow: 1;
+}
 footer {
-   
-    border-top: 1px solid #000;
-    left: 0;
-    width: 100%;
+  border-top: 1px solid #000;
     text-align: center;
     font-size: 12px;
     line-height: 1.4;
-    padding: 15px;
+    padding-top: 10px;
+    margin-top: 10px;
 }
 
 
@@ -164,11 +168,13 @@ footer strong {
 
 @media print {
     .print-btn { display: none; }
-      .print-btn { display: none; }
     body { background: #fff; margin: 0; }
-    .page { border: none; padding: 15mm; }
+    .page {
+        border: none;
+        padding: 15mm;
+        height: auto; /* Let print engine handle overflow if needed */
+    }
 }
-
 </style>
 </head>
 <body>
@@ -176,70 +182,69 @@ footer strong {
   <a class="btn print-btn" href="<?php echo base_url()."dashboard"?>">Dashboard </a>
   <button class="print-btn" onclick="window.print()">🖨️ Print</button>
   
-  <div class="page">
-    <header>
-        <div class="header-logos">
-            <!-- Left Logo -->
-            <img src="<?php echo base_url()."assets/images/".$allSup['favicon']?>" alt="Left Logo">
-            
-            <div>
-                <h1><?php echo $allSup['name'] ?></h1>
-                <h2><?php echo $allSup['address'] ?></h2>
-                <h2><?php echo $allSup['phone'] ?></h2>
-                <p>বহিঃ বিভাগের রোগীর চেকআপ</p>
-            </div>
+<div class="page">
+  <header>
+    <div class="header-logos">
+      <img src="<?php echo base_url()."assets/images/".$allSup['favicon']?>" alt="Left Logo">
+      <div>
+        <h1><?php echo $allSup['name'] ?></h1>
+        <h2><?php echo $allSup['address'] ?></h2>
+        <h2><?php echo $allSup['phone'] ?></h2>
+        <p>বহিঃ বিভাগের রোগীর চেকআপ</p>
+      </div>
+      <img src="<?php echo base_url()."assets/images/".$allSup['logo']?>" alt="Right Logo">
+    </div>
+  </header>
 
-            <!-- Right Logo -->
-            <img src="<?php echo base_url()."assets/images/".$allSup['logo']?>" alt="Right Logo">
-        </div>
-    </header>
-
+  <div class="main-content">
     <div class="info">
-        <div>রেজি. নাম্বার: <strong>R-<?= $patient->registration_int_no; ?></strong></div>
-        <div>রোগীর নাম: <strong><?= $patient->name; ?></strong></div>
-        <div>রোগীর বয়স: <strong><?= $patient->age; ?></strong></div>
-        <div>তারিখ: <strong><?= date("d/m/Y",$patient->registration_date); ?></strong></div>
+      <div>রেজি. নাম্বার: <strong>R-<?= $patient->registration_int_no; ?></strong></div>
+      <div>রোগীর নাম: <strong><?= $patient->name; ?></strong></div>
+      <div>রোগীর বয়স: <strong><?= $patient->age; ?></strong></div>
+      <div>তারিখ: <strong><?= date("d/m/Y",$patient->registration_date); ?></strong></div>
     </div>
 
     <div class="content">
-        <!-- Your content here -->
+      <!-- আপনার মূল content এখানে থাকবে -->
     </div>
+  </div>
 
+  <!-- নিচের অংশ একত্রিতভাবে প্যাক করা হয়েছে -->
+  <div>
     <table class="eye-table">
-        <tr>
-            <th colspan="3">RIGHT</th>
-            <th colspan="3">LEFT</th>
-        </tr>
-        <tr>
-            <td>Sph</td><td>Cyl</td><td>Axis</td>
-            <td>Sph</td><td>Cyl</td><td>Axis</td>
-        </tr>
-        <tr>
-            <td colspan="3" style="text-align:left;">Dist:</td>
-            <td colspan="3" style="text-align:left;">Dist:</td>
-        </tr>
-        <tr>
-            <td colspan="3" style="text-align:left;">Near:</td>
-            <td colspan="3" style="text-align:left;">Near:</td>
-        </tr>
+      <tr>
+        <th colspan="3">RIGHT</th>
+        <th colspan="3">LEFT</th>
+      </tr>
+      <tr>
+        <td>Sph</td><td>Cyl</td><td>Axis</td>
+        <td>Sph</td><td>Cyl</td><td>Axis</td>
+      </tr>
+      <tr>
+        <td colspan="3" style="text-align:left;">Dist:</td>
+        <td colspan="3" style="text-align:left;">Dist:</td>
+      </tr>
+      <tr>
+        <td colspan="3" style="text-align:left;">Near:</td>
+        <td colspan="3" style="text-align:left;">Near:</td>
+      </tr>
     </table>
 
-    <div class="serial-info" style="">
-        <div>Serial: <strong><?= $patient->serial_no; ?></strong></div>
+    <div class="serial-info">
+      <div>Serial: <strong><?= $patient->serial_no; ?></strong></div>
     </div>
 
     <div class="signature">
-        <span>Signature</span>
+      <span>Signature</span>
     </div>
 
     <footer>
-     
-            রোগী দেখার সময় : সকাল ৯টা - দুপুর ২টা, পরবর্তীতে স্বাক্ষরিত ব্যবস্থাপত্রটি সাথে আনিবেন।<br>
-            <strong>শুক্রবার ও সরকারি ছুটির দিন বন্ধ</strong>
-     
- 
+      রোগী দেখার সময় : সকাল ৯টা - দুপুর ২টা, পরবর্তীতে স্বাক্ষরিত ব্যবস্থাপত্রটি সাথে আনিবেন।<br>
+      <strong>শুক্রবার ও সরকারি ছুটির দিন বন্ধ</strong>
     </footer>
   </div>
+</div>
+
 
 </body>
 </html>

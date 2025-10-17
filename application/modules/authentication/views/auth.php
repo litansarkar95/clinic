@@ -54,7 +54,7 @@
                                                     <div class="row mb-3 mt-4">
 													<div class="col-12">
 														<label for="username">Email</label>
-														<input type="text" name="username" id="username" class="form-control">
+														<input type="text" name="username" id="username" value="<?php echo set_value('username'); ?>" class="form-control" required>
                                                          <span class="text-red small"><?php echo form_error('username'); ?></span>
 													</div>
 												</div>
@@ -64,7 +64,7 @@
 															<label for="user">Password</label><a href="" class="forget_link">Forget Password</a>
 														</div>
 														<span class="pass">
-															<input type="password" name="password" class="form-control mb-2" id="viewPw">
+															<input type="password" name="password" class="form-control mb-2" id="viewPw" required>
 															<button class="eye_btn" type="button" id="showPw">
 																<i class="fas fa-eye eye_icn"></i>
 															</button>

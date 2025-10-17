@@ -14,7 +14,39 @@ class Patient extends CI_Controller {
         $data = array();
         $data['active']     = "patient";
         $data['title']      = "Patient"; 
-        $data['allPdt']            = $this->patient_model->patientList();
+        
+        $invoice_id          = $this->input->post("invoice_id") ;
+        $from_date           = $this->input->post("from_date") ;
+        $to_date             = $this->input->post("to_date") ;
+        $gender_id           = $this->input->post("gender_id") ;
+
+
+
+        // if( $invoice_id == NULL  ){ 
+        // $invoice_id        =  0;
+        // } 
+        
+        // if( $this->input->post("from_date") != NULL  ){ 
+        // $from_date        =  date("d-m-Y");
+        // } 
+
+        // if( $this->input->post("to_date") != NULL  ){
+        // $to_date        =  date("d-m-Y");
+        // } 
+
+        // if( $status_id == NULL  ){ 
+        // $status_id        =  0;
+        
+        //  } 
+
+
+      $data['invoice_id']        = $this->input->post("invoice_id") ;
+      $data['from_date']         = $this->input->post("from_date") ;
+      $data['to_date']           = $this->input->post("to_date") ;
+      $data['gender_id']         = $this->input->post("gender_id") ;
+
+     $data['allPdt']     = $this->patient_model->patientList($invoice_id,$from_date,$to_date,$gender_id );
+  
         $data['content']    = $this->load->view("patient-list", $data, TRUE);
         $this->load->view('layout/master', $data);
 
