@@ -85,8 +85,9 @@ public function patientregistrationsearch()
     if ($start_date && $end_date) {
         $filters['from_date'] = strtotime($start_date); 
         $filters['to_date'] = strtotime($end_date . ' 23:59:59'); 
-        $filters['patient_id'] = $patient_id;
+       
     }
+     $filters['patient_id'] = $patient_id;
     $data['allSup']     = $this->main_model->InvoiceHeader();
     $data['allPdt']     = $this->reports_model->get_patient($filters);
     
@@ -96,5 +97,27 @@ public function patientregistrationsearch()
 
   $this->load->view('reports/transaction/patient-summary', $data);
 }
+public function collectionsearch()
+{
+    $data = array();
+    $data['active'] = "loss_profits";
+    $data['title'] = "Collection Results"; 
 
+    $filters = [];
+    $start_date = $this->input->post('collection_from_date');
+    $end_date   = $this->input->post('collection_to_date');
+    
+    if ($start_date && $end_date) {
+        $filters['from_date'] = strtotime($start_date); 
+        $filters['to_date'] = strtotime($end_date . ' 23:59:59'); 
+    }
+    $data['allSup']     = $this->main_model->InvoiceHeader();
+    $data['allPdt']     = $this->reports_model->get_collection($filters);
+    
+    $data['from_date'] = $start_date;
+    $data['to_date'] = $end_date;
+   // echo "<pre>"; print_r($data['allPdt']);exit();
+
+  $this->load->view('reports/transaction/collection-summary', $data);
+}
 }

@@ -105,7 +105,9 @@ class Patient extends CI_Controller {
         if ($this->common_model->save_data("patients", $data)) {
           $id = $this->common_model->Id;
 
-       $allTest      = $this->patient_model->TestListWhere();
+          
+
+          $allTest      = $this->patient_model->TestListWhere();
 
         foreach($allTest as $test){
 
@@ -117,6 +119,22 @@ class Patient extends CI_Controller {
            
         );
            $this->common_model->save_data("bill_details", $pdata);
+
+
+           // account 
+          $taccdata = array(
+							'testinfo_id'          => $test->id,
+							'patient_id'           => $id,
+							'amount'               => $test->testFee,
+							'transaction_type'     => 'credit',
+							'payment_method'       => 'cash',
+							'transaction_date'     => strtotime($date),
+							'status'               => 'success',
+							
+						);
+
+						$this->db->insert('transactions', $taccdata);
+            
       }
           $this->session->set_flashdata('success', 'Save Successfully');
                  redirect(base_url() . "patient/invoice/$id", "refresh");

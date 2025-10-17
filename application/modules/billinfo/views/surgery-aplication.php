@@ -122,13 +122,40 @@ body {
       font-size: 15px;
     }
 
-    .small-input {
-      display: inline-block;
-      border: 1px solid #000;
-      width: 80px;
-      height: 20px;
-      text-align: center;
-    }
+ .input, .small-input {
+  display: inline-block;
+  min-width: 200px;
+  padding: 4px 8px;
+  text-align: center;
+  border-bottom: 1px dotted #000;
+  font-size: 15px;
+  line-height: 1.4;
+  vertical-align: middle;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.input.empty::after, .small-input.empty::after {
+  content: "........................................";
+  color: #999;
+  font-size: 13px;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.label {
+  font-weight: bold;
+  font-size: 15px;
+  vertical-align: middle;
+}
+
+p {
+  margin: 8px 0;
+  line-height: 1.6;
+}
+
+
+
 
     .token-box {
       display: inline-block;
@@ -140,6 +167,18 @@ body {
       font-weight: bold;
       font-size: 16px;
     }
+.full-line {
+  margin-top: 20px;   /* উপরের থেকে নিচে নামানোর জন্য */
+  margin-bottom: 10px; /* নিচে কিছু স্পেস রাখার জন্য */
+}
+
+.full-line .input {
+  display: inline-block;
+  width: 70%;          /* ফুললাইন জুড়ে থাকবে */
+  border-bottom: 1px dotted #000;
+  padding: 5px 10px;
+  text-align: center;
+}
 
     .signature {
       text-align: right;
@@ -191,11 +230,11 @@ body {
     <table>
       <tr>
         <td><span class="label">Out Door. Regn. No.:</span> <div class="small-input"></div></td>
-        <td><span class="label">Date:</span> ...........................................</td>
+        <td><span class="label">Date:</span> <div class="small-input"><?php echo date("d-m-Y",$pdt->invoice_date); ?></div></td>
       </tr>
       <tr>
         <td><span class="label">Admission Regn. No.:</span> <div class="small-input"><?php echo $pdt->registration_no; ?></div></td>
-        <td><span class="label">Gender:</span> .........................................</td>
+        <td><span class="label">Gender:</span> <div class="small-input"><?php echo $pdt->gender; ?></div></td>
       </tr>
       <tr>
         <td></td>
@@ -206,19 +245,72 @@ body {
         <td><span class="label">Invoice No.:</span> ....................................</td>
       </tr>
     </table>
+<p class="full-line">
+  <span class="label">Name:</span>
+  <span class="input"><?php echo !empty($pdt->name) ? $pdt->name : '&nbsp;'; ?></span>
+</p>
 
-    <p><span class="label">Name:</span> .......................................................................................................................................</p>
-    <p><span class="label">Father’s/Husband’s Name:</span> .........................................................................................................</p>
-    <p><span class="label">Sex:</span> ..................................... <span class="label">Age:</span> .......................... <span class="label">Caste:</span> ..........................................................</p>
-    <p><span class="label">Occupation:</span> ................................................................................................................................</p>
-    <p><span class="label">Permanent Address:</span> .....................................................................................................................</p>
-    <p><span class="label">Local Guardian:</span> ...................................... <span class="label">Telephone (if any):</span> .....................................................</p>
-    <p><span class="label">Date & Time of Admission:</span> ............................................................................................</p>
-    <p><span class="label">Date & Time of Discharge:</span> ................................................................................................</p>
-    <p><span class="label">Note for Admission:</span> .................................................................................................</p>
+<p class="full-line">
+  <span class="label">Father’s/Husband’s Name:</span>
+  <span class="input"><?php echo !empty($pdt->father_husband_name) ? $pdt->father_husband_name : '&nbsp;'; ?></span>
+</p>
 
-    <p><span class="label">Token:</span> <span class="token-box"><?php echo $pdt->serial; ?></span></p>
-    <p><span class="label">Date:</span> ........................................................</p>
+
+<p>
+  <span class="label">Sex:</span>
+  <span class="input"><?php echo !empty($pdt->gender) ? $pdt->gender : '&nbsp;'; ?></span>
+
+  <span class="label">Age:</span>
+  <span class="input"><?php echo !empty($pdt->age) ? $pdt->age : '&nbsp;'; ?></span>
+
+</p>
+<p>
+
+
+  <span class="label">Caste:</span>
+   <span class="input"><?php echo !empty($pdt->religion) ? $pdt->religion : '&nbsp;'; ?></span>
+    <span class="label">Occupation:</span>
+  <span class="input " ><?php echo !empty($pdt->occupation) ? $pdt->occupation : '&nbsp;'; ?></span>
+</p>
+
+
+<p>
+  <span class="label">Permanent Address:</span>
+  <span class="input " ><?php echo !empty($pdt->village) ? $pdt->village : '&nbsp;'; ?></span>
+</p>
+
+<p>
+  <span class="label">Local Guardian:</span>
+  <span class="input " ></span>
+
+  <span class="label">Telephone (if any):</span>
+  <span class="input " ></span>
+</p>
+
+<p>
+  <span class="label">Date & Time of Admission:</span>
+  <span class="input " ><?php echo !empty($pdt->date) ? $pdt->date : '&nbsp;'; ?></span>
+</p>
+
+<p>
+  <span class="label">Date & Time of Discharge:</span>
+  <span class="input " ></span>
+</p>
+
+<p>
+  <span class="label">Note for Admission:</span>
+  <span class="input " ></span>
+</p>
+
+<p>
+  <span class="label">Token:</span>
+  <span class="token-box"><?php echo $pdt->serial; ?></span>
+</p>
+
+<p>
+  <span class="label">Date:</span>
+  <span class="input "></span>
+</p>
 
     <div class="signature">
       Signature<br>

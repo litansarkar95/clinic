@@ -208,15 +208,24 @@ public function account(){
        $totalamount =  $this->common_model->xss_clean($this->input->post("totalamount"));
 
         $selPdt = $this->common_model->view_data("bill_info",array("id"=>$id),"id","desc");
+      
         foreach($selPdt as $pdt){
+            $invoiceNumber = $pdt->invoiceNumber;
+            $patient_id = $pdt->patient_id;
             $paidAmount = $pdt->paidAmount;
             $dueAmount = $pdt->dueAmount;
         }
+
+          if($dueAmount == $totalamount){
+                        $isPaid = "Paid";
+                    }else{
+                      $isPaid = "Due";
+                    }
       
         $data = array(
            "paidAmount"                  => $paidAmount + $totalamount  ,
            "dueAmount"                   => $dueAmount - $totalamount,
-           "isPaid"                      => $this->common_model->xss_clean($this->input->post("estatus_id")),
+           "isPaid"                      => $isPaid,
                         
             );
 
@@ -224,6 +233,30 @@ public function account(){
           
           
             if ($this->common_model->update_data("bill_info", $data,array("id"=>$id))) {
+
+
+             // Start 
+                   
+
+                    $createdate  = strtotime(date('Y-m-d H:i:s'));
+
+                    $taccdata = array(
+							'invoice_id'           => $id,
+							'patient_id'           => $patient_id,
+							'amount'               => $totalamount,
+							'transaction_type'     => 'credit',
+							'payment_method'       => 'cash',
+							'transaction_date'     => $createdate,
+							'status'               => 'success',
+							
+						);
+
+						$this->db->insert('transactions', $taccdata);
+
+
+             // End
+
+
                 $this->session->set_flashdata('success', 'Update Successfully');
             }
             else{

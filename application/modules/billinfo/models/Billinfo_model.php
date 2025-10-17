@@ -85,13 +85,31 @@ $is_surgery = $this->input->post('is_surgery') ? 1 : 0;
 		
 		/// Accounts  
 			$accdata = array(
-							'sales_id'           => $returnid,
-							'transaction_date'   => $sales_newdate,
-							'debit'              => $this->input->post('dis_grandTotal', TRUE),
-							'credit'             => $this->input->post('payment_amount',TRUE),
+							'invoice_id'           => $returnid,
+							'patient_id'           => $this->input->post('patient_id', TRUE),
+							'amount'               => $this->input->post('gtotal_amount', TRUE),
+							'transaction_type'     => 'debit',
+							'transaction_date'     => $sales_newdate,
+							'status'               => 'success',
+							
 						);
 
-						$this->db->insert('account_statement', $accdata);
+						$this->db->insert('transactions', $accdata);
+
+						if($this->input->post('payment_amount',TRUE) > 0){
+							$taccdata = array(
+							'invoice_id'           => $returnid,
+							'patient_id'           => $this->input->post('patient_id', TRUE),
+							'amount'               => $this->input->post('payment_amount',TRUE),
+							'transaction_type'     => 'credit',
+							'payment_method'       => 'cash',
+							'transaction_date'     => $sales_newdate,
+							'status'               => 'success',
+							
+						);
+
+						$this->db->insert('transactions', $taccdata);
+						}
 		
 		// end Accounts
 		
@@ -201,7 +219,7 @@ $is_surgery = $this->input->post('is_surgery') ? 1 : 0;
 		
 				
 		
-			$this->db->select("bill_info.* , patients.name , patients.mobile_no , patients.registration_no ,  patients.gender , patients.age , patients.religion , patients.father_husband_name, patients.adult_child, doctors.name doctors_name, doctors.degree,  country.name nationality ,occupation.name occupation , operation.serial ");
+			$this->db->select("bill_info.* , patients.name , patients.mobile_no , patients.registration_no ,  patients.gender ,  patients.village, patients.age , patients.religion , patients.father_husband_name, patients.adult_child, doctors.name doctors_name, doctors.degree,  country.name nationality ,occupation.name occupation , operation.serial ,operation.date");
 			$this->db->from("bill_info");
 			$this->db->join('patients', "bill_info.patient_id = patients.id ",'left');
 			$this->db->join('country', "country.id = patients.nationality_id ",'left');

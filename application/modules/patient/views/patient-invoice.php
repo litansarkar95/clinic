@@ -19,7 +19,16 @@
   border-radius: 4px;
   font-weight: bold;
 }
+.box {
+  border: 1px solid #999;
+  background: #fcfcfc;
+}
 
+.header {
+  text-align: center;
+  padding: 0;
+  margin: 0;
+}
 
   .print-btn  , .btn{
     text-align: center;
@@ -41,14 +50,16 @@
   }
 
   .form-container {
-    background: #fff;
-    border: 1px solid #000;
-    padding: 18px 22px;
-    width: 148mm; /* A5 size */
-    height: 210mm;
-    margin: auto;
-    box-sizing: border-box;
-  }
+  background: #fff;
+  border: none;
+  padding: 12px;
+  width: 100%;
+  max-width: 148mm;
+  min-height: auto;
+  margin: auto;
+  box-sizing: border-box;
+}
+
 
   .header {
     text-align: center;
@@ -147,23 +158,59 @@
     margin: 10mm;
   }
 
-  @media print {
-    body {
-      background: white;
-      margin: 0;
-    }
-    .print-btn {
-      display: none;
-    }
-    .form-container {
-      border: 1px solid #000;
-      width: 100%;
-      height: auto;
-      margin: 0;
-      padding: 10mm;
-    }
+@page {
+  size: A5 portrait;
+  margin: 5mm; /* আগের থেকে কম */
+}
+
+@media print {
+  body {
+    background: white;
+    margin: 0;
   }
-  
+
+  .print-btn {
+    display: none;
+  }
+
+  .form-container {
+    border: none;
+    width: 100%;
+    height: auto;
+    margin: 0;
+    padding: 0;
+  }
+
+  .header {
+    margin-top: 0;
+    padding-top: 0;
+  }
+}
+
+  .header-logos {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo {
+  width: 60px;
+  height: auto;
+}
+
+.clinic-info {
+  text-align: center;
+  flex: 1;
+}
+
+.left-logo {
+  margin-right: 10px;
+}
+
+.right-logo {
+  margin-left: 10px;
+}
+
 </style>
 </head>
 <body>
@@ -175,17 +222,24 @@
 </div>
 
 <div class="form-container">
-  <div class="header">
-    <h2><?php echo $allSup['name'] ?></h2>
-    <p><?php echo $allSup['address'] ?></p>
-    <p>Phone: <?php echo $allSup['phone'] ?></p>
-    <h3>Patient Registration Form</h3>
+ <div class="header">
+  <div class="header-logos">
+    <img src="<?php echo base_url()."assets/images/".$allSup['favicon']?>" alt="Left Logo" class="logo left-logo">
+    <div class="clinic-info">
+      <h2><?php echo $allSup['name'] ?></h2>
+      <p><?php echo $allSup['address'] ?></p>
+      <p>Phone: <?php echo $allSup['phone'] ?></p>
+      <h3>Patient Registration Form</h3>
+    </div>
+    <img src="<?php echo base_url()."assets/images/".$allSup['logo']?>" alt="Right Logo" class="logo right-logo">
   </div>
+</div>
+
 
   <table class="info-table">
     <tr>
       <td class="label">Patient ID:</td>
-      <td><span class="box">P-<?= $patient->registration_int_no; ?></span></td>
+      <td><span class="box"><?= $patient->registration_no; ?></span></td>
       <td class="label">Age:</td>
       <td><span class="box"><?= $patient->age; ?></span></td>
     </tr>

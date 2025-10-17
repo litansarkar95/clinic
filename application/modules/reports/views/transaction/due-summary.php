@@ -109,6 +109,7 @@
                     <th>SL</th>
                     <th>Bill No</th>
                     <th>Bill Date</th>
+                    <th>Name</th>
                     <th>Due Amount</th>
                    
                 </tr>
@@ -133,6 +134,7 @@
         <td><?php echo $i; $i++; ?></td>
         <td><?php echo $pdt->invoiceNumber; ?></td>
         <td><?php echo date("d-m-Y",$pdt->	transaction_date); ?></td>
+         <td><?php echo $pdt->registration_no." - ".$pdt->name; ?></td>
         <td><?php echo number_format($pdt->dueAmount, 2); ?></td>
 
        
@@ -144,7 +146,7 @@
     ?>
     <!-- Display total debit and credit -->
     <tr>
-        <td colspan="3"><strong>Total</strong></td>
+        <td colspan="4"><strong>Total</strong></td>
         <td><strong><?php echo number_format($total_subTotal, 2); ?></strong></td>
      
     </tr>

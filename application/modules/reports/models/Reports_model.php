@@ -3,7 +3,7 @@
 class Reports_model extends CI_Model {
 
       public function TransactionReports($filters = []) {
-        $this->db->select("bill_info.*, patients.name ");
+        $this->db->select("bill_info.*, patients.name , patients.registration_no ");
         $this->db->from('bill_info');
 		$this->db->join('patients', "bill_info.patient_id = patients.id ",'left');
        
@@ -65,22 +65,23 @@ public function get_testinfo_summary_by_category($filters)
     return $query->result();
 }
      public function DueTransactionReports($filters = []) {
-        $this->db->select("account_statement.*  , bill_info.invoiceNumber, bill_info.dueAmount");
-        $this->db->from('account_statement');
-       
-        $this->db->join('bill_info', "account_statement.sales_id = bill_info.id", 'left');
-        if (!empty($filters['from_date']) && !empty($filters['to_date'])) {
-            $from_date_timestamp = strtotime($filters['from_date']);
-            $to_date_timestamp = strtotime($filters['to_date']);
-        
-            $this->db->where('account_statement.transaction_date >=', $from_date_timestamp);
-            $this->db->where('account_statement.transaction_date <=', $to_date_timestamp);
-        }
-         $this->db->where('bill_info.isPaid', "DUE");
-        $query = $this->db->get();
-        return $query->result();
-        
+    $this->db->select("bill_info.*, patients.name, patients.registration_no");
+    $this->db->from('bill_info');
+    $this->db->join('patients', "bill_info.patient_id = patients.id", 'left');
+
+    if (!empty($filters['from_date']) && !empty($filters['to_date'])) {
+        $from_date_timestamp = strtotime($filters['from_date']);
+        $to_date_timestamp = strtotime($filters['to_date']);
+    
+        $this->db->where('bill_info.invoice_date >=', $from_date_timestamp);
+        $this->db->where('bill_info.invoice_date <=', $to_date_timestamp);
     }
+    $this->db->where_in('bill_info.isPaid', ["Due", "Partially"]);
+
+    $query = $this->db->get();
+    return $query->result();
+}
+
 
         public function get_testinfo_Operation($filters = []) {
         $this->db->select("operation.*  , patients.name, patients.mobile_no , doctors.name doctor_name");
@@ -134,6 +135,30 @@ public function get_testinfo_summary_by_category($filters)
          
             $this->db->where('patients.id', $patient_id);
         }
+        $query = $this->db->get();
+        return $query->result();
+        
+    }
+      public function get_collection($filters = []) {
+        $this->db->select("transactions.* ,patients.name , patients.registration_no , bill_info.invoiceNumber" );
+        $this->db->from('transactions');
+       
+        $this->db->join('patients', "transactions.patient_id = patients.id", 'left');
+        $this->db->join('bill_info', "transactions.invoice_id = bill_info.id", 'left');
+
+        if (!empty($filters['from_date']) && !empty($filters['to_date'])) {
+         
+
+            $from_date_time = $filters['from_date'];
+            $to_date_time   = $filters['to_date'];
+
+          
+        
+            $this->db->where('transactions.transaction_date >=', $from_date_time);
+            $this->db->where('transactions.transaction_date <=', $to_date_time);
+        }
+              $this->db->where('transactions.transaction_type', 'credit');
+          
         $query = $this->db->get();
         return $query->result();
         

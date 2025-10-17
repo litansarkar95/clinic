@@ -142,7 +142,7 @@
     <tr>
         <td><?php echo $i; $i++; ?></td>
         <td><?php echo $pdt->invoiceNumber; ?></td>
-		 <td><?php echo $pdt->name; ?></td>
+		 <td><?php echo $pdt->registration_no." - ".$pdt->name; ?></td>
         <td><?php echo date("d-m-Y",$pdt->invoice_date); ?></td>
         <td><?php echo number_format($pdt->subTotal, 2); ?></td>
         <td><?php echo number_format($pdt->totalDisAmount, 2); ?></td>

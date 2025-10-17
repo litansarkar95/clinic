@@ -178,20 +178,7 @@
                             </div>
 
 
-                            <div class="row mb-3">
-                              <div class="col-12">
-                                <label for="estatus_id">Status</label>
-                                <div class="select_optino">
-                                  <select name="estatus_id" id="estatus_id" class="form-control frm_select">
-                                    <option value="">Select </option>
-                                    <option value="Paid">Paid</option>
-                                    <option value="Due">Due</option>
-                                    <option value="Partially">Partially</option>
-                                  </select>
-                                  <i class="fas fa-caret-down"></i>
-                                </div>
-                              </div>
-                            </div>
+                       
                             <div class="modal-footer">
                               <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
                                 Cancel
@@ -208,6 +195,7 @@
                   </div>
             </div>
           </div>
+
 
 
 
@@ -288,3 +276,4 @@
 
 
 </script>
+

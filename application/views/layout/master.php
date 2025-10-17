@@ -34,8 +34,11 @@
 					<div class="col-12">
 						<div class="header_container">
 							<div class="header_left">
+								<?php
+								$allSup    = $this->main_model->InvoiceHeader();
+								?>
 								<div class="logo_part">
-									<a href="<?php echo base_url(); ?>dashboard" class="my_logo">Clinic</a>
+									<a href="<?php echo base_url(); ?>dashboard" class="my_logo"> <img src="<?php echo base_url()."assets/images/".$allSup['favicon']?>" alt="Left Logo" style="width:40px;" class="logo left-logo"></a>
 								</div>
 
 								<!-- sidebar toggle button -->

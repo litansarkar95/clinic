@@ -213,6 +213,45 @@
                               </form>
                          </div>
 		 <!--- End Operation Reports -->
+
+
+              <!--- Start Collection Reports -->
+ 		 <div class="col-md-4 mt-3">
+                              <form action="<?php echo base_url() ?>reports/testinfo/collectionsearch" method="post"
+                                   target="_blank" class="input_form">
+                                   <div class="col-auto">
+                                        <h4>Collection Reports</h3>
+                                   </div>
+                                   <hr>
+                                   <div class="row">
+
+
+                                        <div class=" col-md-12 mb-3">
+                                             <label for="collection_from_date">From Date</label>
+                                             <input type="text" id="collection_from_date" class="form-control from_date" name="collection_from_date"
+                                                  value="<?php echo set_value('collection_from_date'); ?>">
+                                             <span class="text-red small">
+                                                  <?php echo form_error('collection_from_date'); ?>
+                                             </span>
+                                        </div>
+                                        <div class="col-md-12  mb-3">
+                                             <label for="collection_to_date">To Date</label>
+                                             <input type="text" id="collection_to_date" class="form-control to_date" name="collection_to_date"
+                                                  value="<?php echo set_value('collection_to_date'); ?>">
+                                        </div>
+
+                                                
+
+                                        <div class="row">
+                                             <div class="col-12">
+                                                  <button type="submit" class="btn btn_bg">Search</button>
+                                             </div>
+                                        </div>
+
+			       </div>
+                              </form>
+                         </div>
+		 <!--- End Collection Reports -->
                  
                </div>
           </div>

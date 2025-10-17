@@ -89,6 +89,7 @@
     border-bottom: 1px dotted #000;
     display: inline-block;
     min-width: 200px;
+    text-align:center;
   }
 
   /* ✅ Signature section fully right side */

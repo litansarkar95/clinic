@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Purchase Reports</title>
+    <title>Collection Reports</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -97,7 +97,7 @@
         </div>
         <div class="header">
             <h1><?php echo  $com['name']; ?></h1>
-            <h2>Purchase Reports</h2>
+            <h2>Collection Reports</h2>
             <p><strong>From:</strong> <?php echo $from_date; ?> <strong>To:</strong> <?php echo $to_date; ?></p>
             <div class="date">Print Date: <?php echo date('Y-m-d H:i:s');  // Format: YYYY-MM-DD HH:MM:SS
 ?></div>
@@ -107,46 +107,33 @@
             <thead>
                 <tr>
                     <th>SL</th>
-                    <th>Invoice</th>
+                    <th>Invoice No</th>
+                    <th> Date</th>
                     <th>Name</th>
-                    <th>Total Amount</th>
-                    <th>Discount Amount</th>
-                    <th>Paid Amount</th>
-                    <th>Due Amount</th>
-                    <th>Payment Type</th>
-                    <th>Purchase Date</th>
+                    <th> Amount</th>
                    
                 </tr>
             </thead>
             <tbody>
     <?php
     $i = 1;
-    $total_grand_total = 0;
-    $total_discountAmount = 0;
-    $total_total_paidAmount = 0;  // Cumulative balance
-    $total_dueAmount = 0;  // Cumulative balance
+    $total_subTotal = 0;
+
 
     if(isset($allPdt)){
         foreach($allPdt as $pdt){
             // Update total debit and total credit
-            $total_grand_total += $pdt->totalAmount;
-            $total_discountAmount+= $pdt->discountAmount;
-            $total_total_paidAmount += $pdt->paidAmount;
-            $total_dueAmount+= $pdt->dueAmount;
+            $total_subTotal += $pdt->amount;
             // Update the balance (cumulative)
          
     ?>
     <tr>
         <td><?php echo $i; $i++; ?></td>
         <td><?php echo $pdt->invoiceNumber; ?></td>
-        <td><?php echo $pdt->name." ".$pdt->contact_no; ?></td>
-        <td><?php echo number_format($pdt->totalAmount, 2); ?></td>
-        <td><?php echo number_format($pdt->discountAmount, 2); ?></td>
-        <td><?php echo number_format($pdt->paidAmount, 2); ?></td>
-        <td><?php echo number_format($pdt->dueAmount, 2); ?></td>
-        
-        <td><?php echo $pdt->paymentType; ?></td>
-        <td><?php echo date("d-m-Y",$pdt->saleDate); ?></td>
+        <td><?php echo date("d-m-Y",$pdt->transaction_date); ?></td>
+         <td><?php echo $pdt->registration_no." - ".$pdt->name; ?></td>
+        <td><?php echo number_format($pdt->amount, 2); ?></td>
+
        
       
     </tr>
@@ -156,11 +143,9 @@
     ?>
     <!-- Display total debit and credit -->
     <tr>
-        <td colspan="3"><strong>Total</strong></td>
-        <td><strong><?php echo number_format($total_grand_total, 2); ?></strong></td>
-        <td><strong><?php echo number_format($total_discountAmount, 2); ?></strong></td>
-        <td><strong><?php echo number_format($total_total_paidAmount, 2); ?></strong></td>
-        <td><strong><?php echo number_format($total_dueAmount, 2); ?></strong></td>
+        <td colspan="4"><strong>Total</strong></td>
+        <td><strong><?php echo number_format($total_subTotal, 2); ?></strong></td>
+     
     </tr>
 </tbody>
         </table>

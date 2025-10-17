@@ -370,8 +370,8 @@ $("#registration_date,.to_date").val(today);
                     if(response.status == 'success' && response.data.length > 0) {
                         // Loop through the results
                         $.each(response.data, function(index, patient) {
-                            html += '<div class="patient-result-card" data-id="' + patient.id + '" data-name="' + patient.name + '" data-adult_child="'  + patient.adult_child + '" data-reference="'  + patient.doctor + '" data-mobile="' + patient.mobile_no +  '" data-gender="' + patient.gender +  '" data-father="' + patient.father_husband_name + '" data-age="' + patient.age + '" data-reg-no="' + patient.registration_no + '">';
-                           html += '<div class="patient-result-card-header">' + patient.name + ' ' + patient.mobile_no + '</div>';
+                            html += '<div class="patient-result-card" data-id="' + patient.id + '" data-name="' + patient.name +  '" data-registration_no="'  + patient.registration_no + '" data-adult_child="'  + patient.adult_child + '" data-reference="'  + patient.doctor + '" data-mobile="' + patient.mobile_no +  '" data-gender="' + patient.gender +  '" data-father="' + patient.father_husband_name + '" data-age="' + patient.age + '" data-reg-no="' + patient.registration_no + '">';
+                           html += '<div class="patient-result-card-header">' + patient.registration_no + ' ' + patient.name + ' - ' + patient.father_husband_name +'</div>';
 
                           
                             html += '</div>';
@@ -516,6 +516,25 @@ $("#registration_date,.to_date").val(today);
             $('.discount_type').change(function() {
                 calculateDueAmount();
             });
+
+
+             // Start Alert
+            $('#paymentAmount').on('input', function() {
+                var payment = parseFloat($(this).val()) || 0;
+                var total = parseFloat($('#dis_grandTotal').val()) || 0;
+
+                if (payment > total) {
+                    alert("❌ Payment Amount cannot be greater than the Total Amount.");
+                    $(this).val(total.toFixed(2)); 
+                    setTimeout(function() {
+                        calculateDueAmount();
+                    }, 50); // 50ms delay
+                } else {
+                    calculateDueAmount();
+                }
+            });
+
+            // End Alert 
             
             // Function to calculate due amount
             function calculateDueAmount() {
@@ -577,6 +596,12 @@ function fetchSerial(selectedDate) {
     console.error("Error:", error);
   });
 }
+
+</script>
+
+
+<script>
+
 
 </script>
 

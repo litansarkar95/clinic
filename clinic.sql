@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 17, 2025 at 06:31 AM
+-- Generation Time: Oct 17, 2025 at 11:45 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -40,15 +40,6 @@ CREATE TABLE `account_statement` (
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
---
--- Dumping data for table `account_statement`
---
-
-INSERT INTO `account_statement` (`id`, `sales_id`, `type`, `transaction_date`, `description`, `debit`, `adjustment`, `credit`, `balance`, `created_at`) VALUES
-(1220, 1215, '', 1760464800, NULL, 600.00, 0.00, 0.00, 0.00, '2025-10-15 09:40:12'),
-(1221, 1216, '', 1760464800, NULL, 900.00, 0.00, 0.00, 0.00, '2025-10-15 10:24:48'),
-(1222, 1217, '', 1760551200, NULL, 100.00, 0.00, 0.00, 0.00, '2025-10-16 04:08:58');
-
 -- --------------------------------------------------------
 
 --
@@ -81,21 +72,6 @@ CREATE TABLE `bill_details` (
   `comments` text NOT NULL,
   `create_date` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `bill_details`
---
-
-INSERT INTO `bill_details` (`id`, `bill_id`, `registration_id`, `test_info_id`, `price`, `comments`, `create_date`) VALUES
-(1272, 0, 1232, 54, 100, '', 1760520126),
-(1273, 1215, 0, 55, 500, '', 1760521212),
-(1274, 1215, 0, 54, 100, '', 1760521212),
-(1275, 1216, 0, 57, 200, '', 1760523885),
-(1276, 1216, 0, 59, 500, '', 1760523885),
-(1277, 1216, 0, 54, 100, '', 1760523885),
-(1278, 1216, 0, 56, 100, '', 1760523885),
-(1279, 0, 1233, 54, 100, '', 1760587426),
-(1280, 1217, 0, 54, 100, '', 1760587737);
 
 -- --------------------------------------------------------
 
@@ -133,15 +109,6 @@ CREATE TABLE `bill_info` (
   `created_at` int(11) NOT NULL,
   `updated_at` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `bill_info`
---
-
-INSERT INTO `bill_info` (`id`, `month`, `day`, `year`, `serial_no`, `registration_int_no`, `registration_no`, `ip_address`, `date_code`, `month_code`, `code_random`, `invoiceNumber`, `patient_id`, `doctor_id`, `subTotal`, `discountType`, `discountAmount`, `totalDisAmount`, `isPaid`, `totalAmount`, `paidAmount`, `dueAmount`, `paymentType`, `invoice_date`, `is_surgery`, `status`, `created_at`, `updated_at`) VALUES
-(1215, 0, 0, 0, 0, 0, '', '::1', '2025', 10, 1, 'INV-000001', 1232, 0, 600, 'flat', 0, 0, 'Due', 600, 0, 600, 'Cash', 1760464800, 1, 1, 1760521212, 0),
-(1216, 0, 0, 0, 0, 0, '', '::1', '2025', 10, 2, 'INV-000002', 1232, 0, 900, 'flat', 0, 0, 'Due', 900, 0, 900, 'Cash', 1760464800, 1, 1, 1760523885, 0),
-(1217, 0, 0, 0, 0, 0, '', '::1', '2025', 10, 3, 'R-0003', 1232, 0, 100, 'flat', 0, 0, 'Due', 100, 0, 100, 'Cash', 1760551200, 0, 1, 1760587737, 0);
 
 -- --------------------------------------------------------
 
@@ -251,8 +218,7 @@ CREATE TABLE `districts` (
 --
 
 INSERT INTO `districts` (`id`, `name`, `is_active`, `create_date`) VALUES
-(1, 'Cumilla', 1, 1759898283),
-(2, 'sdsdds', 1, 1759922251);
+(1, 'Cumilla', 1, 1759898283);
 
 -- --------------------------------------------------------
 
@@ -620,7 +586,7 @@ CREATE TABLE `login_credential` (
 
 INSERT INTO `login_credential` (`id`, `user_id`, `username`, `password`, `role`, `active`, `last_login`, `created_at`, `updated_at`) VALUES
 (1, 1, 'litan@gmail.com', 'UHZVdVBOTWI0VkwrN0MvQjRRRUZkdz09', 1, 1, '2024-12-18 10:29:18', '2024-10-21 15:42:57', '2025-03-11 12:50:11'),
-(2, 6, 'admin@gmail.com', 'UHZVdVBOTWI0VkwrN0MvQjRRRUZkdz09', 2, 1, '2025-10-17 09:26:22', '2024-11-16 23:35:56', '2025-10-17 09:26:22');
+(2, 6, 'admin@gmail.com', 'UHZVdVBOTWI0VkwrN0MvQjRRRUZkdz09', 2, 1, '2025-10-17 14:33:57', '2024-11-16 23:35:56', '2025-10-17 14:33:57');
 
 -- --------------------------------------------------------
 
@@ -674,7 +640,17 @@ INSERT INTO `logs` (`id`, `message`, `record_id`, `user_id`, `action`, `ip_addre
 (26, 'Record deleted On setting id ', NULL, 6, 'Update', '::1', 'Windows 10', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWeb', '2025-10-16 09:17:38', '2025-10-16'),
 (27, 'Record deleted On setting id ', NULL, 6, 'Update', '::1', 'Windows 10', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWeb', '2025-10-16 09:18:51', '2025-10-16'),
 (28, 'Record deleted On setting id ', NULL, 6, 'Update', '::1', 'Windows 10', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWeb', '2025-10-16 09:20:03', '2025-10-16'),
-(29, 'Record deleted On setting id ', NULL, 6, 'Update', '::1', 'Windows 10', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWeb', '2025-10-17 03:36:07', '2025-10-17');
+(29, 'Record deleted On setting id ', NULL, 6, 'Update', '::1', 'Windows 10', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWeb', '2025-10-17 03:36:07', '2025-10-17'),
+(30, 'New Record inserted On patients id 1234', 1234, 6, 'Insert', '::1', 'Windows 10', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWeb', '2025-10-17 05:41:37', '2025-10-17'),
+(31, 'New Record inserted On bill_details id 1281', 1281, 6, 'Insert', '::1', 'Windows 10', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWeb', '2025-10-17 05:41:37', '2025-10-17'),
+(32, 'New Record inserted On patients id 1235', 1235, 6, 'Insert', '::1', 'Windows 10', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWeb', '2025-10-17 05:42:35', '2025-10-17'),
+(33, 'New Record inserted On bill_details id 1282', 1282, 6, 'Insert', '::1', 'Windows 10', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWeb', '2025-10-17 05:42:35', '2025-10-17'),
+(34, 'New Record inserted On patients id 1236', 1236, 6, 'Insert', '::1', 'Windows 10', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWeb', '2025-10-17 05:44:45', '2025-10-17'),
+(35, 'New Record inserted On bill_details id 1283', 1283, 6, 'Insert', '::1', 'Windows 10', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWeb', '2025-10-17 05:44:45', '2025-10-17'),
+(36, 'Record deleted On bill_info id ', NULL, 6, 'Update', '::1', 'Windows 10', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWeb', '2025-10-17 09:35:52', '2025-10-17'),
+(37, 'Record deleted On bill_info id ', NULL, 6, 'Update', '::1', 'Windows 10', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWeb', '2025-10-17 09:37:24', '2025-10-17'),
+(38, 'Record deleted On bill_info id ', NULL, 6, 'Update', '::1', 'Windows 10', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWeb', '2025-10-17 09:37:51', '2025-10-17'),
+(39, 'Record deleted On bill_info id ', NULL, 6, 'Update', '::1', 'Windows 10', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWeb', '2025-10-17 09:39:16', '2025-10-17');
 
 -- --------------------------------------------------------
 
@@ -713,14 +689,6 @@ CREATE TABLE `operation` (
   `created_at` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `operation`
---
-
-INSERT INTO `operation` (`id`, `bill_id`, `date`, `patient_id`, `surgery_dr_id`, `serial`, `created_at`) VALUES
-(3, 1215, '2025-10-16', 1232, 14, 1, 1760521212),
-(4, 1216, '2025-10-16', 1232, 14, 2, 1760523885);
-
 -- --------------------------------------------------------
 
 --
@@ -754,14 +722,6 @@ CREATE TABLE `patients` (
   `create_date` int(11) NOT NULL,
   `registration_int_no` int(11) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `patients`
---
-
-INSERT INTO `patients` (`id`, `month`, `day`, `year`, `serial_no`, `registration_no`, `name`, `registration_date`, `father_husband_name`, `mobile_no`, `gender`, `age`, `district_id`, `upazilla_id`, `village`, `occupation_id`, `religion`, `nationality_id`, `doctor_id`, `adult_child`, `bed_type`, `bed`, `is_active`, `create_date`, `registration_int_no`) VALUES
-(1232, 10, 15, 2025, 1, 'R-0001', 'Md Litan Sarkar', 1760464800, 'Ibrahim', '01829107469', 'Male', '29', 1, 2, 'Shoboki', 1, 'Islam', 1, 14, 'Adult', '', '', 1, 1760520126, 1),
-(1233, 10, 16, 2025, 1, 'P-0002', 'Monira', 1760551200, 'Idis', '0292826', 'Male', '21', 1, 3, 'fssdfdfddf', 1, 'Islam', 1, 14, 'Adult', '', '', 1, 1760587426, 2);
 
 -- --------------------------------------------------------
 
@@ -898,17 +858,24 @@ CREATE TABLE `testinfo` (
   `create_date` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+-- --------------------------------------------------------
+
 --
--- Dumping data for table `testinfo`
+-- Table structure for table `transactions`
 --
 
-INSERT INTO `testinfo` (`id`, `name`, `categories_id`, `testFee`, `is_active`, `create_date`) VALUES
-(54, 'Out Door Fee', 4, 100, 1, 1760519749),
-(55, 'Urine Test', 3, 500, 1, 1760519783),
-(56, 'Blood Test', 3, 100, 1, 1760519810),
-(57, 'Samll Bed', 5, 200, 1, 1760523763),
-(58, 'Medium Bed', 5, 300, 1, 1760523775),
-(59, 'Big Bed', 5, 500, 1, 1760523787);
+CREATE TABLE `transactions` (
+  `transaction_id` int(11) NOT NULL,
+  `invoice_id` int(11) NOT NULL,
+  `testinfo_id` int(11) NOT NULL,
+  `patient_id` int(11) DEFAULT NULL,
+  `amount` decimal(10,2) NOT NULL,
+  `transaction_type` enum('credit','debit') NOT NULL,
+  `payment_method` enum('cash','bkash','nagad','card','bank_transfer') DEFAULT NULL,
+  `transaction_date` int(11) DEFAULT NULL,
+  `status` enum('pending','success','failed') DEFAULT 'pending',
+  `description` text DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -1062,6 +1029,12 @@ ALTER TABLE `testinfo`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `transactions`
+--
+ALTER TABLE `transactions`
+  ADD PRIMARY KEY (`transaction_id`);
+
+--
 -- Indexes for table `upazila`
 --
 ALTER TABLE `upazila`
@@ -1087,13 +1060,13 @@ ALTER TABLE `auth_users_info`
 -- AUTO_INCREMENT for table `bill_details`
 --
 ALTER TABLE `bill_details`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1281;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1287;
 
 --
 -- AUTO_INCREMENT for table `bill_info`
 --
 ALTER TABLE `bill_info`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1218;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1221;
 
 --
 -- AUTO_INCREMENT for table `categories`
@@ -1147,7 +1120,7 @@ ALTER TABLE `login_credential`
 -- AUTO_INCREMENT for table `logs`
 --
 ALTER TABLE `logs`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
 
 --
 -- AUTO_INCREMENT for table `occupation`
@@ -1165,7 +1138,7 @@ ALTER TABLE `operation`
 -- AUTO_INCREMENT for table `patients`
 --
 ALTER TABLE `patients`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1234;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1237;
 
 --
 -- AUTO_INCREMENT for table `roles`
@@ -1190,6 +1163,12 @@ ALTER TABLE `staff`
 --
 ALTER TABLE `testinfo`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=60;
+
+--
+-- AUTO_INCREMENT for table `transactions`
+--
+ALTER TABLE `transactions`
+  MODIFY `transaction_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `upazila`

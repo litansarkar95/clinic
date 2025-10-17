@@ -130,7 +130,7 @@
     <!-- Header -->
     <div class="header">
       <h1><?php echo $com['name']; ?></h1>
-      <h2>Operation Reports</h2>
+      <h2>Patient Registration Reports </h2>
       <p><strong>From:</strong> <?php echo $from_date; ?> &nbsp;&nbsp; <strong>To:</strong> <?php echo $to_date; ?></p>
       <div class="date">Print Date: <?php echo date('d-m-Y H:i:s'); ?></div>
     </div>
