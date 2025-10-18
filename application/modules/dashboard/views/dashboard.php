@@ -38,6 +38,18 @@
                         </div>
                       </a>
                     </div>
+                   <div class="col-6 col-sm-6 col-md-3 pb-4">
+                      <a href="<?php echo base_url(); ?>billinfo/list" class="crd_4_link">
+                        <div class="dashbord_card4 dashbord_card4_bg1">
+                          <div class="card_top">
+                            <span><i class="fas fa-list"></i></span>
+                          </div>
+                          <div class="card_bottom">
+                            <h3>Patient Invoice List </h3>
+                          </div>
+                        </div>
+                      </a>
+                    </div>
                     <div class="col-6 col-sm-6 col-md-3 pb-4">
                       <a href="<?php echo base_url(); ?>reports/testinfo" class="crd_4_link">
                         <div class="dashbord_card4 dashbord_card4_bg4">

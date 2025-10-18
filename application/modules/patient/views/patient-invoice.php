@@ -67,7 +67,12 @@
     padding-bottom: 6px;
     margin-bottom: 12px;
   }
-
+ .header h1 {
+    margin: 0;
+    font-size: 24px;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+  }
   .header h2 {
     margin: 0;
     font-size: 20px;
@@ -152,11 +157,7 @@
     font-size: 15px;
   }
 
-  /* PRINT SETTINGS */
-  @page {
-    size: A5 portrait;
-    margin: 10mm;
-  }
+ 
 
 @page {
   size: A5 portrait;
@@ -218,7 +219,7 @@
 <div class="print-btn">
   <a class="btn btn-back" href="<?php echo base_url()."patient/create"?>">Back</a>
   <button onclick="window.print()">🖨️ Print Invoice</button>
-  <a class="btn" href="<?php echo base_url()."patient/registrationinvoice/$id"?>">Consent Letter </a>
+  <a class="btn" target="_blank" href="<?php echo base_url()."patient/registrationinvoice/$id"?>">Consent Letter </a>
 </div>
 
 <div class="form-container">
@@ -226,6 +227,7 @@
   <div class="header-logos">
     <img src="<?php echo base_url()."assets/images/".$allSup['favicon']?>" alt="Left Logo" class="logo left-logo">
     <div class="clinic-info">
+      <h1><?php echo $allSup['title'] ?></h1>
       <h2><?php echo $allSup['name'] ?></h2>
       <p><?php echo $allSup['address'] ?></p>
       <p>Phone: <?php echo $allSup['phone'] ?></p>

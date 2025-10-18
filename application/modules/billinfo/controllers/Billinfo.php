@@ -123,12 +123,13 @@ class Billinfo extends CI_Controller {
     {
         $data = array();
         $data['active']     = "sales";
-        $data['title']      = "Sales Invoice"; 
+        $data['title']      = " Invoice"; 
         $data['id']         = $id;
 
         $data['allSup']     = $this->main_model->InvoiceHeader();
         $data['allPdt']     = $this->billinfo_model->BillList($id);
         $data['allDdt']     = $this->billinfo_model->BillDetailsList($id);
+        $data['surgery']     = $this->billinfo_model->SurgeryDoctorName($id);
        // print_r( $data['allPdt'] );exit();
         $this->load->view('billinfo/billinfo-invoice', $data);
 
@@ -137,7 +138,7 @@ class Billinfo extends CI_Controller {
     {
         $data = array();
         $data['active']     = "sales";
-        $data['title']      = "Sales Invoice"; 
+        $data['title']      = "ADMISSION TICKET"; 
         $data['id']         = $id;
 
         $data['allSup']     = $this->main_model->InvoiceHeader();

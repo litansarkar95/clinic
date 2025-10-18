@@ -157,6 +157,7 @@ if (isset($allPdt)) {
 <div class="logo-header">
     <img src="<?php echo base_url()."assets/images/".$allSup['favicon']?>" alt="Logo Left">
     <div class="hospital-info">
+        <div class="hospital-name"><?php echo $allSup['title']; ?></div>
         <div class="hospital-name"><?php echo $allSup['name']; ?></div>
         <div class="hospital-address"><?php echo $allSup['address']; ?></div>
         <div class="hospital-contact">Mobile: <?php echo $allSup['phone']; ?></div>
@@ -187,7 +188,20 @@ if (isset($allPdt)) {
     </tr>
     <tr>
         <td class="label">Ref. Doctor:</td>
-        <td colspan="3"><?php echo $pdt->doctors_name." - ".$pdt->degree; ?></td>
+        <td colspan="3">
+            
+            <?php
+            if($pdt->is_surgery == 1){
+           echo $surgery->doctor_name." - ".$surgery->doctor_degree;
+
+            }else{
+            ?>
+            <?php echo $pdt->doctors_name." - ".$pdt->degree; ?>
+        <?php
+            }
+        ?>
+        
+        </td>
     </tr>
 </table>
 

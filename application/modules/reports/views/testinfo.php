@@ -84,7 +84,7 @@
                               <form action="<?php echo base_url() ?>reports/testinfo/search" method="post"
                                    target="_blank" class="input_form">
                                    <div class="col-auto">
-                                        <h3>Test Reports</h3>
+                                        <h3>Category Reports</h3>
                                    </div>
                                    <hr>
                                    <div class="row">

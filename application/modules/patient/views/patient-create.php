@@ -114,9 +114,11 @@ $("#registration_date,.to_date").val(today);
                                  <input type="text" id="age" class="form-control" name="age"  value="<?php echo set_value('age'); ?>" required>
                                  <span class="text-red small"><?php echo form_error('age'); ?></span>
                               </div>
+                           
                                <div class="form-group col-md-3">
                                  <label for="district_id">District</label>
-                                 <select type="text" id="district_id" class="form-control" name="district_id"  required>
+                                 <div class="select_2_container">
+                                 <select type="text" id="district_id"  class="form-control frm_select select2" name="district_id"  required>
                                     <option value=""><?php echo display('select'); ?></option>
                                     <?php
                                         foreach ($allDst as $dis){
@@ -124,14 +126,19 @@ $("#registration_date,.to_date").val(today);
                                         }
                                     ?>
                                     </select>
+                                    <i class="fas fa-caret-down"></i>
+                                  </div>
                                  <span class="text-red small"><?php echo form_error('district_id'); ?></span>
                               </div>
                                 <div class="form-group col-md-3">
                                  <label for="upazilla_id">Upazilla</label>
-                                 <select type="text" id="upazilla_id" class="form-control" name="upazilla_id"  >
+                                   <div class="select_2_container">
+                                 <select type="text" id="upazilla_id"  class="form-control frm_select select2" name="upazilla_id"  >
                                     <option value="">Select District</option>
                                   
-                                    </select>
+                                    </select> <i class="fas fa-caret-down"></i>
+                                  </div>
+
                                  <span class="text-red small"><?php echo form_error('upazilla_id'); ?></span>
                               </div>
                                 <div class="form-group col-md-3">
@@ -142,7 +149,8 @@ $("#registration_date,.to_date").val(today);
 
                                 <div class="form-group col-md-3">
                                  <label for="occupation_id">Occupation</label>
-                               <select type="text" id="occupation_id" class="form-control" name="occupation_id" required >
+                                  <div class="select_2_container">
+                               <select type="text" id="occupation_id" class="form-control frm_select select2" name="occupation_id" required >
                                     <option value=""><?php echo display('select'); ?></option>
                                     <?php
                                         foreach ($allOccu as $occu){
@@ -150,6 +158,8 @@ $("#registration_date,.to_date").val(today);
                                         }
                                     ?>
                                     </select>
+                                    <i class="fas fa-caret-down"></i>
+                                  </div>
                                  <span class="text-red small"><?php echo form_error('occupation_id'); ?></span>
                               </div>
                               <div class="form-group col-md-3">
@@ -178,14 +188,17 @@ $("#registration_date,.to_date").val(today);
                               </div>
                                  <div class="form-group col-md-3">
                                  <label for="ref_name">Doctor Referance Name</label>
-                                 <select type="text" id="ref_name" class="form-control" name="ref_name"  required>
+                                  <div class="select_2_container">
+                                 <select type="text" id="ref_name" class="form-control frm_select select2" name="ref_name"  required>
                            
                                     <?php
                                         foreach ($allDoctors as $doct){
                                       echo "<option value='{$doct->id}'>{$doct->name} - {$doct->mobile}</option>";
                                         }
                                     ?>
-                                    </select>
+                                    </select> 
+                                     <i class="fas fa-caret-down"></i>
+                                  </div>
                                  <span class="text-red small"><?php echo form_error('ref_name'); ?></span>
                               </div>
 

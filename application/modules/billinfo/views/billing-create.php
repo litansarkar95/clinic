@@ -139,7 +139,7 @@ $("#registration_date,.to_date").val(today);
 													
      
                                          
-									      				<div class="row mb-3">
+							<div class="row mb-3">
                             <input type="hidden" id="patient_id" class="form-control " name="patient_id"  value="<?php echo set_value('patient_id'); ?>" >
                                    <div class="form-group col-md-2 mb-3">
                                  <label for="registration_id">Invoice ID</label>
@@ -601,7 +601,9 @@ function fetchSerial(selectedDate) {
 
 
 <script>
-
-
+    $(document).ready(function() {
+        $('#search_input').focus();
+    });
 </script>
+
 

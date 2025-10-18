@@ -115,7 +115,7 @@
     <h2><?php echo $allSup['name'] ?></h2>
     <p><?php echo $allSup['address'] ?></p>
     <p><?php echo $allSup['phone'] ?></p>
-    <h3 style="margin-top:10px;">Test Summary</h3>
+    <h3 style="margin-top:10px;">Category Reports</h3>
    <p><strong>From:</strong> <?= $from_date ?> &nbsp; <strong>To:</strong> <?= $to_date ?></p>
   </div>
 

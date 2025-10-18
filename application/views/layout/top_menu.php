@@ -8,10 +8,18 @@
 										        <li class="nav-item">
 										          <a class="nav-link <?php if($active == 'dashboard'  ){ echo 'active';} ?>"  aria-current="page" href="<?php echo base_url(); ?>dashboard">Dashboard</a>
 										        </li>
+
+										       <li class="nav-item">
+										          <a class="nav-link <?php if($active == 'billinfo'  ){ echo 'active';} ?>"  aria-current="page" href="<?php echo base_url(); ?>billinfo">Patient Billing</a>
+										        </li>
+										    <li class="nav-item btn btn_bg">
+										          <a class="nav-link <?php if($active == 'patient'  ){ echo 'active';} ?>"  aria-current="page" href="<?php echo base_url(); ?>patient/create">Patient Registration</a>
+										        </li>
 										    
 										        <li class="nav-item">
 										          <a class="nav-link" href="#">Base <i class="fas fa-caret-down"></i></a>
 										          <ul class="nav_sub_menu">
+										            <li><a href="<?php echo base_url(); ?>testinfo">Test Information</a></li>
 										          	<li><a href="<?php echo base_url(); ?>billinfo/categories">Categories</a></li>
 										          	<li><a href="<?php echo base_url(); ?>patient/districts">District</a></li>
 										          	<li><a href="<?php echo base_url(); ?>patient/upazila">Upazila</a></li>
@@ -19,19 +27,19 @@
 										          </ul>
 										        </li>
 
-										          <li class="nav-item">
+										          <!-- <li class="nav-item">
 										          <a class="nav-link" href="#">Test Information <i class="fas fa-caret-down"></i></a>
 										          <ul class="nav_sub_menu">
 										          	<li><a href="<?php echo base_url(); ?>testinfo">Test Information</a></li>
 										          </ul>
-										        </li>
+										        </li> -->
 											<li class="nav-item">
 										          <a class="nav-link" href="#">Patient <i class="fas fa-caret-down"></i></a>
 										          <ul class="nav_sub_menu">
 										          	<li><a href="<?php echo base_url(); ?>patient/create">Patient Registration</a></li>
-										          	<li><a href="<?php echo base_url(); ?>patient">Patient List</a></li>
+										          	<li><a href="<?php echo base_url(); ?>patient">Registration List</a></li>
 										          	<li><a href="<?php echo base_url(); ?>billinfo">Create Patient Billing </a></li>
-										          	<li><a href="<?php echo base_url(); ?>billinfo/list">Patient Billing</a></li>
+										          	<li><a href="<?php echo base_url(); ?>billinfo/list">Patient Invoice List</a></li>
 										          </ul>
 										        </li>
 

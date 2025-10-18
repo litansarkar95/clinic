@@ -290,6 +290,16 @@ public function get_next_serial_for_date($date)
         return 1;
     }
 }
+    public function SurgeryDoctorName($bill_id) {
+    $this->db->select('o.id, o.bill_id, o.date, o.patient_id, o.surgery_dr_id, o.serial, o.created_at, 
+                       d.name AS doctor_name, d.degree AS doctor_degree');
+    $this->db->from('operation o');
+    $this->db->join('doctors d', 'o.surgery_dr_id = d.id');
+    $this->db->where('o.bill_id', $bill_id);
+    $this->db->limit(1); 
+    $query = $this->db->get();
 
+    return $query->row();  
+}
 
 }

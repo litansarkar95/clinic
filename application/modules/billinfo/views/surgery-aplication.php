@@ -100,15 +100,18 @@ body {
     }
 
     .admission-title {
-      background: #000;
-      color: #fff;
-      text-align: center;
-      font-weight: bold;
-      padding: 10px 0;
-      margin: 20px 0;
-      font-size: 20px;
-      letter-spacing: 1px;
-    }
+  background: #000;
+  color: #fff;
+  width: 300px;
+  margin: 20px auto; /* auto margin দিয়ে সেন্টার */
+  text-align: center;
+  font-weight: bold;
+  padding: 10px 0;
+  font-size: 20px;
+  letter-spacing: 1px;
+  border-radius: 4px; /* চাইলে গোল করে নিতে পারো */
+}
+
 
     table {
       width: 100%;
@@ -211,7 +214,7 @@ p {
   
   ?>
   <div style="text-align:center;">
-    <a class="btn btn-back" href="<?php echo base_url().'billinfo'; ?>">Back</a>
+    <a class="btn btn-back" href="<?php echo base_url().''; ?>">Back</a>
     <button class="print-btn" onclick="window.print()">🖨️ Print</button>
   </div>
 
@@ -222,7 +225,7 @@ p {
       <h1><?php echo $allSup['title'] ?></h1>
       <h2><?php echo $allSup['name'] ?></h2>
       <p><?php echo $allSup['address'] ?></p>
-      <p><?php echo $allSup['phone'] ?></p>
+   
     </div>
 
     <div class="admission-title">ADMISSION TICKET</div>
