@@ -1,247 +1,213 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Patient Registration Form - A5</title>
-<style>
-  body {
-    font-family: "Segoe UI", Arial, sans-serif;
-    margin: 0;
-    background: #f5f6f8;
-  }
-.btn {
-  background: green;
-  color: white;
-  padding: 10px 15px;
-  border: 1px solid #ccc;
-  text-decoration: none;
-  border-radius: 4px;
-  font-weight: bold;
-}
-.box {
-  border: 1px solid #999;
-  background: #fcfcfc;
-}
+  <meta charset="UTF-8">
+  <title>Patient Registration Form - A5</title>
+  <style>
+    body {
+      font-family: "Segoe UI", Arial, sans-serif;
+      margin: 0;
+      background: white;
+    }
 
-.header {
-  text-align: center;
-  padding: 0;
-  margin: 0;
-}
+    .form-container {
+      width: 148mm; /* A5 width */
+      height: 210mm; /* A5 height */
+      margin: 0 auto;
+      padding: 10mm;
+      box-sizing: border-box;
+      position: relative;
+    }
 
-  .print-btn  , .btn{
-    text-align: center;
-    margin: 20px 0;
-  }
+    .print-btn {
+      text-align: center;
+      margin: 20px 0;
+    }
 
-  .print-btn button  {
-    background: #0078d7;
-    color: white;
-    border: none;
-    padding: 8px 18px;
-    border-radius: 5px;
-    font-size: 15px;
-    cursor: pointer;
-  }
+    .print-btn button, .btn {
+      background: green;
+      color: white;
+      padding: 10px 15px;
+      border: 1px solid #ccc;
+      text-decoration: none;
+      border-radius: 4px;
+      font-weight: bold;
+      cursor: pointer;
+    }
 
-  .print-btn button:hover {
-    background: #005bb5;
-  }
+    .btn-back {
+      background: orange;
+    }
 
-  .form-container {
-  background: #fff;
-  border: none;
-  padding: 12px;
-  width: 100%;
-  max-width: 148mm;
-  min-height: auto;
-  margin: auto;
-  box-sizing: border-box;
-}
+    .header {
+      text-align: center;
+      padding: 0;
+      margin-bottom: 8px;
+      position: relative;
+    }
 
+    .header h2 {
+      margin: 0;
+      font-size: 20px;
+      font-weight: bold;
+    }
 
-  .header {
-    text-align: center;
-    border-bottom: 1px solid #000;
-    padding-bottom: 6px;
-    margin-bottom: 12px;
-  }
- .header h1 {
-    margin: 0;
-    font-size: 24px;
-    font-weight: bold;
-    letter-spacing: 0.5px;
-  }
-  .header h2 {
-    margin: 0;
-    font-size: 20px;
-    font-weight: bold;
-    letter-spacing: 0.5px;
-  }
+    .header p {
+      margin: 2px 0;
+      font-size: 13px;
+    }
 
-  .header p {
-    margin: 2px 0;
-    font-size: 13px;
-  }
+    .header h3 {
+      margin-top: 4px;
+      font-size: 15px;
+      font-weight: bold;
+      text-decoration: underline;
+    }
 
-  .header h3 {
-    margin-top: 5px;
-    font-size: 15px;
-    font-weight: bold;
-    text-decoration: underline;
-  }
+    .logo-left,
+    .logo-right {
+      position: absolute;
+      top: 0;
+      width: 90px;
+      height: 90px;
+    }
 
-  .info-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 5px;
-  }
+    .logo-left {
+      left: 0;
+    }
 
-  .info-table td {
-    font-size: 13px;
-    padding: 3px 4px;
-    vertical-align: top;
-  }
+    .logo-right {
+      right: 0;
+    }
 
-  .info-table td.label {
-    width: 130px;
-    font-weight: bold;
-  }
+    .info-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 5px;
+    }
 
-  /* Box style for data fields */
-  .box {
-    display: inline-block;
-    border: 1px solid #000;
-    padding: 2px 8px;
-    min-width: 60px;
-    font-weight: 600;
-    letter-spacing: 0.5px;
-    background: #fcfcfc;
-  }
-.btn-back{
-    background:orange;
-  }
-  .divider {
-    height: 1px;
-    background: #000;
-    margin: 12px 0;
-  }
+    .info-table td {
+      font-size: 13px;
+      padding: 3px 4px;
+      vertical-align: top;
+    }
 
-  table.fee-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 5px;
-  }
+    .info-table td.label {
+      width: 130px;
+      font-weight: bold;
+    }
 
-  .fee-table th, .fee-table td {
-    border: 1px solid #000;
-    padding: 5px;
-    font-size: 13px;
-  }
+    .box {
+      display: inline-block;
+      border: 1px solid #000;
+      padding: 2px 8px;
+      min-width: 60px;
+      font-weight: 600;
+      background: #fcfcfc;
+    }
 
-  .fee-table th {
-    background: #e9ecef;
-    text-align: left;
-  }
+    .divider {
+      height: 1px;
+      background: #000;
+      margin: 12px 0;
+    }
 
-  .footer {
-    margin-top: 20px;
-    display: flex;
-    justify-content: space-between;
-    font-size: 13px;
-    font-weight: bold;
-  }
+    .fee-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
 
-  .token {
-    font-size: 15px;
-  }
+    .fee-table th,
+    .fee-table td {
+      border: 1px solid #000;
+      padding: 5px;
+      font-size: 13px;
+    }
 
- 
+    .fee-table th {
+      background: #e9ecef;
+    }
 
-@page {
-  size: A5 portrait;
-  margin: 5mm; /* আগের থেকে কম */
-}
+    .footer {
+      margin-top: 20px;
+      display: flex;
+      justify-content: space-between;
+      font-size: 13px;
+      font-weight: bold;
+    }
 
-@media print {
-  body {
-    background: white;
-    margin: 0;
-  }
+    .token {
+      font-size: 15px;
+    }
 
-  .print-btn {
-    display: none;
-  }
+ @page {
+      size: A4 portrait;
+      margin: 0;
+    }
+    @media print {
+      body {
+        background: white;
+        margin: 0;
+      }
 
-  .form-container {
-    border: none;
-    width: 100%;
-    height: auto;
-    margin: 0;
-    padding: 0;
-  }
+      .print-btn {
+        display: none;
+      }
 
-  .header {
-    margin-top: 0;
-    padding-top: 0;
-  }
-}
-
-  .header-logos {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.logo {
-  width: 60px;
-  height: auto;
-}
-
-.clinic-info {
-  text-align: center;
-  flex: 1;
-}
-
-.left-logo {
-  margin-right: 10px;
-}
-
-.right-logo {
-  margin-left: 10px;
-}
-
-</style>
+      .form-container {
+        width: 100%;
+        height: auto;
+        margin: 0;
+        padding: 10mm;
+        box-sizing: border-box;
+        border: none;
+      }
+    }
+  </style>
 </head>
-<body>
+<body onload="window.print()">
 
+<!-- Print buttons (only visible on screen) -->
 <div class="print-btn">
   <a class="btn btn-back" href="<?php echo base_url()."patient/create"?>">Back</a>
   <button onclick="window.print()">🖨️ Print Invoice</button>
-  <a class="btn" target="_blank" href="<?php echo base_url()."patient/registrationinvoice/$id"?>">Consent Letter </a>
+  <a class="btn" href="<?php echo base_url()."patient/registrationinvoice/$id"?>">Consent Letter</a>
 </div>
 
+<!-- Form container -->
 <div class="form-container">
- <div class="header">
-  <div class="header-logos">
-    <img src="<?php echo base_url()."assets/images/".$allSup['favicon']?>" alt="Left Logo" class="logo left-logo">
-    <div class="clinic-info">
-      <h1><?php echo $allSup['title'] ?></h1>
+  <!-- Logos -->
+ 
+
+
+  <!-- Header -->
+<div class="header">
+  <!-- Left Logo -->
+  <div class="logo-left">
+    <img src="<?php echo base_url()."assets/images/".$allSup['favicon']?>" alt="Left Logo" class="logo-left">
+  </div>
+
+  <!-- Right Logo -->
+  <div class="logo-right">
+  <img src="<?php echo base_url()."assets/images/".$allSup['logo']?>" alt="Right Logo" class="logo-right">
+  </div>
+
+  <!-- Header Text -->
+  <div class="header-text">
+ <h2><?php echo $allSup['title'] ?></h2>
       <h2><?php echo $allSup['name'] ?></h2>
-      <p><?php echo $allSup['address'] ?></p>
-      <p>Phone: <?php echo $allSup['phone'] ?></p>
-      <h3>Patient Registration Form</h3>
-    </div>
-    <img src="<?php echo base_url()."assets/images/".$allSup['logo']?>" alt="Right Logo" class="logo right-logo">
+    <p><?= $allSup['address'] ?></p>
+    <p>Phone: <?= $allSup['phone'] ?></p>
+    <h3>Patient Registration Form</h3>
   </div>
 </div>
 
 
+  <!-- Patient Info -->
   <table class="info-table">
     <tr>
       <td class="label">Patient ID:</td>
-      <td><span class="box"><?= $patient->registration_no; ?></span></td>
+      <td><span class="box">P-<?= $patient->registration_int_no; ?></span></td>
       <td class="label">Age:</td>
       <td><span class="box"><?= $patient->age; ?></span></td>
     </tr>
@@ -273,6 +239,7 @@
 
   <div class="divider"></div>
 
+  <!-- Fee Table -->
   <table class="fee-table">
     <thead>
       <tr>
@@ -281,23 +248,18 @@
       </tr>
     </thead>
     <tbody>
-       <tbody id="">
-                   <?php
-                                                        if(isset($allTest)){
-                                        foreach ($allTest as $test){
-                                        
-                                            ?>
-                                                    <tr>
-                                                     <td id=""><?php echo $test->tname; ?></td>
-                                                         <td id=""><?php echo $test->price; ?></td>
-                                        </tr>
-                                                        <?php
-                                        }
-                                    }
-                                                        ?>
+      <?php if (isset($allTest)) {
+        foreach ($allTest as $test) { ?>
+          <tr>
+            <td><?= $test->tname; ?></td>
+            <td><?= $test->price; ?></td>
+          </tr>
+        <?php }
+      } ?>
     </tbody>
   </table>
 
+  <!-- Footer -->
   <div class="footer">
     <div>Date: <span class="box" style="width:200px;"><?= date("d/m/Y h:i:s A", $patient->create_date); ?></span></div>
     <div class="token">Token: <span class="box"><?= $patient->serial_no; ?></span></div>

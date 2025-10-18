@@ -5,9 +5,9 @@
     <title>Hospital Receipt</title>
     <style>
         @page {
-            size: A5;
-            margin: 0;
-        }
+      size: A4 portrait;
+      margin: 0;
+    }
         body {
             font-family: Arial, sans-serif;
             width: 14.8cm;
