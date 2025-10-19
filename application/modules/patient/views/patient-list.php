@@ -135,6 +135,23 @@
                        <a href="<?php echo base_url()."patient/invoice/$pdt->id"; ?>" target="_blank" class="btn btn_bg print-btn" >
                         <i class="fas fa-print"></i>
                                         </a>
+                                        <?php
+                                     $role_id = $this->session->userdata('loggedin_role_id');
+                                     if($role_id == 1){
+                                        ?>
+                                          <a href="<?php echo base_url()."patient/edit/$pdt->id"; ?>" target="_blank" class="btn btn_bg print-btn" >
+                        <i class="fas fa-pen"></i>
+                                        </a>
+                                          <a href="<?php echo base_url()."patient/delete/$pdt->id"; ?>" 
+
+                              class="btn btn-danger print-btn" 
+                              onclick="return confirm('Are you sure you want to delete this patient?');">
+                                <i class="fas fa-trash"></i>
+                            </a>
+
+                                        <?php
+                                     }
+                                        ?>
                  
                     </td>
                   </tr>

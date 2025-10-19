@@ -266,4 +266,26 @@ public function account(){
             $this->session->set_userdata($sdata);
             redirect(base_url() . "billinfo/list", "refresh");
     }
+
+
+     public function delete($id) {
+
+        $dt = $this->common_model->view_data("bill_info", array("id" => $id), "id", "asc");
+       
+       
+        if ($dt) {
+           
+          
+            $this->common_model->delete_data("bill_info", array("id" => $id));
+             $this->common_model->delete_data("transactions", array("invoice_id" => $id));
+             $this->common_model->delete_data("bill_details", array("bill_id" => $id));
+            $this->session->set_flashdata('success', 'Delete Successfully');
+          
+        } else {
+            $this->session->set_flashdata('error', 'Something error.');
+        }
+      
+        redirect(base_url() . "billinfo/list", "refresh");
+      
+      }
 }

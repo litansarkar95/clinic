@@ -121,12 +121,16 @@ $("#registration_date,.to_date").val(today);
 												</div>
                                                 
 												<div class="col-auto ms-auto">
-													<a href="<?php echo base_url(); ?>billing"  class="btn btn_bg">Billing List</a>
+                                                       <form action="<?php echo base_url(); ?>billinfo/list" method="POST">
+                                                <!-- Add hidden inputs to send data -->
+                                                <input type="hidden" name="from_date" value="<?php echo date("d-m-Y"); ?>">
+                                                <input type="hidden" name="to_date" value="<?php echo  date("d-m-Y"); ?>">
+                                                <button type="submit" class="btn btn_bg">Billing List</button>
+                                            </form>
+													
 												</div>
 											</div>
 
-
-                     
 
               
 

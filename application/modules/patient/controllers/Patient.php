@@ -72,6 +72,7 @@ class Patient extends CI_Controller {
       
       } else {
 
+        $is_old_patient = $this->input->post('is_old_patient') ? 1 : 0;
 
         $date = date("Y-m-d H:i:s");
      
@@ -97,6 +98,7 @@ class Patient extends CI_Controller {
             "nationality_id"        => $this->common_model->xss_clean($this->input->post("nationality")),
             "doctor_id"             => $this->common_model->xss_clean($this->input->post("ref_name")),
             "adult_child"           => $this->common_model->xss_clean($this->input->post("adult_child")),
+            "is_old_patient"        => $is_old_patient,
             "is_active"             => 1,
             "create_date"           => strtotime($date),
            
@@ -105,7 +107,8 @@ class Patient extends CI_Controller {
         if ($this->common_model->save_data("patients", $data)) {
           $id = $this->common_model->Id;
 
-          
+             $is_old_patient = $this->input->post('is_old_patient') ? 1 : 0;
+	         	if($is_old_patient  == 0){
 
           $allTest      = $this->patient_model->TestListWhere();
 
@@ -120,7 +123,8 @@ class Patient extends CI_Controller {
         );
            $this->common_model->save_data("bill_details", $pdata);
 
-
+       
+         
            // account 
           $taccdata = array(
 							'testinfo_id'          => $test->id,
@@ -136,6 +140,7 @@ class Patient extends CI_Controller {
 						$this->db->insert('transactions', $taccdata);
             
       }
+    }
           $this->session->set_flashdata('success', 'Save Successfully');
                  redirect(base_url() . "patient/invoice/$id", "refresh");
           }else{
@@ -223,6 +228,8 @@ class Patient extends CI_Controller {
            
           
             $this->common_model->delete_data("patients", array("id" => $id));
+             $this->common_model->delete_data("transactions", array("patient_id" => $id));
+             $this->common_model->delete_data("bill_details", array("registration_id" => $id));
             $this->session->set_flashdata('success', 'Delete Successfully');
           
         } else {

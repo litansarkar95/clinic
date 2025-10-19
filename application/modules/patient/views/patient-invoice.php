@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html >
 <head>
   <meta charset="UTF-8">
   <title>Patient Registration Form - A5</title>
@@ -53,8 +53,8 @@
     }
 
     .header p {
-      margin: 2px 0;
-      font-size: 13px;
+      margin: 1px 0;
+      font-size: 10px;
     }
 
     .header h3 {
@@ -142,14 +142,17 @@
 
  @page {
       size: A4 portrait;
-      margin: 0;
+      margin:0mm 40mm;
     }
     @media print {
       body {
         background: white;
         margin: 0;
       }
-
+  .header p {
+   
+      font-size: 9px;
+    }
       .print-btn {
         display: none;
       }
@@ -170,7 +173,7 @@
 <!-- Print buttons (only visible on screen) -->
 <div class="print-btn">
   <a class="btn btn-back" href="<?php echo base_url()."patient/create"?>">Back</a>
-  <button onclick="window.print()">🖨️ Print Invoice</button>
+  <button onclick="window.print()"> Print Invoice</button>
   <a class="btn" href="<?php echo base_url()."patient/registrationinvoice/$id"?>">Consent Letter</a>
 </div>
 

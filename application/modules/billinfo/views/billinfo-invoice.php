@@ -6,7 +6,7 @@
     <style>
         @page {
       size: A4 portrait;
-      margin: 0;
+      margin: 0 40mm;
     }
         body {
             font-family: Arial, sans-serif;

@@ -66,8 +66,14 @@ $("#registration_date,.to_date").val(today);
 													<a href="<?php echo base_url(); ?>billinfo"  class="btn custom-button">Create Patient Billing</a>
 												</div>
 												<div class="col-auto ms-auto">
-													<a href="<?php echo base_url(); ?>patient"  class="btn btn_bg">Patient List</a>
-												</div>
+                                            <form action="<?php echo base_url(); ?>patient" method="POST">
+                                                <!-- Add hidden inputs to send data -->
+                                                <input type="hidden" name="from_date" value="<?php echo date("d-m-Y"); ?>">
+                                                <input type="hidden" name="to_date" value="<?php echo  date("d-m-Y"); ?>">
+                                                <button type="submit" class="btn btn_bg">Patient List</button>
+                                            </form>
+                                        </div>
+
 											</div>
 										 <?php echo form_open_multipart('patient/create',array('class' => 'form-vertical input_form', 'id' => 'insert_purchase','name' => 'insert_purchase'))?>
                                           
@@ -147,7 +153,7 @@ $("#registration_date,.to_date").val(today);
                                  <span class="text-red small"><?php echo form_error('village'); ?></span>
                               </div>
 
-                                <div class="form-group col-md-3">
+                                <div class="form-group col-md-2">
                                  <label for="occupation_id">Occupation</label>
                                   <div class="select_2_container">
                                <select type="text" id="occupation_id" class="form-control frm_select select2" name="occupation_id" required >
@@ -162,7 +168,7 @@ $("#registration_date,.to_date").val(today);
                                   </div>
                                  <span class="text-red small"><?php echo form_error('occupation_id'); ?></span>
                               </div>
-                              <div class="form-group col-md-3">
+                              <div class="form-group col-md-2">
                                  <label for="religion">Religion</label>
                                  <select type="text" id="religion" class="form-control" name="religion"  >
                                     <option value="Islam">Islam</option>
@@ -221,6 +227,16 @@ $("#registration_date,.to_date").val(today);
                                             </div>
 
                                     </div>
+                                       <div class="col-md-2">
+                                      
+                                                <div class="switcher-pricing text-left lh-1" style="margin-top:2rem;">
+                                                <div class="frm_toggle_container">
+                                                    <input type="checkbox" name="is_old_patient" id="is_old_patient" class="pricing-toggle frm_toggle_deselect deselect_toggle_container" value="1">
+                                                
+                                                    <label for="is_old_patient">Is this an old patient? </label>
+                                                </div>
+                                                </div>
+                                            </div>
 
                              
 									      		            <div class="form-group col-md-3 mb-3">
