@@ -48,7 +48,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 12px;
+      font-size: 18px;
     }
 
     .title {
@@ -58,19 +58,19 @@
 
     .title h1 {
       margin: 0;
-      font-size: 22px;
+      font-size: 34px;
       letter-spacing: 1px;
     }
 
     .title h2 {
       margin: 0;
-      font-size: 12px;
+      font-size: 24px;
       color: #333;
     }
 
     .title p {
       margin: 4px 0 0;
-      font-size: 12px;
+      font-size: 18px;
     }
 
     .notice {
@@ -81,13 +81,17 @@
       border-radius: 4px;
       font-weight: 700;
       margin: 8px 0 12px;
+      font-size:22px;
     }
 
     .form-table {
       width: 100%;
       border-collapse: collapse;
-      font-size: 13px;
+      font-size: 18px;
     }
+       .form-table tr {
+        line-height:30px;
+       }
 
     .form-table td {
       vertical-align: top;
@@ -103,7 +107,7 @@
     .short-line { min-width: 60px; }
 
     .fill-line {
-      width: 100%;
+      width: 50%;
       border-bottom: 1px dotted #333;
       display: inline-block;
       text-align:center;
@@ -112,14 +116,14 @@
     .section { margin-top: 8px; }
 
     .consent-text {
-      font-size: 12px;
+      font-size: 18px;
       line-height: 1.6;
       margin-top: 10px;
       text-align: justify;
     }
 
     .signature-block {
-      margin-top: 15mm;
+      margin-top: 24mm;
       display: flex;
       justify-content: space-between;
     }
@@ -129,15 +133,40 @@
     }
 
     .sig .label {
-      font-size: 12px;
+      font-size: 18px;
     }
 
+    .btn-back {
+      display: inline-block;
+      background: #16acceff;
+      color: #fff;
+      border: none;
+      padding: 6px 15px;
+      border-radius: 4px;
+      font-size: 14px;
+      cursor: pointer;
+      text-decoration: none;
+    }
     .sig .line {
       display: block;
       margin-top: 26px;
     }
-
     .print-btn {
+      display: inline-block;
+      background: #0369a1;
+      color: #fff;
+      border: none;
+      padding: 6px 15px;
+      border-radius: 4px;
+      font-size: 14px;
+      margin: 10px 0;
+      cursor: pointer;
+    }
+
+    .print-btn:hover {
+      background: #0c4a6e;
+    }
+    /* .print-btn {
       display: inline-block;
       position: fixed;
       top: 20px;
@@ -148,18 +177,18 @@
       color: #fff;
       border: none;
       border-radius: 6px;
-      font-size: 15px;
+      font-size: 18px;
       cursor: pointer;
       box-shadow: 0 2px 4px rgba(0,0,0,0.2);
       z-index: 1000;
     }
 
-    .print-btn:hover { background: #0056b3; }
+    .print-btn:hover { background: #0056b3; } */
 
     @media print {
       html, body { background: none; }
       .sheet { box-shadow: none; margin: 0; height: 100%; padding: 12mm; }
-      .print-btn { display: none; }
+      .print-btn , .btn-back { display: none; }
     }
 .logo {
     text-align: left;
@@ -180,20 +209,30 @@
     }
 }
 
-    .muted { color: #666; font-size: 11px; }
+   
     .center { text-align: center; }
   </style>
 </head>
 <body>
-  <button class="print-btn" onclick="window.print()">🖨️ প্রিন্ট করুন</button>
-
+  <div style="text-align:center;">
+    <a class="btn btn-back " href="<?php echo base_url().'billinfo'; ?>">Back</a>
+    <button class="print-btn " onclick="window.print()">🖨️ Print</button>
+    
+    <a class="btn btn-back " href="<?php echo base_url().'billinfo/list'; ?>">Billing List</a>
+    <a class="btn btn-back " href="<?php echo base_url().'dashboard'; ?>">dashboard</a>
+  </div>
+  <?php
+  if(isset($allPdt)){
+    foreach($allPdt as $pdt){
+  
+  ?>
   <div class="sheet" role="document">
     <header>
       <div class="logo">    <img src="<?php echo base_url()."assets/images/".$allSup['favicon']?>" class="logo-left" alt="Logo Left" /></div>
       <div class="title">
-        <h1>রোটারী চক্ষু হাসপাতাল</h1>
-        <h2>ROTARY EYE HOSPITAL</h2>
-        <p>মিরপুর বাজার রোড, যশোরসিটি, আদর্শ সড়ক, খুলনা, ৬১০০</p>
+        <h1><?php echo $allSup['title'] ?></h1>
+        <h2><?php echo $allSup['name'] ?></h2>
+        <p><?php echo $allSup['address'] ?></p>
       </div>
       <div class="right-logo">  <img src="<?php echo base_url()."assets/images/".$allSup['logo']?>" class="logo-right" alt="Logo Right" /></div>
     </header>
@@ -201,28 +240,37 @@
     <div class="center">
       <span class="notice">অপারেশনের সম্মতিপত্র</span>
     </div>
+     <hr style="1px solid #000;">
 
     <table class="form-table" style="margin-top:8px">
       <tr>
-        <td style="width:60%">রোগীর নাম: <span class="fill-line" style="width:58%">Md Litan Sarkar</span></td>
-        <td style="width:60%">বয়স: <span class="fill-line" style="width:68%"></span> </td>
+        <td colspan="2">রোগীর নাম: <span class="fill-line"><?php echo !empty($pdt->name) ? $pdt->name : '&nbsp;'; ?></span></td>
       </tr>
-         <tr>
     
-        <td>বয়স: <span class="line short-line"></span> নং: <span class="line short-line"></span></td>
-      </tr>
       <tr>
-        <td>লিঙ্গ: <span class="line short-line"></span> জাতীয়তা: <span class="line short-line"></span></td>
-        <td>শিশু/বয়স্ক/বিবরণ: <span class="fill-line" style="width:40%"></span></td>
+        <td style="width:60%">লিঙ্গ: <span class="fill-line" style="width:58%"><?php echo !empty($pdt->gender) ? $pdt->gender : '&nbsp;'; ?></span></td>
+        <td style="width:60%">বয়স: <span class="fill-line" style="width:68%"> <?php echo !empty($pdt->age) ? $pdt->age : '&nbsp;'; ?></span></td>
       </tr>
-      <tr>
-        <td colspan="2">পিতামাতা/স্বামী/অভিভাবকের নাম: <span class="fill-line"></span></td>
+       <tr>
+        <td style="width:60%">জাতীয়তা : <span class="fill-line" style="width:58%"><?php echo !empty($pdt->nationality) ? $pdt->nationality : '&nbsp;'; ?></span></td>
+        <td style="width:60%">পেশা  : <span class="fill-line" style="width:68%"> <?php echo !empty($pdt->occupation) ? $pdt->occupation : '&nbsp;'; ?></span></td>
       </tr>
+
+       <tr>
+        <td style="width:60%">পিতা/স্বামী  নাম : <span class="fill-line" style="width:58%"><?php echo !empty($pdt->nationality) ? $pdt->nationality : '&nbsp;'; ?></span></td>
+        <td style="width:60%">ধর্ম  : <span class="fill-line" style="width:68%"> <?php echo !empty($pdt->religion) ? $pdt->religion : '&nbsp;'; ?></span></td>
+      </tr>
+       <tr>
+        <td style="width:60%">লিঙ্গ : <span class="fill-line" style="width:58%"><?php echo !empty($pdt->gender) ? $pdt->gender : '&nbsp;'; ?></span></td>
+
+      </tr>
+       
+   
       <tr>
         <td colspan="2">চিকিৎসার কারণ/রোগীর ইতিহাস: <span class="fill-line"></span></td>
       </tr>
       <tr>
-        <td colspan="2">প্রস্তাবিত চিকিৎসা/অপারেশনের বিবরণ: <span class="fill-line" style="width:80%"></span></td>
+        <td colspan="2">প্রস্তাবিত চিকিৎসা/অপারেশনের বিবরণ: <span class="fill-line" ></span></td>
       </tr>
     </table>
 
@@ -259,8 +307,11 @@
         <span class="line" style="display:block;margin-top:28px;width:80%"></span>
       </div>
     </div>
-
-    <p class="muted" style="margin-top:12mm;text-align:center;">নোট: প্রিন্ট করার সময় পৃষ্ঠার সেটিংসে ‘Scale’ অপশনটি <strong>Actual size (100%)</strong> নির্বাচন করুন এবং Page Size অবশ্যই A4 দিন।</p>
+  <?php
+  }
+}
+  ?>
+   
   </div>
 </body>
 </html>

@@ -83,20 +83,20 @@ body {
  
 
     .header h1 {
-      font-size: 26px;
+      font-size: 30px;
       margin: 0;
       font-weight: 900;
     }
 
     .header h2 {
-      font-size: 18px;
+      font-size: 25px;
       margin: 0;
       letter-spacing: 1px;
     }
 
     .header p {
-      margin: 4px 0 0;
-      font-size: 14px;
+      margin: 2px 0 0;
+      font-size: 16px;
     }
 
     .admission-title {
@@ -214,8 +214,11 @@ p {
   
   ?>
   <div style="text-align:center;">
-    <a class="btn btn-back" href="<?php echo base_url().''; ?>">Back</a>
+    <a class="btn btn-back" href="<?php echo base_url().'billinfo'; ?>">Back</a>
     <button class="print-btn" onclick="window.print()">🖨️ Print</button>
+    
+    <a class="btn btn-back" href="<?php echo base_url().'billinfo/list'; ?>">Billing List</a>
+    <a class="btn btn-back" href="<?php echo base_url().'dashboard'; ?>">dashboard</a>
   </div>
 
   <div class="page">
@@ -229,6 +232,7 @@ p {
     </div>
 
     <div class="admission-title">ADMISSION TICKET</div>
+    <hr style="1px solid #000;">
 
     <table>
       <tr>
@@ -245,7 +249,7 @@ p {
       </tr>
       <tr>
         <td></td>
-        <td><span class="label">Invoice No.:</span> ....................................</td>
+        <td><span class="label">Invoice No.:</span><div class="small-input"><?php echo $pdt->invoiceNumber; ?></div></td>
       </tr>
     </table>
 <p class="full-line">
@@ -287,12 +291,12 @@ p {
   <span class="input " ></span>
 
   <span class="label">Telephone (if any):</span>
-  <span class="input " ></span>
+  <span class="input " ><?php echo !empty($pdt->mobile_no) ? $pdt->mobile_no : '&nbsp;'; ?></span>
 </p>
 
 <p>
   <span class="label">Date & Time of Admission:</span>
-  <span class="input " ><?php echo !empty($pdt->date) ? $pdt->date : '&nbsp;'; ?></span>
+  <span class="input " ></span>
 </p>
 
 <p>
@@ -305,14 +309,14 @@ p {
   <span class="input " ></span>
 </p>
 
-<p>
+<!-- <p>
   <span class="label">Token:</span>
   <span class="token-box"><?php echo $pdt->serial; ?></span>
-</p>
+</p> -->
 
 <p>
   <span class="label">Date:</span>
-  <span class="input "></span>
+  <span class="input "><?php echo !empty($pdt->date) ? $pdt->date : '&nbsp;'; ?></span>
 </p>
 
     <div class="signature">

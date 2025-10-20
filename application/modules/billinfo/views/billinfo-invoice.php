@@ -5,8 +5,8 @@
     <title>Hospital Receipt</title>
     <style>
         @page {
-      size: A4 portrait;
-      margin: 0 40mm;
+     size: A4 portrait;
+      margin:0mm 40mm;
     }
         body {
             font-family: Arial, sans-serif;
@@ -14,31 +14,50 @@
             height: 21cm;
             margin: 0 auto;
             padding: 1cm;
-            font-size: 8pt;
+            font-size: 12pt;
             background: #fff;
             position: relative;
         }
-        .logo-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 5px;
-        }
-        .logo-header img {
-            height: 80px;
-        }
-        .hospital-info {
-            text-align: center;
-            flex-grow: 1;
-        }
-        .hospital-name {
-            font-size: 14pt;
-            font-weight: bold;
-        }
-        .hospital-address,
-        .hospital-contact {
-            font-size: 8pt;
-        }
+     .header {
+      text-align: center;
+      padding: 0;
+      margin-bottom: 8px;
+      position: relative;
+    }
+
+    .header h2 {
+      margin: 0;
+      font-size: 35px;
+      font-weight: bold;
+    }
+
+    .header p {
+      margin: 1px 0;
+      font-size: 16px;
+    }
+
+    .header h3 {
+      margin-top: 4px;
+      font-size: 18px;
+      font-weight: bold;
+      text-decoration: underline;
+    }
+    
+     .logo-left,
+    .logo-right {
+      position: absolute;
+      top: 0;
+      width: 90px;
+      height: 90px;
+    }
+
+    .logo-left {
+      left: 0;
+    }
+
+    .logo-right {
+      right: 0;
+    }
         .receipt-title {
             font-size: 13pt;
             text-align: center;
@@ -47,18 +66,32 @@
             border: 1px solid #000;
             background-color: #f0f0f0;
         }
-        .patient-info, .items-table, .summary-table {
+        .patient-info, .items-table {
             width: 100%;
             border-collapse: collapse;
             margin-bottom: 10px;
         }
-        .patient-info td, .items-table td, .items-table th, .summary-table td {
+        .patient-info td, .items-table td, .items-table th {
             border: 1px solid #000;
+            padding: 3px;
+        }
+        .summary-table{
+             width: 50%;
+             float:right;
+           
+        }
+        
+        .summary-table td{
+              border: 1px solid #000;
             padding: 3px;
         }
         .patient-info .label {
             background-color: #f0f0f0;
-            width: 20%;
+            width: 25%;
+        }
+        
+        .patient-info .data {
+            width: 55%; 
         }
         .items-table th {
             background-color: #f0f0f0;
@@ -86,7 +119,7 @@
             font-style: italic;
             padding: 5px;
             border: 1px dashed #000;
-            margin-top: 5px;
+            margin-top: 155px;
         }
         .signature-area {
             margin-top: 20px;
@@ -106,10 +139,10 @@
         .watermark {
             position: absolute;
             opacity: 0.1;
-            font-size: 50pt;
+            font-size: 40pt;
             color: #000;
             transform: rotate(-45deg);
-            top: 40%;
+            top: 58%;
             left: 20%;
             z-index: -1;
         }
@@ -154,23 +187,33 @@ if (isset($allPdt)) {
     foreach ($allPdt as $pdt) {
 ?>
 
-<div class="logo-header">
-    <img src="<?php echo base_url()."assets/images/".$allSup['favicon']?>" alt="Logo Left">
-    <div class="hospital-info">
-        <div class="hospital-name"><?php echo $allSup['title']; ?></div>
-        <div class="hospital-name"><?php echo $allSup['name']; ?></div>
-        <div class="hospital-address"><?php echo $allSup['address']; ?></div>
-        <div class="hospital-contact">Mobile: <?php echo $allSup['phone']; ?></div>
-    </div>
-    <img src="<?php echo base_url()."assets/images/".$allSup['logo']?>" alt="Logo Right">
+<div class="header">
+  <!-- Left Logo -->
+  <div class="logo-left">
+    <img src="<?php echo base_url()."assets/images/".$allSup['favicon']?>" alt="Left Logo" class="logo-left">
+  </div>
+
+  <!-- Right Logo -->
+  <div class="logo-right">
+  <img src="<?php echo base_url()."assets/images/".$allSup['logo']?>" alt="Right Logo" class="logo-right">
+  </div>
+
+  <!-- Header Text -->
+  <div class="header-text">
+ <h2><?php echo $allSup['title'] ?></h2>
+      <h2><?php echo $allSup['name'] ?></h2>
+    <p><?= $allSup['address'] ?></p>
+    <p>Phone: <?= $allSup['phone'] ?></p>
+    <h3>Patient Registration Form</h3>
+  </div>
 </div>
 
 <div class="receipt-title">Invoice: <?php echo $pdt->invoiceNumber; ?></div>
 
 <table class="patient-info">
     <tr>
-        <td class="label">Patient Name:</td>
-        <td><?php echo $pdt->name; ?></td>
+        <td class="label ">Patient Name:</td>
+        <td class="data"><?php echo $pdt->name; ?></td>
         <td class="label">Age:</td>
         <td><?php echo $pdt->age." ".$pdt->adult_child; ?></td>
     </tr>
@@ -178,7 +221,7 @@ if (isset($allPdt)) {
         <td class="label">Sex:</td>
         <td><?php echo $pdt->gender; ?></td>
         <td class="label">Bill Date:</td>
-        <td><?php echo date("d F, Y", $pdt->invoice_date); ?></td>
+        <td><?php echo date("d/m/Y", $pdt->invoice_date); ?></td>
     </tr>
     <tr>
         <td class="label">Registration No:</td>
