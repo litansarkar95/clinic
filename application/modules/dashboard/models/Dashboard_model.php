@@ -105,17 +105,18 @@ public function ThisMonthBilling() {
     $startOfMonth = strtotime(date('Y-m-01 00:00:00'));
     $endOfMonth = strtotime(date('Y-m-t 23:59:59'));
 
-    $this->db->select_sum('amount');
-    $this->db->where('transaction_type', 'debit');
-    $this->db->where('status', 'success');
-    $this->db->where('transaction_date >=', $startOfMonth);
-    $this->db->where('transaction_date <=', $endOfMonth);
+    $this->db->select('COUNT(id) as total');
+    $this->db->where('invoice_date >=', $startOfMonth);
+    $this->db->where('invoice_date <=', $endOfMonth);
+    $query = $this->db->get('bill_info');
 
-    $query = $this->db->get('transactions');
-    $totalBilling = $query->row()->amount ?? 0;
-
-    return $totalBilling;
+    if ($query->num_rows() > 0) {
+        return $query->row()->total;
+    } else {
+        return 0;
+    }
 }
+
 
 
 public function ThisMonthCollection() {
