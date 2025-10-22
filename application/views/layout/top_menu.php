@@ -9,23 +9,23 @@
 										          <a class="nav-link <?php if($active == 'dashboard'  ){ echo 'active';} ?>"  aria-current="page" href="<?php echo base_url(); ?>dashboard">Dashboard</a>
 										        </li>
 
-										       <li class="nav-item">
-										          <a class="nav-link <?php if($active == 'billinfo'  ){ echo 'active';} ?>"  aria-current="page" href="<?php echo base_url(); ?>billinfo">Patient Billing</a>
-										        </li>
-										    <li class="nav-item btn btn_bg">
-										          <a class="nav-link <?php if($active == 'patient'  ){ echo 'active';} ?>"  aria-current="page" href="<?php echo base_url(); ?>patient/create">Patient Registration</a>
-										        </li>
-										    
+										             <?php
+                                     $role_id = $this->session->userdata('loggedin_role_id');
+                                     if($role_id == 1){
+                                        ?>
 										        <li class="nav-item">
 										          <a class="nav-link" href="#">Base <i class="fas fa-caret-down"></i></a>
 										          <ul class="nav_sub_menu">
-										            <li><a href="<?php echo base_url(); ?>testinfo">Test Information</a></li>
-										          	<li><a href="<?php echo base_url(); ?>billinfo/categories">Categories</a></li>
-										          	<li><a href="<?php echo base_url(); ?>patient/districts">District</a></li>
+										            <li><a href="<?php echo base_url(); ?>facials">Facials</a></li>
+										          	<!-- <li><a href="<?php echo base_url(); ?>billinfo/categories">Categories</a></li> -->
+										          	<!-- <li><a href="<?php echo base_url(); ?>patient/districts">District</a></li>
 										          	<li><a href="<?php echo base_url(); ?>patient/upazila">Upazila</a></li>
-										          	<li><a href="<?php echo base_url(); ?>patient/occupation">Occupation</a></li>
+										          	<li><a href="<?php echo base_url(); ?>patient/occupation">Occupation</a></li> -->
 										          </ul>
 										        </li>
+													<?php
+									 }
+                                        ?>
 
 										          <!-- <li class="nav-item">
 										          <a class="nav-link" href="#">Test Information <i class="fas fa-caret-down"></i></a>
@@ -34,12 +34,13 @@
 										          </ul>
 										        </li> -->
 											<li class="nav-item">
-										          <a class="nav-link" href="#">Patient <i class="fas fa-caret-down"></i></a>
-										          <ul class="nav_sub_menu">
-										          	<li><a href="<?php echo base_url(); ?>patient/create">Patient Registration</a></li>
+										          <a class="nav-link" href="#">Billing <i class="fas fa-caret-down"></i></a>
+										          <ul class="nav_sub_menu"> 	
+													<li><a href="<?php echo base_url(); ?>billinfo">Create  Billing </a></li>
+										          	<li><a href="<?php echo base_url(); ?>billinfo/list"> Invoice List</a></li>
+										          	<li><a href="<?php echo base_url(); ?>patient/create"> Registration</a></li>
 										          	<li><a href="<?php echo base_url(); ?>patient">Registration List</a></li>
-										          	<li><a href="<?php echo base_url(); ?>billinfo">Create Patient Billing </a></li>
-										          	<li><a href="<?php echo base_url(); ?>billinfo/list">Patient Invoice List</a></li>
+										         
 										          </ul>
 										        </li>
 
@@ -59,15 +60,21 @@
 										          
 										          </ul>
 										        </li>
-
+                                                    <?php
+                                     $role_id = $this->session->userdata('loggedin_role_id');
+                                     if($role_id == 1){
+                                        ?>
 												<li class="nav-item">
 										          <a class="nav-link" href="#">Settings <i class="fas fa-caret-down"></i></a>
 										          <ul class="nav_sub_menu">
-										          	<li><a href="<?php echo base_url()."settings/general_settings"; ?>"> General Settings</a></li>
+										          	<li><a href="<?php echo base_url()."settings/branch"; ?>">  Branch </a></li>
+										          	<li><a href="<?php echo base_url()."settings/users"; ?>">  Users </a></li>
 										          
 										          </ul>
 										        </li>
-
+  												<?php
+									 }
+                                        ?>
 										       
 										      </ul>
 										    </div>

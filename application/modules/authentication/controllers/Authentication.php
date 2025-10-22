@@ -48,6 +48,7 @@ public function index()
                     'name' => $getUser['name'],
                     'logger_photo' => $getUser['picture'],
                     'logger_contact' => $getUser['contact_no'],
+                    'loggedin_branch_id' => $login_credential->branch_id,
                     'loggedin_id' => $login_credential->id,
                     'loggedin_userid' => $login_credential->user_id,
                     'loggedin_role_id' => $login_credential->role,

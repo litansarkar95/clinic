@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Hospital Receipt</title>
+    <title> Receipt</title>
     <style>
         @page {
      size: A4 portrait;
@@ -213,47 +213,29 @@ if (isset($allPdt)) {
 <table class="patient-info">
     <tr>
         <td class="label ">Patient Name:</td>
-        <td class="data"><?php echo $pdt->name; ?></td>
-        <td class="label">Age:</td>
-        <td><?php echo $pdt->age." ".$pdt->adult_child; ?></td>
+        <td class="data"><?php echo $pdt->name; ?></td> 
+        <td class="label">Mobile No:</td>
+        <td><?php echo $pdt->mobile_no; ?></td>
+         
     </tr>
-    <tr>
-        <td class="label">Sex:</td>
-        <td><?php echo $pdt->gender; ?></td>
-        <td class="label">Bill Date:</td>
-        <td><?php echo date("d/m/Y", $pdt->invoice_date); ?></td>
-    </tr>
+ 
     <tr>
         <td class="label">Registration No:</td>
         <td><?php echo $pdt->registration_no; ?></td>
-        <td class="label">Mobile No:</td>
-        <td><?php echo $pdt->mobile_no; ?></td>
+         <td class="label">Bill Date:</td>
+        <td><?php echo date("d/m/Y", $pdt->invoice_date); ?></td>
     </tr>
-    <tr>
-        <td class="label">Ref. Doctor:</td>
-        <td colspan="3">
-            
-            <?php
-            if($pdt->is_surgery == 1){
-           echo $surgery->doctor_name." - ".$surgery->doctor_degree;
 
-            }else{
-            ?>
-            <?php echo $pdt->doctors_name." - ".$pdt->degree; ?>
-        <?php
-            }
-        ?>
-        
-        </td>
-    </tr>
 </table>
 
 <table class="items-table">
     <thead>
         <tr>
             <th class="sl">SL</th>
-            <th class="description">Particulars</th>
-            <th class="amount">Amount (৳)</th>
+            <th class="description">Facial Name</th>
+            <th class="amount">Regular Price (৳)</th>
+            <th class="amount">Discount Price (৳)</th>
+            <th class="amount">Price (৳)</th>
         </tr>
     </thead>
     <tbody>
@@ -265,7 +247,9 @@ if (isset($allPdt)) {
         <tr>
             <td class="sl"><?php echo $i++; ?></td>
             <td class="description"><?php echo $item->name; ?></td>
-            <td class="amount"><?php echo $item->price; ?></td>
+            <td class="description"><?php if($item->discount_type  == 'Percentage'){echo  $item->discount_percentage." ( ".$item->discount_type. ")";  }else  if($item->discount_type  == ''){echo  $item->regular_price;  }?></td>
+            <td class="amount"><?php echo $item->discount_type; ?></td>
+            <td class="amount"><?php echo $item->offer_price; ?></td>
         </tr>
         <?php
             }

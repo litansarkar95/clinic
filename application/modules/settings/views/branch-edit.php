@@ -1,0 +1,155 @@
+	  <link rel="stylesheet" href="https://code.jquery.com/ui/1.14.1/themes/base/jquery-ui.css">
+  <script src="https://code.jquery.com/ui/1.14.1/jquery-ui.js"></script>
+<style>
+    button {
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+  outline: none;
+  transition: all 0.3s ease;
+}
+.custom-button {
+  background-color: #4CAF50; /* Green background */
+  color: white; /* White text */
+  border-radius: 8px; /* Rounded corners */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+.custom-button:hover {
+  background-color: #509c37ff; /* Darker green on hover */
+  color: white !important; 
+}
+
+.custom-button:active {
+  transform: scale(0.98); /* Slight shrink effect when clicked */
+}
+
+.custom-button:focus {
+  border: 2px solid #2196F3; /* Focus effect with blue border */
+}
+    </style>
+     <script>
+    $(document).ready(function() {
+   
+
+   $("#registration_date,to_date").datepicker({
+  dateFormat: "dd-mm-yy",
+  changeMonth: true,
+  changeYear: true,
+  yearRange: "1900:2100",
+});
+
+// Set a default date (e.g., today's date)
+var today = $.datepicker.formatDate("dd-mm-yy", new Date());
+$("#registration_date,.to_date").val(today);
+
+  });
+
+
+
+     
+    </script>
+   <div class="container-fluid">
+								<div class="row px-3 ">
+									<div class="col-12 bg_grey">
+										<div class="">
+											
+											<div class="row justify-content-center pb-5">
+												<div class="col-md-12">
+                                                  <div class="row pb-3">
+												<div class="col-auto">
+													<h3>Branch</h3>
+												</div>
+
+                                                		
+												<div class="col-auto ms-auto">
+                                        
+                                               	<a href="<?php echo base_url(); ?>settings/branch"  class="btn btn_bg">Branch List</a>
+                                            
+                                        </div>
+
+											</div>
+										 <?php echo form_open_multipart('settings/branch/update',array('class' => 'form-vertical input_form', 'id' => 'insert_purchase','name' => 'insert_purchase'))?>
+                                          <?php
+                                          if(isset($allPdt)){
+                                            foreach($allPdt as $pdt){
+                                          
+                                          ?>
+									      				<div class="row mb-3">
+                                              <input type="hidden" id="id" class="form-control" name="id"  value="<?php echo $pdt->id; ?>" >
+                                              <div class="form-group col-md-6">
+                                                    <label for="name">Branch Name</label>
+                                                    <input type="text" id="name" class="form-control" name="name"  value="<?php echo $pdt->name; ?>" required>
+                                                    <span class="text-red small"><?php echo form_error('name'); ?></span>
+                                                </div> 
+                               <div class="form-group col-md-6">
+                                 <label for="mobile_no">Mobile No</label>
+                                 <input type="text" id="mobile_no" class="form-control " name="mobile_no"  value="<?php echo $pdt->mobile_no; ?>"  >
+                                 <span class="text-red small"><?php echo form_error('mobile_no'); ?></span>
+                              </div>
+                              <div class="form-group col-md-6">
+                                 <label for="email">Email</label>
+                                 <input type="text" id="email" class="form-control" name="email"  value="<?php echo $pdt->email; ?>" >
+                                 <span class="text-red small"><?php echo form_error('email'); ?></span>
+                              </div>
+                               
+                                <div class="form-group col-md-6">
+                                 <label for="address">Address</label>
+                                 <input type="text" id="address" class="form-control" name="address"  value="<?php echo $pdt->address; ?>" >
+                                 <span class="text-red small"><?php echo form_error('address'); ?></span>
+                              </div>
+
+                               <div class="col-md-6">
+                                 <label for="is_active">Status</label>
+                                 <select type="text" id="is_active" class="form-control" name="is_active"  >
+                                    <option value=""><?php echo display('select'); ?></option>
+                                    <option value="1" <?php if($pdt->is_active == 1) echo 'selected'; ?>>Active</option>
+                                    <option value="0" <?php if($pdt->is_active == 0) echo 'selected'; ?>>Inactive</option>
+                                
+                                    </select>
+                                 <span class="text-red small"><?php echo form_error('is_active'); ?></span>
+                              </div>
+                             
+									      		            <div class="form-group col-md-3 mb-3">
+                                                                           <label for="adult_child"></label>
+									      					        <div class="reset-button left">
+									      						<button type="submit" class="btn btn_bg">Update </button>
+									      					</div>
+									      				</div>			
+									      		</div>	
+									      			
+									      			
+										
+										
+                                     
+
+
+                                          
+
+</div>
+														</div>		     
+					                                    									     
+
+										</div>
+									</div>
+								</div>
+							</div>
+
+
+                                                 
+
+
+
+
+                    
+                    </form>
+
+                    <?php
+                    }
+                }
+                    ?>
+            </div>
+        </div>
+    </section>
+

@@ -18,7 +18,7 @@ class Categories extends MX_Controller {
 
       $data = array();
       $data['active'] = "main_category";
-      $data['title'] = display('main_category'); 
+      $data['title'] = "Categories "; 
       $data['allPdt'] =  $this->common_model->view_data("categories", "", "id", "DESC");
      // echo "<pre>"; print_r($data['allPdt']);exit();
       $data['content'] = $this->load->view("categories", $data, TRUE);

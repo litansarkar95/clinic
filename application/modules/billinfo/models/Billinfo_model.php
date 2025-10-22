@@ -235,9 +235,9 @@ $is_surgery = $this->input->post('is_surgery') ? 1 : 0;
 		
 				
 		
-			$this->db->select("bill_details.* , testinfo.name ");
+			$this->db->select("bill_details.* , facials.name  , facials.regular_price , facials.discount_percentage , facials.discount_amount , facials.offer_price, facials.discount_type");
 			$this->db->from("bill_details");
-			$this->db->join('testinfo', "bill_details.test_info_id = testinfo.id ",'left');
+			$this->db->join('facials', "bill_details.test_info_id = facials.id ",'left');
 			$this->db->where("bill_details.bill_id",$id); 
 			$this->db->order_by("id", "DESC");
 			return $this->db->get()->result();

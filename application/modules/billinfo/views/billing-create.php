@@ -156,62 +156,19 @@ $("#registration_date,.to_date").val(today);
                                  <span class="text-red small"><?php echo form_error('registration_date'); ?></span>
                               </div>
                               <div class="form-group col-md-3 mb-3">
-                                 <label for="patient_name">Patient Name</label>
+                                 <label for="patient_name"> Name</label>
                                   <input type="text" id="patient_name" class="form-control " name="patient_name"  value="<?php echo set_value('patient_name'); ?>" readonly>
                                  <span class="text-red small"><?php echo form_error('patient_name'); ?></span>
                               </div>
-                                <div class="form-group col-md-3 mb-3">
-                                 <label for="father_husband_name">Father/Husband Name </label>
-                                 <input type="text" id="father_husband_name" class="form-control" name="father_husband_name" value="<?php echo set_value('father_husband_name'); ?>" readonly>
-                                 <span class="text-red small"><?php echo form_error('father_husband_name'); ?></span>
-                              </div>
+                              
                               <div class="form-group col-md-2 mb-3">
                                  <label for="mobile_no">Mobile No</label>
                                  <input type="text" id="mobile_no" class="form-control" name="mobile_no"  value="<?php echo set_value('mobile_no'); ?>" readonly>
                                  <span class="text-red small"><?php echo form_error('mobile_no'); ?></span>
                               </div>
-                               <div class="form-group col-md-3 mb-3" style="display:none;">
-                                 <label for="gender">Gender</label>
-                                <input type="text" id="gender" class="form-control" name="gender"  value="<?php echo set_value('gender'); ?>" >
-                                 
-                                 <span class="text-red small"><?php echo form_error(''); ?></span>
-                              </div>
-
-                              <div class="form-group col-md-3 mb-3" style="display:none;">
-                                 <label for="age">Age</label>
-                                 <input type="text" id="age" class="form-control" name="age"  value="<?php echo set_value('age'); ?>" >
-                                 <span class="text-red small"><?php echo form_error('age'); ?></span>
-                              </div>
-                            
                             
 
-                           
-                                 <div class="form-group col-md-3 mb-3" style="display:none;">
-                                 <label for="ref_name">Ref. Name</label>
-                                  <input type="text" id="ref_name" class="form-control" name="ref_name"  value="<?php echo set_value('ref_name'); ?>" >
-                                 <span class="text-red small"><?php echo form_error('ref_name'); ?></span>
-                              </div>
-
-                             
-                                <div class="form-group col-md-3 mb-3" style="display:none;">
-                                 <label for="adult_child">Adult / Child</label>
-                              
-                                 <input type="text" id="adult_child" class="form-control" name="adult_child"  value="<?php echo set_value('adult_child'); ?>" >
-                                 <span class="text-red small"><?php echo form_error('adult_child'); ?></span>
-                              </div>
-
-
-                              	  <div class="row">
-  <div class="col-12 mb-3">
-    <div class="switcher-pricing text-left lh-1">
-      <div class="frm_toggle_container">
-        <input type="checkbox" name="is_surgery" id="Issurgery" class="pricing-toggle frm_toggle_deselect deselect_toggle_container" value="1">
-      
-        <label for="myInput">Does this patient need surgery?</label>
-      </div>
-    </div>
-  </div>
-</div>
+         
 
 <!-- The div you want to show/hide -->
 <div id="surgerySection" style="display: none; ">
@@ -269,8 +226,8 @@ $("#registration_date,.to_date").val(today);
                                                 <thead>
                                                     <tr class="info">
                                                         <th width="60px">S.L</th>
-                                                        <th>Test Name</th>
-                                                        <th width="150px">Test Fee</th>
+                                                        <th>Facial Name</th>
+                                                        <th width="150px">Amount</th>
                                                         <th>Comments</th>
                                                         <th>Action</th>
                                                     </tr>
@@ -449,10 +406,10 @@ $("#registration_date,.to_date").val(today);
                         success: function(data) {
                             response($.map(data, function(item) {
                                 return {
-                                    label: item.name + " (" + item.testFee + ")",
+                                    label: item.name + " (" + item.offer_price + ")",
                                     value: item.name,
                                     id: item.id,
-                                    price: item.testFee
+                                    price: item.offer_price
                                 };
                             }));
                         }
@@ -570,16 +527,7 @@ $("#registration_date,.to_date").val(today);
 
 
 
-<script>
-document.getElementById("Issurgery").addEventListener("change", function() {
-  var surgeryDiv = document.getElementById("surgerySection");
-  if (this.checked && this.value === "1") {
-    surgeryDiv.style.display = "block";
-  } else {
-    surgeryDiv.style.display = "none";
-  }
-});
-</script>
+
 
 
     	
