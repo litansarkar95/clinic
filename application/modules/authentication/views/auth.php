@@ -9,7 +9,7 @@
 		<link rel="stylesheet" href="<?php echo base_url(); ?>assets/static/css/dataTables.dataTables.css">
 		<link rel="stylesheet" href="<?php echo base_url(); ?>assets/static/css/style.css">
 		<link rel="stylesheet" href="<?php echo base_url(); ?>assets/static/css/responsive.css">
-		<title>Admin Panel</title>
+		<title>Login</title>
 	</head>
 	<style>
 .text-red{
