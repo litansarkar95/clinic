@@ -59,18 +59,18 @@ $("#registration_date,.to_date").val(today);
 												<div class="col-md-12">
                                                   <div class="row pb-3">
 												<div class="col-auto">
-													<h3>Patient Registration</h3>
+													<h3>Cusomer Registration</h3>
 												</div>
 
                                                 		<div class="col-auto ms-auto">
-													<a href="<?php echo base_url(); ?>billinfo"  class="btn custom-button">Create Patient Billing</a>
+													<a href="<?php echo base_url(); ?>billinfo"  class="btn custom-button">Create Cusomer Billing</a>
 												</div>
 												<div class="col-auto ms-auto">
                                             <form action="<?php echo base_url(); ?>patient" method="POST">
                                                 <!-- Add hidden inputs to send data -->
                                                 <input type="hidden" name="from_date" value="<?php echo date("d-m-Y"); ?>">
                                                 <input type="hidden" name="to_date" value="<?php echo  date("d-m-Y"); ?>">
-                                                <button type="submit" class="btn btn_bg">Patient List</button>
+                                                <button type="submit" class="btn btn_bg">Cusomer List</button>
                                             </form>
                                         </div>
 
@@ -90,30 +90,17 @@ $("#registration_date,.to_date").val(today);
                                  <span class="text-red small"><?php echo form_error('registration_date'); ?></span>
                               </div>
                               <div class="form-group col-md-3">
-                                 <label for="patient_name">Patient Name</label>
+                                 <label for="patient_name">Cusomer Name</label>
                                  <input type="text" id="patient_name" class="form-control" name="patient_name"  value="<?php echo set_value('patient_name'); ?>" required>
                                  <span class="text-red small"><?php echo form_error('patient_name'); ?></span>
                               </div>
-                                <div class="form-group col-md-3">
-                                 <label for="father_husband_name">Father/Husband Name </label>
-                                 <input type="text" id="father_husband_name" class="form-control" name="father_husband_name" value="<?php echo set_value('father_husband_name'); ?>" required>
-                                 <span class="text-red small"><?php echo form_error('father_husband_name'); ?></span>
-                              </div>
+                               
                               <div class="form-group col-md-3">
                                  <label for="mobile_no">Mobile No</label>
                                  <input type="text" id="mobile_no" class="form-control" name="mobile_no"  value="<?php echo set_value('mobile_no'); ?>" required>
                                  <span class="text-red small"><?php echo form_error('mobile_no'); ?></span>
                               </div>
-                               <div class="form-group col-md-3">
-                                 <label for="gender">Gender</label>
                               
-                                 <select type="text" id="gender" class="form-control frm_select" name="gender"  required>
-                                    <option value="Male">Male</option>
-                                    <option value="Female">Female</option>
-                                    <option value="Others">Others</option>
-                                    </select>
-                                 <span class="text-red small"><?php echo form_error('gender'); ?></span>
-                              </div>
 
                               <div class="form-group col-md-3">
                                  <label for="age">Age</label>
@@ -121,122 +108,8 @@ $("#registration_date,.to_date").val(today);
                                  <span class="text-red small"><?php echo form_error('age'); ?></span>
                               </div>
                            
-                               <div class="form-group col-md-3">
-                                 <label for="district_id">District</label>
-                                 <div class="select_2_container">
-                                 <select type="text" id="district_id"  class="form-control frm_select select2" name="district_id"  required>
-                                    <option value=""><?php echo display('select'); ?></option>
-                                    <?php
-                                        foreach ($allDst as $dis){
-                                      echo "<option value='{$dis->id}'>{$dis->name}</option>";
-                                        }
-                                    ?>
-                                    </select>
-                                    <i class="fas fa-caret-down"></i>
-                                  </div>
-                                 <span class="text-red small"><?php echo form_error('district_id'); ?></span>
-                              </div>
-                                <div class="form-group col-md-3">
-                                 <label for="upazilla_id">Upazilla</label>
-                                   <div class="select_2_container">
-                                 <select type="text" id="upazilla_id"  class="form-control frm_select select2" name="upazilla_id"  >
-                                    <option value="">Select District</option>
-                                  
-                                    </select> <i class="fas fa-caret-down"></i>
-                                  </div>
-
-                                 <span class="text-red small"><?php echo form_error('upazilla_id'); ?></span>
-                              </div>
-                                <div class="form-group col-md-3">
-                                 <label for="village">Village</label>
-                                 <input type="text" id="village" class="form-control" name="village"  value="<?php echo set_value('village'); ?>" required>
-                                 <span class="text-red small"><?php echo form_error('village'); ?></span>
-                              </div>
-
-                                <div class="form-group col-md-2">
-                                 <label for="occupation_id">Occupation</label>
-                                  <div class="select_2_container">
-                               <select type="text" id="occupation_id" class="form-control frm_select select2" name="occupation_id" required >
-                                    <option value=""><?php echo display('select'); ?></option>
-                                    <?php
-                                        foreach ($allOccu as $occu){
-                                      echo "<option value='{$occu->id}'>{$occu->name}</option>";
-                                        }
-                                    ?>
-                                    </select>
-                                    <i class="fas fa-caret-down"></i>
-                                  </div>
-                                 <span class="text-red small"><?php echo form_error('occupation_id'); ?></span>
-                              </div>
-                              <div class="form-group col-md-2">
-                                 <label for="religion">Religion</label>
-                                 <select type="text" id="religion" class="form-control" name="religion"  >
-                                    <option value="Islam">Islam</option>
-                                    <option value="Hindu">Hindu</option>
-                                    <option value="Christianity">Christianity</option>
-                                    <option value="Buddhism">Buddhism</option>
-                                    <option value="Other">Other</option>
-                                    
-                                    </select>
-                                 <span class="text-red small"><?php echo form_error('religion'); ?></span>
-                              </div>
-                              <div class="form-group col-md-2">
-                                 <label for="nationality">Nationality</label>
-                                 <select type="text" id="nationality" class="form-control" name="nationality"  required>
-                             
-                                    <?php
-                                        foreach ($allCountry as $contry){
-                                      echo "<option value='{$contry->id}'>{$contry->name}</option>";
-                                        }
-                                    ?>
-                                    </select>
-                                 <span class="text-red small"><?php echo form_error('nationality'); ?></span>
-                              </div>
-                                 <div class="form-group col-md-3">
-                                 <label for="ref_name">Doctor Referance Name</label>
-                                  <div class="select_2_container">
-                                 <select type="text" id="ref_name" class="form-control frm_select select2" name="ref_name"  required>
-                           
-                                    <?php
-                                        foreach ($allDoctors as $doct){
-                                      echo "<option value='{$doct->id}'>{$doct->name} - {$doct->mobile}</option>";
-                                        }
-                                    ?>
-                                    </select> 
-                                     <i class="fas fa-caret-down"></i>
-                                  </div>
-                                 <span class="text-red small"><?php echo form_error('ref_name'); ?></span>
-                              </div>
-
-                             
-                                <div class="form-group col-md-2">
-                                 <label for="adult_child">Adult / Child</label>
                               
-                                 <select type="text" id="adult_child" class="form-control" name="adult_child" required >
-                                    <option value="Adult">Adult</option>
-                                    <option value="Child">Child</option>
-                                    </select>
-                                 <span class="text-red small"><?php echo form_error('adult_child'); ?></span>
-                              </div>
-
-                                 <div class="col-md-2">
-                                            <div class="form-group ">
-                                                <label for="token">Token</label>
-                                                <input type="text" id="token" class="form-control" name="token"  value="<?php echo $serial_no; ?>" readonly>
-                                                <span class="text-red small"><?php echo form_error('token'); ?></span>
-                                            </div>
-
-                                    </div>
-                                       <div class="col-md-2">
-                                      
-                                                <div class="switcher-pricing text-left lh-1" style="margin-top:2rem;">
-                                                <div class="frm_toggle_container">
-                                                    <input type="checkbox" name="is_old_patient" id="is_old_patient" class="pricing-toggle frm_toggle_deselect deselect_toggle_container" value="1">
-                                                
-                                                    <label for="is_old_patient">Is this an old patient? </label>
-                                                </div>
-                                                </div>
-                                            </div>
+                                  
 
                              
 									      		            <div class="form-group col-md-3 mb-3">
@@ -253,36 +126,7 @@ $("#registration_date,.to_date").val(today);
                                      
 
 
-                                                     <div class="col-md-8">
-                                            <div class="table-responsive">
-                                            <table id="selectedItemsTable" class="table table-bordered table-striped table-hover">
-                                                <thead>
-                                                    <tr class="info">
-                                                        <th>Test Name</th>
-                                                        <th width="150px">Test Fee</th>
-                                                     
-                                                    </tr>
-                                                </thead>
-                                                <tbody id="">
-                                                        <?php
-                                                        if(isset($allTest)){
-                                        foreach ($allTest as $test){
-                                        
-                                            ?>
-                                                    <tr>
-                                                     <td id=""><?php echo $test->name; ?></td>
-                                                         <td id=""><?php echo $test->testFee; ?></td>
-                                        </tr>
-                                                        <?php
-                                        }
-                                    }
-                                                        ?>
-                                                </tbody>
-                                               
-                                            </table>
-                                            	</div>
-									</div>
-
+                                                  
 </div>
 														</div>		     
 					                                    									     

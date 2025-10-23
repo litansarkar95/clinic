@@ -28,6 +28,13 @@ class Patient_model extends CI_Model {
 
     $this->db->select("patients.* ");
     $this->db->from("patients");
+     $branch_id  = $this->session->userdata("loggedin_branch_id");
+
+
+	 if (!empty($branch_id)) {
+             $this->db->where("patients.branch_id", $branch_id); 
+	 }
+
 
     if (!empty($invoice_id)) {
         $this->db->where("patients.registration_no", $invoice_id); 

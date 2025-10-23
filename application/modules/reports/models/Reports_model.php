@@ -6,7 +6,11 @@ class Reports_model extends CI_Model {
         $this->db->select("bill_info.*, patients.name , patients.registration_no ");
         $this->db->from('bill_info');
 		$this->db->join('patients', "bill_info.patient_id = patients.id ",'left');
-       
+
+        $branch_id  = $this->session->userdata("loggedin_branch_id");
+        if (!empty($branch_id)) {
+                $this->db->where("bill_info.branch_id", $branch_id); 
+        }
       
         if (!empty($filters['from_date']) && !empty($filters['to_date'])) {
             $from_date_timestamp = strtotime($filters['from_date']);
@@ -68,7 +72,10 @@ public function get_testinfo_summary_by_category($filters)
     $this->db->select("bill_info.*, patients.name, patients.registration_no");
     $this->db->from('bill_info');
     $this->db->join('patients', "bill_info.patient_id = patients.id", 'left');
-
+    $branch_id  = $this->session->userdata("loggedin_branch_id");
+        if (!empty($branch_id)) {
+                $this->db->where("bill_info.branch_id", $branch_id); 
+        }
     if (!empty($filters['from_date']) && !empty($filters['to_date'])) {
         $from_date_timestamp = strtotime($filters['from_date']);
         $to_date_timestamp = strtotime($filters['to_date']);

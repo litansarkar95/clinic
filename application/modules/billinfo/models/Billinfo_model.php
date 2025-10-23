@@ -42,46 +42,32 @@ $is_surgery = $this->input->post('is_surgery') ? 1 : 0;
 
 	 $data=array(
 		 'ip_address'		        => $_SERVER['REMOTE_ADDR'],
-		 'date_code'	            => date("y"),
+		 "branch_id"                                => $this->session->userdata("loggedin_branch_id"), 
+		 'date_code'	                    => date("y"),
 		 'month_code' 		        => date("m"),
 		 'code_random'		        => $sales_id,
-		 'invoiceNumber'	       	=> $sales_number,
-		 'patient_id'	            => $this->input->post('patient_id', TRUE),
-		 'subTotal'			                =>	$this->input->post('gtotal_amount', TRUE),
+		 'invoiceNumber'	       	        => $sales_number,
+		 'patient_id'	                    => $this->input->post('patient_id', TRUE),
+		 'subTotal'			        =>	$this->input->post('gtotal_amount', TRUE),
 		 'discountType'	                    =>	$this->input->post('discount_type',TRUE),
-		 'discountAmount'	                =>	$this->input->post('discountAmount',TRUE),
-		 'totalDisAmount'	                =>	($this->input->post('gtotal_amount',TRUE) - $this->input->post('dis_grandTotal', TRUE)),
-		 'isPaid'	                        =>	$isPaid,
-		 'totalAmount'			            =>	$this->input->post('dis_grandTotal', TRUE),
+		 'discountAmount'	                    =>	$this->input->post('discountAmount',TRUE),
+		 'totalDisAmount'	                    =>	($this->input->post('gtotal_amount',TRUE) - $this->input->post('dis_grandTotal', TRUE)),
+		 'isPaid'	                                =>	$isPaid,
+		 'totalAmount'	                    =>	$this->input->post('dis_grandTotal', TRUE),
 		 'paidAmount'	                    =>	$this->input->post('payment_amount',TRUE),
 		 'dueAmount'	                    =>	$this->input->post('due_amount',TRUE),
 		 'paymentType'	                    =>	"Cash",
-		 'invoice_date'		                =>	$sales_newdate,
+		 'invoice_date'		        =>	$sales_newdate,
  		 'is_surgery'	                    =>	$is_surgery,
- 		 'status'	                        =>	1,
+ 		 'status'	                                =>	1,
 // 		 'create_user'			            =>	$saveid,
-		 'created_at'			            =>	$createdate
+		 'created_at'		        =>	$createdate
 
 	 );
 	 if( $this->db->insert("bill_info",$data)){
 		$returnid = $this->db->insert_id();
 
-		/// Accounts  
-		$is_surgery = $this->input->post('is_surgery') ? 1 : 0;
-		if($is_surgery  == 1){
-			$surgery_data = array(
-							'bill_id'           => $returnid,
-							'date'              => $this->input->post('surgery_date', TRUE),
-							'patient_id'	    => $this->input->post('patient_id', TRUE),
-							'surgery_dr_id'	    => $this->input->post('surgery_dr_name', TRUE),
-							'serial'            => $this->input->post('serial', TRUE),
-							'created_at'	    =>	$createdate
-						);
-
-						$this->db->insert('operation', $surgery_data);
-					}
 		
-		// end Accounts
 		
 		/// Accounts  
 			$accdata = array(
@@ -166,6 +152,16 @@ $is_surgery = $this->input->post('is_surgery') ? 1 : 0;
 		 
 		 
 	public function billinfoList($invoice_id, $from_date, $to_date, $status_id) {
+
+          $branch_id  = $this->session->userdata("loggedin_branch_id");
+
+
+	 if (!empty($branch_id)) {
+             $this->db->where("bill_info.branch_id", $branch_id); 
+	 }
+
+
+    
 
     $this->db->select("bill_info.* , patients.name  , patients.mobile_no");
     $this->db->from("bill_info");

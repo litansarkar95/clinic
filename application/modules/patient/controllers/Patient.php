@@ -65,9 +65,7 @@ class Patient extends CI_Controller {
 
 
        $this->form_validation->set_rules("patient_name", "Name", "required");
-       $this->form_validation->set_rules("father_husband_name", "Father/Husband Name", "required");
        $this->form_validation->set_rules("mobile_no", "Mobile No", "required");
-       $this->form_validation->set_rules("age", "Age", "required");
       if ($this->form_validation->run() == NULL) {
       
       } else {
@@ -77,7 +75,7 @@ class Patient extends CI_Controller {
         $date = date("Y-m-d H:i:s");
      
         $data = array(
-
+            "branch_id"             => $this->session->userdata("loggedin_branch_id"), 
             'month'                 => $month,
             'day'                   => $day,
             'year'                  => $year,
@@ -86,19 +84,8 @@ class Patient extends CI_Controller {
             'registration_no'       => $registration_no,
             "name"                  => $this->common_model->xss_clean($this->input->post("patient_name")),
             "registration_date"     => strtotime($this->common_model->xss_clean($this->input->post("registration_date"))),
-            "father_husband_name"   => $this->common_model->xss_clean($this->input->post("father_husband_name")),
             "mobile_no"             => $this->common_model->xss_clean($this->input->post("mobile_no")),
-            "gender"                => $this->common_model->xss_clean($this->input->post("gender")),
             "age"                   => $this->common_model->xss_clean($this->input->post("age")),
-            "district_id"           => $this->common_model->xss_clean($this->input->post("district_id")),
-            "upazilla_id"           => $this->common_model->xss_clean($this->input->post("upazilla_id")),
-            "village"               => $this->common_model->xss_clean($this->input->post("village")),
-            "occupation_id"         => $this->common_model->xss_clean($this->input->post("occupation_id")),
-            "religion"              => $this->common_model->xss_clean($this->input->post("religion")),
-            "nationality_id"        => $this->common_model->xss_clean($this->input->post("nationality")),
-            "doctor_id"             => $this->common_model->xss_clean($this->input->post("ref_name")),
-            "adult_child"           => $this->common_model->xss_clean($this->input->post("adult_child")),
-            "is_old_patient"        => $is_old_patient,
             "is_active"             => 1,
             "create_date"           => strtotime($date),
            
@@ -107,49 +94,17 @@ class Patient extends CI_Controller {
         if ($this->common_model->save_data("patients", $data)) {
           $id = $this->common_model->Id;
 
-             $is_old_patient = $this->input->post('is_old_patient') ? 1 : 0;
-	         	if($is_old_patient  == 0){
-
-          $allTest      = $this->patient_model->TestListWhere();
-
-        foreach($allTest as $test){
-
-        $pdata = array(
-            "registration_id"        => $id,
-            "test_info_id"           => $test->id,
-            "price"                  => $test->testFee,
-            "create_date"            => strtotime($date),
            
-        );
-           $this->common_model->save_data("bill_details", $pdata);
 
-       
-         
-           // account 
-          $taccdata = array(
-							'testinfo_id'          => $test->id,
-							'patient_id'           => $id,
-							'amount'               => $test->testFee,
-							'transaction_type'     => 'credit',
-							'payment_method'       => 'cash',
-							'transaction_date'     => strtotime($date),
-							'status'               => 'success',
-							
-						);
-
-						$this->db->insert('transactions', $taccdata);
-            
-      }
-    }
           $this->session->set_flashdata('success', 'Save Successfully');
-                 redirect(base_url() . "patient/invoice/$id", "refresh");
+                 redirect(base_url() . "billinfo", "refresh");
           }else{
             
               $this->session->set_flashdata('error', 'Something error.');
-                redirect(base_url() . "patient/patient/create", "refresh");
+                redirect(base_url() . "patient/create", "refresh");
           }
         
-       redirect(base_url() . "patient/patient/create", "refresh");
+       redirect(base_url() . "patient/create", "refresh");
       }
       
         $data = array();
@@ -160,7 +115,7 @@ class Patient extends CI_Controller {
         $data['allCountry']    =  $this->common_model->view_data("country", array("is_active" => 1), "name", "ASC");
         $data['allDoctors']    =  $this->common_model->view_data("doctors", array("is_active" => 1), "id", "ASC");
         
-        $data['allTest']      = $this->patient_model->TestListWhere();
+     
       // print_r($data['allTest']);exit();
        
         //serial_no

@@ -332,7 +332,7 @@ $("#registration_date,.to_date").val(today);
                         // Loop through the results
                         $.each(response.data, function(index, patient) {
                             html += '<div class="patient-result-card" data-id="' + patient.id + '" data-name="' + patient.name +  '" data-registration_no="'  + patient.registration_no + '" data-adult_child="'  + patient.adult_child + '" data-reference="'  + patient.doctor + '" data-mobile="' + patient.mobile_no +  '" data-gender="' + patient.gender +  '" data-father="' + patient.father_husband_name + '" data-age="' + patient.age + '" data-reg-no="' + patient.registration_no + '">';
-                           html += '<div class="patient-result-card-header">' + patient.registration_no + ' ' + patient.name + ' - ' + patient.father_husband_name +'</div>';
+                           html += '<div class="patient-result-card-header">' + patient.registration_no + ' ' + patient.name + ' - ' + patient.mobile_no +'</div>';
 
                           
                             html += '</div>';

@@ -40,13 +40,13 @@ class Billinfo extends CI_Controller {
        
         if ($sales_id) {
            $this->session->set_flashdata('success', display('save_successfully'));
-            redirect(base_url() . "billinfo/invoice/$sales_id", "refresh");
+            redirect(base_url() . "billinfo", "refresh");
           }else{
             
               $this->session->set_flashdata('error',  display('please_try_again'));
           }
         
-       redirect(base_url() . "patient/districts", "refresh");
+       redirect(base_url() . "billinfo", "refresh");
       }
 
       

@@ -68,7 +68,7 @@
       <div class="content">
         <div class="row">
           <div class="col-auto">
-            <h3>Patient Billing List</h3>
+            <h3> Billing List</h3>
           </div>
           <div class="col-auto ms-auto">
             <!-- Button trigger modal -->
@@ -141,9 +141,9 @@
                         data-bs-target="#exampleModal<?php echo $pdt->id; ?>">
                         <i class="fas fa-dollar"></i>
                       </button>
-                       <a href="<?php echo base_url()."billinfo/invoice/$pdt->id"; ?>" target="_blank" class="btn btn_bg print-btn" >
+                       <!-- <a href="<?php echo base_url()."billinfo/invoice/$pdt->id"; ?>" target="_blank" class="btn btn_bg print-btn" >
                         <i class="fas fa-print"></i>
-                                        </a>
+                                        </a> -->
 
                                            <?php
                                      $role_id = $this->session->userdata('loggedin_role_id');
