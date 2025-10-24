@@ -36,7 +36,7 @@
 											<li class="nav-item">
 										          <a class="nav-link" href="#">Billing <i class="fas fa-caret-down"></i></a>
 										          <ul class="nav_sub_menu"> 	
-													<li><a href="<?php echo base_url(); ?>billinfo">Create  Billing </a></li>
+													<li><a href="<?php echo base_url(); ?>billinfo/create">Create  Billing </a></li>
 										          	<li><a href="<?php echo base_url(); ?>billinfo/list"> Invoice List</a></li>
 										          	<li><a href="<?php echo base_url(); ?>patient/create"> Registration</a></li>
 										          	<li><a href="<?php echo base_url(); ?>patient">Registration List</a></li>

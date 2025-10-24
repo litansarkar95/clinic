@@ -98,7 +98,141 @@ $("#registration_date,.to_date").val(today);
 
      
     </script>
+
+    <style>
+.product-card {
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: inline-block;
+  width: 220px;
+  margin: 10px;
+}
+
+.product-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+}
+
+.product-img {
+  border-radius: 8px;
+}
+
+.product-title {
+  font-weight: 600;
+  color: #333;
+}
+
+.price-section {
+  font-size: 16px;
+}
+
+.original-price {
+  text-decoration: line-through;
+  color: #888;
+}
+
+.discount-price {
+  color: #28a745;
+  font-weight: bold;
+}
+
+.add-now-btn {
+  background-color: #28a745;
+  border: none;
+  transition: 0.3s;
+}
+
+.add-now-btn:hover {
+  background-color: #218838;
+}
+.discount-badge {
+  display: inline-block;
+  background: #ff4d4d;
+  color: #fff;
+  font-weight: bold;
+  font-size: 13px;
+  border-radius: 5px;
+  padding: 3px 8px;
+}
+
+.discount-badge span {
+  display: inline-block;
+}
+
+.product-card {
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: inline-block;
+  width: 220px;
+  margin: 10px;
+}
+
+.product-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+}
+
+.product-img {
+  border-radius: 8px;
+}
+
+.product-title {
+  font-weight: 600;
+  color: #333;
+}
+
+.price-section {
+  font-size: 16px;
+}
+
+.original-price {
+  text-decoration: line-through;
+  color: #888;
+}
+
+.discount-price {
+  color: #28a745;
+  font-weight: bold;
+}
+
+.add-now-btn {
+  background-color: #28a745;
+  border: none;
+  transition: 0.3s;
+}
+
+.add-now-btn:hover {
+  background-color: #218838;
+}
+.toast-msg {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: linear-gradient(135deg, #28a745, #218838);
+  color: #fff;
+  padding: 12px 20px;
+  border-radius: 6px;
+  font-weight: 500;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  opacity: 0;
+  transform: translateY(-20px);
+  transition: all 0.4s ease;
+  z-index: 9999;
+}
+
+.toast-msg.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+            </style>
    <div class="container-fluid">
+            <div id="toast-msg" class="toast-msg"></div>
+
 								<div class="row px-3 ">
 									<div class="col-12 bg_grey">
 								
@@ -109,16 +243,7 @@ $("#registration_date,.to_date").val(today);
 												<div class="col-auto">
 													<h3>Create Billing</h3>
 												</div>
-                                                	<div class="col-auto ms-auto" style="width:600px">
-												
-                                                    <div class="search_bar">
                                                 
-                                                                <input type="text" class="form-control" id="search_input" placeholder="Search Name or Mobile No or Registration No" aria-label="Recipient’s username" aria-describedby="basic-addon2">
-                                                  
-                                                  
-                                                </div>
-                                                       <div id="search_results"></div>
-												</div>
                                                 
 												<div class="col-auto ms-auto">
                                                        <form action="<?php echo base_url(); ?>billinfo/list" method="POST">
@@ -137,159 +262,65 @@ $("#registration_date,.to_date").val(today);
 <!-- The search result container will appear here -->
 
 
- <?php echo form_open_multipart('billinfo',array('class' => 'form-vertical', 'id' => 'insert_purchase','name' => 'insert_purchase'))?>
-     
-	<div class="input_form" >
-													
-     
-                                         
-							<div class="row mb-3">
-                            <input type="hidden" id="patient_id" class="form-control " name="patient_id"  value="<?php echo set_value('patient_id'); ?>" >
-                                   <div class="form-group col-md-2 mb-3">
-                                 <label for="registration_id">Invoice ID</label>
-                                 <input type="text" id="registration_id" class="form-control" name="registration_id"  value="<?php echo $registration_no; ?>" readonly>
-                                 <span class="text-red small"><?php echo form_error('registration_id'); ?></span>
-                              </div> 
-                           <div class="form-group col-md-2 mb-3">
-                                 <label for="registration_date">Invoice Date</label>
-                                 <input type="text" id="registration_date" class="form-control " name="registration_date"  value="<?php echo set_value('registration_date'); ?>" >
-                                 <span class="text-red small"><?php echo form_error('registration_date'); ?></span>
-                              </div>
-                              <div class="form-group col-md-3 mb-3">
-                                 <label for="patient_name"> Name</label>
-                                  <input type="text" id="patient_name" class="form-control " name="patient_name"  value="<?php echo set_value('patient_name'); ?>" readonly>
-                                 <span class="text-red small"><?php echo form_error('patient_name'); ?></span>
-                              </div>
-                              
-                              <div class="form-group col-md-2 mb-3">
-                                 <label for="mobile_no">Mobile No</label>
-                                 <input type="text" id="mobile_no" class="form-control" name="mobile_no"  value="<?php echo set_value('mobile_no'); ?>" readonly>
-                                 <span class="text-red small"><?php echo form_error('mobile_no'); ?></span>
-                              </div>
-                            
-
-         
-
-<!-- The div you want to show/hide -->
-<div id="surgerySection" style="display: none; ">
- <div class="row">
-   <div class="form-group col-md-3 mb-3">
-                                 <label for="surgery_date">Surgery Date</label>
-                                 <input type="text" id="surgery_date" class="form-control " name="surgery_date"  value="<?php echo set_value('surgery_date'); ?>" >
-                                 <span class="text-red small"><?php echo form_error('surgery_date'); ?></span>
-                              </div>
-                              <div class="form-group col-md-3 mb-3">
-                                 <label for="serial">Surgery Serial</label>
-                                  <input type="text" id="serial" class="form-control " name="serial"  value="<?php echo set_value('serial'); ?>" >
-                                 <span class="text-red small"><?php echo form_error('serial'); ?></span>
-                              </div>
-                              
-                                <div class="form-group col-md-3">
-                                 <label for="surgery_dr_name">Surgery Doctor  Name</label>
-                                 <select type="text" id="surgery_dr_name" class="form-control" name="surgery_dr_name"  >
-                                     <option value="0">Select Doctor</option>
-                                    <?php
-                                        foreach ($allDoctors as $doct){
-                                      echo "<option value='{$doct->id}'>{$doct->name} - {$doct->mobile}</option>";
-                                        }
-                                    ?>
-                                    </select>
-                                 <span class="text-red small"><?php echo form_error('surgery_dr_name'); ?></span>
-                              </div>
-                                </div>
-                                </div>
-			
-									          		</div>	
-									      				
-                                	</div>
+ 
+	
 									  
 
 
 
                                       <div class="input_form input_form_new" >
 									      				<div class="row mb-3">
-                                  <div class="col-md-8">
-
                                   <div class="col-md-12">
-                                                      
 
-                                                      <input type="text" class="form-control" name="batch_number_s" id="batch_number_s" placeholder="Search Test By Name here..">
-                                                      <span class="text-danger"></span>
-                                                      <input type="hidden" id="search_product_id" class="form-control"/>
-                                                      <input type="hidden" value="0" id="ganak">
+                            <?php
+if (isset($allPdt)) {
+    foreach ($allPdt as $pdt) {
+        // ছাড়ের হিসাব করা (যদি থাকে)
+        $discountPercent = 0;
+        if ($pdt->regular_price > 0 && $pdt->offer_price < $pdt->regular_price) {
+            $discountPercent = round((($pdt->regular_price - $pdt->offer_price) / $pdt->regular_price) * 100);
+        }
+?>
+        <div class="product-card text-center p-3">
+            <img src="https://placehold.co/200" alt="Product Image" class="product-img img-fluid mb-3">
 
-                                                       </div><br>
+            <h5 class="product-title mb-2"><?php echo $pdt->name; ?></h5>
 
-                                                        <div class="col-md-12">
-                                            <div class="table-responsive">
-                                            <table id="selectedItemsTable" class="table table-bordered table-striped table-hover">
-                                                <thead>
-                                                    <tr class="info">
-                                                        <th width="60px">S.L</th>
-                                                        <th>Facial Name</th>
-                                                        <th width="150px">Amount</th>
-                                                        <th>Comments</th>
-                                                        <th>Action</th>
-                                                    </tr>
-                                                </thead>
-                                              <tbody id="selectedItemsBody">
-            <!-- এখানে JavaScript দিয়ে row যোগ হবে -->
-          </tbody>
-                                            </table>
-                                            </div>
-                                               </div>
+            <div class="price-section mb-2">
+                <?php if ($discountPercent > 0) { ?>
+                    <span class="original-price me-2">৳<?php echo $pdt->regular_price; ?></span>
+                    <span class="discount-price">৳<?php echo $pdt->offer_price; ?></span>
+                <?php } else { ?>
+                    <span class="discount-price">৳<?php echo $pdt->regular_price; ?></span>
+                <?php } ?>
+            </div>
 
+            <?php if ($discountPercent > 0) { ?>
+                <div class="discount-badge mb-3">
+                    <span><?php echo $discountPercent; ?>% OFF</span>
+                </div>
+            <?php } ?>
 
+          <button 
+  class="btn btn-success btn-sm add-now-btn"
+  data-id="<?php echo $pdt->id; ?>"
+  data-name="<?php echo htmlspecialchars($pdt->name); ?>"
+  data-price="<?php echo $pdt->offer_price < $pdt->regular_price ? $pdt->offer_price : $pdt->regular_price; ?>"
+>
+  Add Now
+</button>
 
-                                    </div> 
-                                    <div class="col-md-4">
-                  <table class="table table-bordered table-striped table-hover">
-                                                    <tbody><tr>
-                                                        <th>Total Amount</th>
-                                                        <td>
-                                                            <span class="text-red small"></span>
-                                                            <input type="number" name="gtotal_amount" id="grandTotal" class="form-control grandTotal text-right" value="0" required="" min="1" step="1" "="" tabindex="7">
-                                                        </td>
-                                                    </tr>
-                                                    
-                                                    <tr>
-                                                        <th>Discount 
-                                                            <select name="discount_type" class="form-select discount_type form-control" id="form-ware" aria-invalid="false">
-                                                                <option value="flat">Flat (৳)</option>
-                                                                <option value="percent">Percent (%)</option>
-                                                            </select>
-                                                        </th>
-                                                        <td>
-                                                            <input type="number" step="any" name="discountAmount" id="discount_amount" min="0" class="form-control right-start-input" placeholder="0">
-                                                        </td>
-                                                    </tr>
-                                                    
-                                                    <tr>
-                                                        <th>Total Amount</th>
-                                                        <td>
-                                                            <span class="text-red small"></span>
-                                                            <input type="number" name="dis_grandTotal" id="dis_grandTotal" class="form-control dis_grandTotal text-right" value="0" required="" min="6" tabindex="7">
-                                                        </td>
-                                                    </tr>
-                                                    
-                                                    <tr>
-                                                        <th>Payment Amount</th>
-                                                        <td>
-                                                            <input type="text" name="payment_amount" id="paymentAmount" class="form-control payment_amount text-right" placeholder="0.00" value="0" min="0" tabindex="7">
-                                                        </td>
-                                                    </tr>
-                                                    
-                                                    <tr>
-                                                        <th>Due Amount</th>
-                                                        <td>
-                                                            <input type="text" name="due_amount" id="dueAmount" class="form-control due_amount text-right" placeholder="0.00" value="0" min="0" tabindex="7">
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
-                                              </table>
+        </div>
+<?php
+    }
+}
+?>
+                                          
+
 
 
                                     </div> 
+                      
 
                                             
                               
@@ -297,7 +328,8 @@ $("#registration_date,.to_date").val(today);
 									          		</div>	
                                       <div class="row">
                                         <div class="col-12 text-end">
-                                          <button type="submit"   class="btn btn_bg"> Save Bill</button>
+                                         <a type="submit" href="<?php echo base_url('billinfo/confirm_page'); ?>" class="btn btn_bg">Confirm</a>
+
                                         </div>
                                       </div>
 
@@ -306,256 +338,37 @@ $("#registration_date,.to_date").val(today);
 												</div>
 											</div>
 										</div>
-                    	</form>
+                    
 									</div>
 								</div>
 							</div>
-
-
-
-                       <script>
-                       
-      $(document).ready(function(){
-    
-    $('#search_input').keyup(function() {
-        var searchQuery = $(this).val().trim();
-
-        if (searchQuery.length >= 2) {
-            $.ajax({
-                url: '<?php echo site_url('billinfo/searchPatient'); ?>',
-                method: 'POST',
-                data: {search_query: searchQuery},
-                dataType: 'json',
-                success: function(response) {
-                    var html = '';
-                    if(response.status == 'success' && response.data.length > 0) {
-                        // Loop through the results
-                        $.each(response.data, function(index, patient) {
-                            html += '<div class="patient-result-card" data-id="' + patient.id + '" data-name="' + patient.name +  '" data-registration_no="'  + patient.registration_no + '" data-adult_child="'  + patient.adult_child + '" data-reference="'  + patient.doctor + '" data-mobile="' + patient.mobile_no +  '" data-gender="' + patient.gender +  '" data-father="' + patient.father_husband_name + '" data-age="' + patient.age + '" data-reg-no="' + patient.registration_no + '">';
-                           html += '<div class="patient-result-card-header">' + patient.registration_no + ' ' + patient.name + ' - ' + patient.mobile_no +'</div>';
-
-                          
-                            html += '</div>';
-                        });
-                    } else {
-                        html = '<p>No results found.</p>';
-                    }
-                    $('#search_results').html(html);
-                },
-                error: function() {
-                    alert('Error occurred while fetching data.');
-                }
-            });
-        } else {
-            $('#search_results').html('');  // Clear results if input is less than 2 characters
-        }
-    });
-
-    // Handle the click event on the patient result card
-    $(document).on('click', '.patient-result-card', function() {
-        var patientId = $(this).data('id');
-        var patientName = $(this).data('name');
-        var patientMobile = $(this).data('mobile');
-        var patientRegNo = $(this).data('reg-no');
-        var patientGender = $(this).data('gender');
-        var patientage = $(this).data('age');
-        var patientFather = $(this).data('father');
-        var patientref_name = $(this).data('reference');
-        var padult_child = $(this).data('adult_child');
-        
-        // Set the selected patient's data into the input fields
-        $('#patient_name').val(patientName);
-        $('#mobile_no').val(patientMobile);
-        $('#registration_no').val(patientRegNo);
-        $('#patient_id').val(patientId);
-        $('#gender').val(patientGender);
-        $('#age').val(patientage);
-        $('#father_husband_name').val(patientFather);
-        $('#ref_name').val(patientref_name);
-        $('#adult_child').val(padult_child);
-        
-        // Optionally clear the results after selection
-        $('#search_results').html('');
-    });
+<script>
+$(document).on('click', '.add-now-btn', function() {
+  let id = $(this).data('id');
+  let name = $(this).data('name');
+  let price = $(this).data('price');
+  
+  $.ajax({
+    url: '<?php echo base_url("billinfo/add_to_session"); ?>',
+    type: 'POST',
+    data: { id: id, name: name, price: price },
+    dataType: 'json',
+    success: function(res) {
+      if (res.status === 'success') {
+        showToast(`✅ ${name} added to cart! (Total: ${res.cart_count})`);
+      }
+    }
+  });
 });
 
+// 🔔 Custom Toast Function
+function showToast(message) {
+  let toast = $('#toast-msg');
+  toast.text(message).addClass('show');
 
-    </script>
-
-
-
-
-
-  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
-    <script>
-        $(document).ready(function() {
-            // Set today's date
-      
-            
-            // Initialize autocomplete for item search
-            $("#batch_number_s").autocomplete({
-                source: function(request, response) {
-                    // AJAX call to search items
-                    // Replace with your actual endpoint
-                    $.ajax({
-                        url: "<?php echo base_url(); ?>billinfo/api/items_search",
-                        dataType: "json",
-                        data: {
-                            term: request.term
-                        },
-                        success: function(data) {
-                            response($.map(data, function(item) {
-                                return {
-                                    label: item.name + " (" + item.offer_price + ")",
-                                    value: item.name,
-                                    id: item.id,
-                                    price: item.offer_price
-                                };
-                            }));
-                        }
-                    });
-                },
-                minLength: 1,
-                select: function(event, ui) {
-                    addItemToTable(ui.item);
-                    $("#batch_number_s").val("");
-                    return false;
-                }
-                
-            });
-            
-            // Function to add item to the table
-         function addItemToTable(item) {
-    var rowCount = $('#selectedItemsTable tbody tr').length + 1;
-    var newRow = `
-        <tr>
-            <td>${rowCount}</td>
-            <td>${item.value}
-                <input type="hidden" name="product_id[]" value="${item.id}">
-            </td>
-            <td>
-                <input type="text" class="form-control price" name="price[]" value="${item.price}" onchange="calculateTotal()">
-            </td>
-            <td>
-                <input type="text" class="form-control" name="comments[]">
-            </td>
-            <td>
-                <button type="button" class="btn btn-danger btn-sm remove-row">Remove</button>
-            </td>
-        </tr>`;
-    
-    $('#selectedItemsBody').append(newRow);
-    calculateTotal();
+  // ৩ সেকেন্ড পর অটো হাইড
+  setTimeout(function() {
+    toast.removeClass('show');
+  }, 3000);
 }
-
-            
-            // Remove row button click event
-            $(document).on('click', '.remove-row', function() {
-                $(this).closest('tr').remove();
-                calculateTotal();
-            });
-            
-            // Calculate total amount
-            window.calculateTotal = function() {
-                var total = 0;
-                $('.price').each(function() {
-                    var price = parseFloat($(this).val()) || 0;
-                    total += price;
-                });
-                
-                $('#grandTotal').val(total.toFixed(2));
-                $('#dis_grandTotal').val(total.toFixed(2));
-                calculateDueAmount();
-            }
-            
-            // Calculate due amount when payment amount changes
-            $('#paymentAmount, #discount_amount').on('input', function() {
-                calculateDueAmount();
-            });
-            
-            // Discount type change
-            $('.discount_type').change(function() {
-                calculateDueAmount();
-            });
-
-
-             // Start Alert
-            $('#paymentAmount').on('input', function() {
-                var payment = parseFloat($(this).val()) || 0;
-                var total = parseFloat($('#dis_grandTotal').val()) || 0;
-
-                if (payment > total) {
-                    alert("❌ Payment Amount cannot be greater than the Total Amount.");
-                    $(this).val(total.toFixed(2)); 
-                    setTimeout(function() {
-                        calculateDueAmount();
-                    }, 50); // 50ms delay
-                } else {
-                    calculateDueAmount();
-                }
-            });
-
-            // End Alert 
-            
-            // Function to calculate due amount
-            function calculateDueAmount() {
-                var grandTotal = parseFloat($('#grandTotal').val()) || 0;
-                var discountAmount = parseFloat($('#discount_amount').val()) || 0;
-                var discountType = $('.discount_type').val();
-                var paymentAmount = parseFloat($('#paymentAmount').val()) || 0;
-                
-                // Calculate discounted total
-                if (discountType === 'percent') {
-                    var discountValue = grandTotal * (discountAmount / 100);
-                    var discountedTotal = grandTotal - discountValue;
-                } else {
-                    var discountedTotal = grandTotal - discountAmount;
-                }
-                
-                $('#dis_grandTotal').val(discountedTotal.toFixed(2));
-                
-                // Calculate due amount
-                var dueAmount = discountedTotal - paymentAmount;
-                $('#dueAmount').val(dueAmount.toFixed(2));
-            }
-            
-
-
-
-        });
-    </script>
-
-
-
-
-
-
-    	
-<script>
-function fetchSerial(selectedDate) {
-  fetch("<?= base_url('billinfo/get_next_serial'); ?>", {
-    method: "POST",
-    headers: {
-      'Content-Type': 'application/x-www-form-urlencoded'
-    },
-    body: "date=" + encodeURIComponent(selectedDate)
-  })
-  .then(response => response.json())
-  .then(data => {
-    $("#serial").val(data.next_serial);
-  })
-  .catch(error => {
-    console.error("Error:", error);
-  });
-}
-
 </script>
-
-
-<script>
-    $(document).ready(function() {
-        $('#search_input').focus();
-    });
-</script>
-
-

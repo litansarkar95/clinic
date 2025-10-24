@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 23, 2025 at 02:16 PM
+-- Generation Time: Oct 24, 2025 at 07:33 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 7.4.33
 
@@ -60,37 +60,63 @@ CREATE TABLE `auth_users_info` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `bill_details`
+-- Table structure for table `billing_details`
 --
 
-CREATE TABLE `bill_details` (
+CREATE TABLE `billing_details` (
   `id` int(11) NOT NULL,
-  `bill_id` int(11) NOT NULL,
-  `registration_id` int(11) NOT NULL,
-  `test_info_id` int(11) NOT NULL,
-  `price` double NOT NULL,
-  `comments` text NOT NULL,
-  `create_date` int(11) NOT NULL
+  `billing_id` int(11) NOT NULL,
+  `product_id` int(11) DEFAULT NULL,
+  `product_name` varchar(255) NOT NULL,
+  `price` decimal(10,2) NOT NULL DEFAULT 0.00,
+  `quantity` int(11) NOT NULL DEFAULT 1,
+  `total` decimal(10,2) GENERATED ALWAYS AS (`price` * `quantity`) STORED
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `bill_details`
+-- Dumping data for table `billing_details`
 --
 
-INSERT INTO `bill_details` (`id`, `bill_id`, `registration_id`, `test_info_id`, `price`, `comments`, `create_date`) VALUES
-(1287, 0, 1237, 60, 100, '', 1760768125),
-(1288, 1221, 0, 60, 100, '', 1760768290),
-(1289, 1222, 0, 60, 100, '', 1760772089),
-(1290, 1223, 0, 60, 100, '', 1760772150),
-(1291, 0, 1238, 60, 100, '', 1760890648),
-(1294, 1225, 0, 4, 900, '', 1761130409),
-(1295, 1225, 0, 6, 200, '', 1761130409),
-(1296, 1226, 0, 3, 450, '', 1761130784),
-(1297, 1227, 0, 2, 300, '', 1761185248),
-(1298, 1228, 0, 5, 800, '', 1761185387),
-(1299, 1229, 0, 4, 900, '', 1761185603),
-(1300, 1229, 0, 6, 200, '', 1761185603),
-(1301, 1230, 0, 5, 800, '', 1761185910);
+INSERT INTO `billing_details` (`id`, `billing_id`, `product_id`, `product_name`, `price`, `quantity`) VALUES
+(1, 5, 5, 'Brightening Facial', '800.00', 1),
+(2, 6, 6, 'Acne Control Facia', '200.00', 1),
+(3, 7, 5, 'Brightening Facial', '800.00', 1),
+(4, 8, 7, 'Deep Cleansing Facial', '200.00', 1),
+(5, 9, 5, 'Brightening Facial', '800.00', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `billing_summary`
+--
+
+CREATE TABLE `billing_summary` (
+  `id` int(11) NOT NULL,
+  `invoice_no` varchar(50) NOT NULL,
+  `customer_id` int(11) DEFAULT NULL,
+  `invoice_date` date NOT NULL,
+  `subtotal` decimal(10,2) NOT NULL DEFAULT 0.00,
+  `adjustment` decimal(10,2) NOT NULL DEFAULT 0.00,
+  `total_amount` decimal(10,2) NOT NULL DEFAULT 0.00,
+  `payment_status` enum('Pending','Paid','Cancelled') DEFAULT 'Pending',
+  `created_at` datetime DEFAULT current_timestamp(),
+  `updated_at` datetime DEFAULT NULL ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `billing_summary`
+--
+
+INSERT INTO `billing_summary` (`id`, `invoice_no`, `customer_id`, `invoice_date`, `subtotal`, `adjustment`, `total_amount`, `payment_status`, `created_at`, `updated_at`) VALUES
+(1, '', 1, '2025-10-24', '0.00', '0.00', '0.00', 'Pending', '2025-10-24 23:16:36', NULL),
+(2, '', 4, '2025-10-24', '0.00', '-50.00', '-50.00', 'Pending', '2025-10-24 23:17:15', NULL),
+(3, '', 4, '2025-10-24', '0.00', '-50.00', '-50.00', 'Pending', '2025-10-24 23:22:35', NULL),
+(4, '', 4, '2025-10-24', '800.00', '0.00', '800.00', 'Pending', '2025-10-24 23:24:27', NULL),
+(5, '', 5, '2025-10-24', '800.00', '-70.00', '730.00', 'Pending', '2025-10-24 23:25:01', NULL),
+(6, '', 6, '2025-10-24', '200.00', '0.00', '200.00', 'Pending', '2025-10-24 23:27:32', NULL),
+(7, '', 7, '2025-10-24', '800.00', '0.00', '800.00', 'Pending', '2025-10-24 23:27:55', NULL),
+(8, '', 7, '2025-10-24', '200.00', '0.00', '200.00', 'Pending', '2025-10-24 23:28:19', NULL),
+(9, '', 7, '2025-10-24', '800.00', '0.00', '800.00', 'Pending', '2025-10-24 23:29:45', NULL);
 
 -- --------------------------------------------------------
 
@@ -212,6 +238,39 @@ CREATE TABLE `country` (
 
 INSERT INTO `country` (`id`, `name`, `is_active`, `create_date`) VALUES
 (1, 'Bangladeshi', 1, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `customer`
+--
+
+CREATE TABLE `customer` (
+  `id` int(11) NOT NULL,
+  `branch_id` int(11) NOT NULL,
+  `month` int(11) NOT NULL,
+  `day` int(11) NOT NULL,
+  `year` int(11) NOT NULL,
+  `serial_no` int(11) NOT NULL,
+  `registration_int_no` int(11) NOT NULL DEFAULT 0,
+  `registration_no` varchar(50) NOT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `registration_date` int(11) NOT NULL,
+  `mobile_no` varchar(50) DEFAULT NULL,
+  `age` varchar(20) DEFAULT NULL,
+  `is_active` int(11) NOT NULL,
+  `create_date` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Dumping data for table `customer`
+--
+
+INSERT INTO `customer` (`id`, `branch_id`, `month`, `day`, `year`, `serial_no`, `registration_int_no`, `registration_no`, `name`, `registration_date`, `mobile_no`, `age`, `is_active`, `create_date`) VALUES
+(4, 1, 0, 0, 0, 0, 0, 'CUST-1761326235', 'litan', 0, '0190888', NULL, 1, 1761326235),
+(5, 1, 0, 0, 0, 0, 0, 'CUST-1761326701', 'lopa', 0, '0444', NULL, 1, 1761326701),
+(6, 1, 0, 0, 0, 0, 0, 'CUST-1761326852', 'uhjhghg', 0, '45655665', NULL, 1, 1761326852),
+(7, 1, 0, 0, 0, 0, 0, 'CUST-1761326875', '', 0, '', NULL, 1, 1761326875);
 
 -- --------------------------------------------------------
 
@@ -681,7 +740,7 @@ CREATE TABLE `login_credential` (
 --
 
 INSERT INTO `login_credential` (`id`, `branch_id`, `user_id`, `username`, `password`, `role`, `active`, `last_login`, `created_at`, `updated_at`) VALUES
-(1, 0, 1, 'super@admin.com', 'UHZVdVBOTWI0VkwrN0MvQjRRRUZkdz09', 1, 1, '2025-10-23 08:19:42', '2024-10-21 15:42:57', '2025-10-23 08:19:42'),
+(1, 0, 1, 'super@admin.com', 'UHZVdVBOTWI0VkwrN0MvQjRRRUZkdz09', 1, 1, '2025-10-24 20:39:42', '2024-10-21 15:42:57', '2025-10-24 20:39:42'),
 (2, 0, 6, 'admin@gmail.com', 'UHZVdVBOTWI0VkwrN0MvQjRRRUZkdz09', 2, 1, '2025-10-19 22:09:14', '2024-11-16 23:35:56', '2025-10-19 22:09:14'),
 (19, 1, 16, '0192827', 'UHZVdVBOTWI0VkwrN0MvQjRRRUZkdz09', 2, 1, NULL, '2025-10-22 15:14:58', '2025-10-22 15:14:58'),
 (20, 3, 17, '018', 'UHZVdVBOTWI0VkwrN0MvQjRRRUZkdz09', 2, 1, '2025-10-23 08:57:57', '2025-10-23 08:11:44', '2025-10-23 08:57:57');
@@ -798,98 +857,6 @@ INSERT INTO `logs` (`id`, `message`, `record_id`, `user_id`, `action`, `ip_addre
 (86, 'New Record inserted On staff  id 17', 17, 1, 'Insert', '::1', 'Windows 10', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWeb', '2025-10-23 02:11:44', '2025-10-23'),
 (87, 'New Record inserted On login_credential id 20', 20, 1, 'Insert', '::1', 'Windows 10', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWeb', '2025-10-23 02:11:45', '2025-10-23'),
 (88, 'New Record inserted On patients id 1243', 1243, 17, 'Insert', '::1', 'Windows 10', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWeb', '2025-10-23 02:12:39', '2025-10-23');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `occupation`
---
-
-CREATE TABLE `occupation` (
-  `id` int(11) NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `is_active` int(11) NOT NULL,
-  `create_date` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `occupation`
---
-
-INSERT INTO `occupation` (`id`, `name`, `is_active`, `create_date`) VALUES
-(1, 'Cook', 1, 0),
-(3, 'Checf', 1, 1759905118);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `operation`
---
-
-CREATE TABLE `operation` (
-  `id` int(11) NOT NULL,
-  `bill_id` int(11) NOT NULL,
-  `date` date NOT NULL,
-  `patient_id` int(11) NOT NULL,
-  `surgery_dr_id` int(11) NOT NULL,
-  `serial` int(11) NOT NULL,
-  `created_at` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `operation`
---
-
-INSERT INTO `operation` (`id`, `bill_id`, `date`, `patient_id`, `surgery_dr_id`, `serial`, `created_at`) VALUES
-(5, 1222, '2025-10-24', 1237, 14, 1, 1760772089),
-(6, 1223, '2025-10-25', 1237, 18, 1, 1760772150);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `patients`
---
-
-CREATE TABLE `patients` (
-  `id` int(11) NOT NULL,
-  `branch_id` int(11) NOT NULL,
-  `month` int(11) NOT NULL,
-  `day` int(11) NOT NULL,
-  `year` int(11) NOT NULL,
-  `serial_no` int(11) NOT NULL,
-  `registration_no` varchar(50) NOT NULL,
-  `name` varchar(255) DEFAULT NULL,
-  `registration_date` int(11) NOT NULL,
-  `father_husband_name` varchar(100) DEFAULT NULL,
-  `mobile_no` varchar(50) DEFAULT NULL,
-  `gender` varchar(50) DEFAULT NULL,
-  `age` varchar(20) DEFAULT NULL,
-  `district_id` int(11) NOT NULL,
-  `upazilla_id` int(11) NOT NULL,
-  `village` varchar(255) NOT NULL,
-  `occupation_id` int(11) NOT NULL,
-  `religion` varchar(100) NOT NULL,
-  `nationality_id` int(11) NOT NULL,
-  `doctor_id` int(11) NOT NULL,
-  `adult_child` varchar(50) NOT NULL,
-  `bed_type` varchar(50) NOT NULL,
-  `bed` varchar(50) NOT NULL,
-  `is_old_patient` int(11) NOT NULL,
-  `is_active` int(11) NOT NULL,
-  `create_date` int(11) NOT NULL,
-  `registration_int_no` int(11) NOT NULL DEFAULT 0
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `patients`
---
-
-INSERT INTO `patients` (`id`, `branch_id`, `month`, `day`, `year`, `serial_no`, `registration_no`, `name`, `registration_date`, `father_husband_name`, `mobile_no`, `gender`, `age`, `district_id`, `upazilla_id`, `village`, `occupation_id`, `religion`, `nationality_id`, `doctor_id`, `adult_child`, `bed_type`, `bed`, `is_old_patient`, `is_active`, `create_date`, `registration_int_no`) VALUES
-(1237, 0, 10, 18, 2025, 1, 'P-0001', 'Litan', 1760724000, 'Ibrahim', '09182262', 'Male', '32', 1, 2, 'eee', 1, 'Islam', 1, 14, 'Adult', '', '', 0, 1, 1760768125, 1),
-(1238, 0, 10, 19, 2025, 1, 'P-0002', 'lopa', 1760810400, 'sasdads', '122332', 'Male', '321332', 1, 3, '22332', 3, 'Islam', 1, 14, 'Adult', '', '', 0, 1, 1760890648, 2),
-(1241, 0, 10, 23, 2025, 1, 'P-0003', 'Lima', 1761156000, NULL, '0192827262', NULL, '21', 0, 0, '', 0, '', 0, 0, '', '', '', 0, 1, 1761184966, 3),
-(1242, 0, 10, 23, 2025, 2, 'P-0004', 'Mita', 1761156000, NULL, '1029272', NULL, '21', 0, 0, '', 0, '', 0, 0, '', '', '', 0, 1, 1761185199, 4),
-(1243, 3, 10, 23, 2025, 3, 'P-0005', 'mili', 1761156000, NULL, '01928272222222222', NULL, '22', 0, 0, '', 0, '', 0, 0, '', '', '', 0, 1, 1761185558, 5);
 
 -- --------------------------------------------------------
 
@@ -1017,28 +984,6 @@ INSERT INTO `staff` (`id`, `branch_id`, `employee_id`, `department`, `designatio
 -- --------------------------------------------------------
 
 --
--- Table structure for table `testinfo`
---
-
-CREATE TABLE `testinfo` (
-  `id` int(11) NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `categories_id` int(11) NOT NULL,
-  `testFee` decimal(10,0) NOT NULL,
-  `is_active` int(11) NOT NULL,
-  `create_date` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `testinfo`
---
-
-INSERT INTO `testinfo` (`id`, `name`, `categories_id`, `testFee`, `is_active`, `create_date`) VALUES
-(60, 'Admision test', 5, '100', 1, 1760768099);
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `transactions`
 --
 
@@ -1112,9 +1057,16 @@ ALTER TABLE `auth_users_info`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `bill_details`
+-- Indexes for table `billing_details`
 --
-ALTER TABLE `bill_details`
+ALTER TABLE `billing_details`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `billing_id` (`billing_id`);
+
+--
+-- Indexes for table `billing_summary`
+--
+ALTER TABLE `billing_summary`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -1140,6 +1092,12 @@ ALTER TABLE `categories`
 -- Indexes for table `country`
 --
 ALTER TABLE `country`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `customer`
+--
+ALTER TABLE `customer`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -1195,24 +1153,6 @@ ALTER TABLE `logs`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `occupation`
---
-ALTER TABLE `occupation`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `operation`
---
-ALTER TABLE `operation`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `patients`
---
-ALTER TABLE `patients`
-  ADD PRIMARY KEY (`id`);
-
---
 -- Indexes for table `roles`
 --
 ALTER TABLE `roles`
@@ -1228,12 +1168,6 @@ ALTER TABLE `setting`
 -- Indexes for table `staff`
 --
 ALTER TABLE `staff`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `testinfo`
---
-ALTER TABLE `testinfo`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -1265,10 +1199,16 @@ ALTER TABLE `auth_users_info`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
--- AUTO_INCREMENT for table `bill_details`
+-- AUTO_INCREMENT for table `billing_details`
 --
-ALTER TABLE `bill_details`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1302;
+ALTER TABLE `billing_details`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT for table `billing_summary`
+--
+ALTER TABLE `billing_summary`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `bill_info`
@@ -1293,6 +1233,12 @@ ALTER TABLE `categories`
 --
 ALTER TABLE `country`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `customer`
+--
+ALTER TABLE `customer`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `departments`
@@ -1343,24 +1289,6 @@ ALTER TABLE `logs`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=89;
 
 --
--- AUTO_INCREMENT for table `occupation`
---
-ALTER TABLE `occupation`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
---
--- AUTO_INCREMENT for table `operation`
---
-ALTER TABLE `operation`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
-
---
--- AUTO_INCREMENT for table `patients`
---
-ALTER TABLE `patients`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1244;
-
---
 -- AUTO_INCREMENT for table `roles`
 --
 ALTER TABLE `roles`
@@ -1379,12 +1307,6 @@ ALTER TABLE `staff`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
--- AUTO_INCREMENT for table `testinfo`
---
-ALTER TABLE `testinfo`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
-
---
 -- AUTO_INCREMENT for table `transactions`
 --
 ALTER TABLE `transactions`
@@ -1395,6 +1317,16 @@ ALTER TABLE `transactions`
 --
 ALTER TABLE `upazila`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `billing_details`
+--
+ALTER TABLE `billing_details`
+  ADD CONSTRAINT `billing_details_ibfk_1` FOREIGN KEY (`billing_id`) REFERENCES `billing_summary` (`id`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

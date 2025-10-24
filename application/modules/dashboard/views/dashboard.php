@@ -149,7 +149,7 @@
                       </a>
                     </div>
                     <div class="col-6 col-sm-6 col-md-3 pb-4">
-                      <a href="<?php echo base_url(); ?>billinfo" class="crd_4_link">
+                      <a href="<?php echo base_url(); ?>billinfo/create" class="crd_4_link">
                         <div class="dashbord_card4 dashbord_card4_bg2">
                           <div class="card_top">
                             <span><i class="fas fa-plus"></i></span>
