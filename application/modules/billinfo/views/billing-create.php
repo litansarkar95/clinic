@@ -184,8 +184,8 @@ $("#registration_date,.to_date").val(today);
 /* মোবাইলে প্রতি সারিতে 2টা */
 @media (max-width: 575px) {
   .product-card {
-    width: 45%;
-    margin: 8px;
+    width: 41%;
+    margin: 5px;
   }
 
   .product-title {
@@ -237,6 +237,30 @@ $("#registration_date,.to_date").val(today);
 .toast-msg.show {
   animation: toastPulse 1.5s infinite;
 }
+.add-now-btn {
+  background-color: #28a745;
+  border: none;
+  transition: 0.3s;
+  padding: 5px 10px;
+  color: #fff;
+}
+
+.add-now-btn:hover {
+  background-color: #218838;
+}
+
+/* ✅ যখন পণ্য অ্যাড হয়ে যাবে */
+.add-now-btn.added {
+  background-color: #dc3545 !important;
+  color: #fff;
+  box-shadow: 0 0 10px rgba(220, 53, 69, 0.6);
+  transform: scale(1.05);
+}
+
+.add-now-btn.added:hover {
+  background-color: #c82333 !important;
+}
+
 </style>
 
    <div class="container-fluid">
@@ -280,25 +304,48 @@ $("#registration_date,.to_date").val(today);
                                       <div class=" " >
                                           <div class="row">
                                         <div class="col-12 text-center">
-                                         <a type="submit" href="<?php echo base_url('billinfo/confirm_page'); ?>" class="btn btn-success">Bill Confirm Now </a>
+<?php
+
+$cart_count = 0;
+$cart_total = 0;
+if (!empty($cart)) {
+    foreach ($cart as $item) {
+        $cart_count += $item['qty'];
+        $cart_total += $item['price'] * $item['qty'];
+    }
+}
+?>
+<a 
+  href="<?php echo base_url('billinfo/confirm_page'); ?>" 
+  class="btn btn-success position-relative"
+>
+  <i class="fas fa-shopping-cart"></i> Bill Confirm Now 
+  <span id="cart-summary" class="badge bg-warning text-dark ms-2" 
+        style="font-size:14px; border-radius:8px; padding:5px 10px;">
+    <?php echo $cart_count; ?> items | ৳<?php echo number_format($cart_total, 2); ?>
+  </span>
+</a>
+
+
 
                                         </div>
                                       </div>
 									      				<div class="row mb-3">
                                   <div class="col-md-12">
 <div class="products-container">
-                            <?php
+<?php
 if (isset($allPdt)) {
     foreach ($allPdt as $pdt) {
-        // ছাড়ের হিসাব করা (যদি থাকে)
+        // ছাড়ের হিসাব
         $discountPercent = 0;
         if ($pdt->regular_price > 0 && $pdt->offer_price < $pdt->regular_price) {
             $discountPercent = round((($pdt->regular_price - $pdt->offer_price) / $pdt->regular_price) * 100);
         }
+
+        // ✅ চেক করা হচ্ছে পণ্যটি কার্টে আছে কিনা
+        $is_added = isset($cart[$pdt->id]);
 ?>
         <div class="product-card text-center p-3">
-     
-
             <h5 class="product-title mb-2"><?php echo $pdt->name; ?></h5>
 
             <div class="price-section mb-2">
@@ -316,23 +363,21 @@ if (isset($allPdt)) {
                 </div>
             <?php } ?>
 
-    <button 
-  class="btn btn-success btn-sm add-now-btn"
-  data-id="<?php echo $pdt->id; ?>"
-  data-name="<?php echo htmlspecialchars($pdt->name); ?>"  
-  data-original="<?php echo $pdt->regular_price; ?>" 
-  data-price="<?php echo $pdt->offer_price < $pdt->regular_price ? $pdt->offer_price : $pdt->regular_price; ?>"
->
- <span><i class="fas fa-shopping-cart"></i></span>
-
-</button>
-
-
+            <button 
+              class="btn btn-sm add-now-btn <?php echo $is_added ? 'btn-danger added' : 'btn-success'; ?>"
+              data-id="<?php echo $pdt->id; ?>"
+              data-name="<?php echo htmlspecialchars($pdt->name); ?>"  
+              data-original="<?php echo $pdt->regular_price; ?>" 
+              data-price="<?php echo $pdt->offer_price < $pdt->regular_price ? $pdt->offer_price : $pdt->regular_price; ?>"
+            >
+              <i class="fas <?php echo $is_added ? 'fa-trash-alt' : 'fa-shopping-cart'; ?>"></i>
+            </button>
         </div>
 <?php
     }
 }
 ?>
+
                                           
   </div>
 
@@ -358,11 +403,31 @@ if (isset($allPdt)) {
 
 <script>
 $(document).on('click', '.add-now-btn', function() {
-  let id = $(this).data('id');
-  let name = $(this).data('name');
-  let price = $(this).data('price');
-  let original_price = $(this).data('original');
-  
+  let btn = $(this);
+  let id = btn.data('id');
+  let name = btn.data('name');
+  let price = btn.data('price');
+  let original_price = btn.data('original');
+
+  // যদি ইতিমধ্যে যোগ করা থাকে → Remove
+  if (btn.hasClass('added')) {
+    $.ajax({
+      url: '<?php echo base_url("billinfo/remove_from_billing"); ?>',
+      type: 'POST',
+      data: { id: id },
+      dataType: 'json',
+      success: function(res) {
+        if (res.status === 'removed') {
+          showToast(`❌ <b>${name}</b> removed from cart!`);
+          btn.removeClass('added').html('<i class="fas fa-shopping-cart"></i>');
+          updateCartSummary(res.cart_count, res.cart_total);
+        }
+      }
+    });
+    return;
+  }
+
+  // ✅ Add করা হলে
   $.ajax({
     url: '<?php echo base_url("billinfo/add_to_session"); ?>',
     type: 'POST',
@@ -370,23 +435,31 @@ $(document).on('click', '.add-now-btn', function() {
     dataType: 'json',
     success: function(res) {
       if (res.status === 'success') {
-        // 🧾 নতুন টোস্ট মেসেজে কার্ট সংখ্যা + মোট টাকা দেখাবে
         showToast(`✅ <b>${name}</b> added to cart!<br>
         🛒 <b>${res.cart_count}</b> items | 💰 <b>৳${res.cart_total}</b>`);
+
+        // 🎨 ভিজ্যুয়াল পরিবর্তন
+        btn.addClass('added').html('<i class="fas fa-trash-alt"></i>');
+
+        // 🔄 সারাংশ আপডেট
+        updateCartSummary(res.cart_count, res.cart_total);
       }
     }
   });
 });
 
+// 🧾 কার্ট সারাংশ আপডেট ফাংশন
+function updateCartSummary(count, total) {
+  $('#cart-summary').html(`${count} items | ৳${total}`);
+}
+
 // ✨ Custom Toast Function
 function showToast(message) {
   let toast = $('#toast-msg');
   toast.html(message).addClass('show');
-
-  // ৩ সেকেন্ড পর অটো হাইড
-  setTimeout(function() {
-    toast.removeClass('show');
-  }, 3500);
+  setTimeout(() => toast.removeClass('show'), 3500);
 }
+
+
 </script>
 

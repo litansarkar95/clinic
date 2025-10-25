@@ -387,6 +387,16 @@ $("#registration_date,.to_date").val(today);
     padding: 15px;
   }
 }
+
+@keyframes blinkFocus {
+  0%, 100% { box-shadow: 0 0 0px rgba(0, 255, 0, 0); }
+  50% { box-shadow: 0 0 10px rgba(0, 255, 0, 0.4); }
+}
+
+.focus-blink {
+  animation: blinkFocus 1s ease-in-out 2;
+}
+
 </style>
 
    <div class="container-fluid">
@@ -444,10 +454,22 @@ $("#registration_date,.to_date").val(today);
                                                 <div id="search_results" class="list-group position-absolute w-100" style="z-index:1000;"></div>
                                                 </div>
 
-                                                <div class="form-group col-md-2 mb-3">
-                                                <label for="mobile_no">Mobile No</label>
-                                                <input type="text" id="mobile_no" class="form-control" name="mobile_no" placeholder="Search...." autocomplete="off" required>
-                                                </div>
+             <div class="form-group col-md-2 mb-3">
+                        <label for="mobile_no">Mobile No</label>
+                        <input 
+                          type="tel"
+                          id="mobile_no"
+                          class="form-control"
+                          name="mobile_no"
+                          placeholder="Search...."
+                          inputmode="numeric"
+                          pattern="[0-9]*"
+                          autocomplete="off"
+                          required
+                        >
+                      </div>
+
+
 
                                                  <div class="form-group col-md-2 mb-3">
                                  <label for="reference_id">Reference</label>
@@ -538,7 +560,7 @@ foreach ($cart_items as $item) {
 </tr>
 
 <tr>
-    <td colspan="2" class="text-end fw-bold">Adjustment (+/-)</td>
+    <td colspan="2" class="text-end fw-bold">Discount</td>
     <td colspan="2">
         <input type="number" step="0.01" name="adjustment" id="adjustment" class="form-control d-inline-block w-50" value="0">
     </td>
@@ -697,7 +719,7 @@ $(document).ready(function() {
   function calculateTotal() {
     let subtotal = parseFloat($('.subtotal').text().replace('৳', '')) || 0;
     let adjustment = parseFloat($('#adjustment').val()) || 0;
-    let total = subtotal + adjustment;
+    let total = subtotal - adjustment;
 
     $('.total-amount').text('৳' + total.toFixed(2));
     $('.payment-amount').val(total.toFixed(2));
@@ -868,4 +890,30 @@ function showToast(message, isError = false) {
   setTimeout(() => toast.removeClass('show'), 2500);
 }
 
+
+$(document).ready(function() {
+  const input = document.getElementById("mobile_no");
+  const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+
+  // 🖥️ ডেস্কটপে সরাসরি ফোকাস কাজ করবে
+  if (!isMobile && input) {
+    input.focus();
+  }
+
+  // 📱 মোবাইলে কিবোর্ড ব্লক হয়, তাই visual hint দিব
+  if (isMobile && input) {
+    // হালকা visual hint
+    input.classList.add("focus-blink");
+
+    // ইউজার পেজে টাচ করলেই সাথে সাথে ফোকাস দাও
+    document.body.addEventListener("touchstart", function autoFocusOnce() {
+      input.focus();
+      document.body.removeEventListener("touchstart", autoFocusOnce);
+    });
+  }
+});
+
+
 </script>
+
+

@@ -77,7 +77,7 @@ class Billinfo extends CI_Controller {
         $month = date('m');
         $year = date('Y');
 
-      
+     //print_r($data['cart']);exit();
         $data = array();
         $data['active']     = "bill_invoice";
         $data['title']      = "Create Billing"; 
@@ -85,6 +85,9 @@ class Billinfo extends CI_Controller {
   
         $int_no = $this->billinfo_model->number_generator();
   	    $registration_no = 'R-'.str_pad($int_no,6,"0",STR_PAD_LEFT);
+        
+       $cart =  $this->session->userdata('cart_items') ?? [];
+       $data['cart'] = $cart; 
         //serial_no
        // $data['serial_no']  = $this->billinfo_model->get_daily_serial($day, $month, $year);
         // registration_no
@@ -188,6 +191,29 @@ public function remove_from_session()
         echo json_encode(['status' => 'error', 'message' => 'Item not found in cart']);
     }
 }
+public function remove_from_billing() {
+    $id = $this->input->post('id');
+    $cart = $this->session->userdata('cart_items') ?? [];
+
+    if (isset($cart[$id])) {
+        unset($cart[$id]);
+        $this->session->set_userdata('cart_items', $cart);
+    }
+
+    // সারাংশ পুনঃগণনা
+    $cart_count = 0;
+    $cart_total = 0;
+    foreach ($cart as $item) {
+        $cart_count += $item['qty'];
+        $cart_total += $item['price'] * $item['qty'];
+    }
+
+    echo json_encode([
+        'status' => 'removed',
+        'cart_count' => $cart_count,
+        'cart_total' => number_format($cart_total, 2)
+    ]);
+}
 
 
 public function search_customer()
@@ -247,7 +273,7 @@ public function save_bill()
     }
 
     $adjustment = floatval($this->input->post('adjustment') ?? 0);
-    $grand_total = $total + $adjustment;
+    $grand_total = $total - $adjustment;
 
     // Billing summary insert
    
@@ -325,36 +351,15 @@ public function save_bill()
         $invoice_id          = $this->input->post("invoice_id") ;
         $from_date           = $this->input->post("from_date") ;
         $to_date             = $this->input->post("to_date") ;
-        $status_id           = $this->input->post("status_id") ;
+
+
+        $data['invoice_id']        = $this->input->post("invoice_id") ;
+        $data['from_date']         = $this->input->post("from_date") ;
+        $data['to_date']           = $this->input->post("to_date") ;
 
 
 
-        // if( $invoice_id == NULL  ){ 
-        // $invoice_id        =  0;
-        // } 
-        
-        // if( $this->input->post("from_date") != NULL  ){ 
-        // $from_date        =  date("d-m-Y");
-        // } 
-
-        // if( $this->input->post("to_date") != NULL  ){
-        // $to_date        =  date("d-m-Y");
-        // } 
-
-        // if( $status_id == NULL  ){ 
-        // $status_id        =  0;
-        
-        //  } 
-
-
-      $data['invoice_id']        = $this->input->post("invoice_id") ;
-      $data['from_date']         = $this->input->post("from_date") ;
-      $data['to_date']           = $this->input->post("to_date") ;
-      $data['status_id']         = $this->input->post("status_id") ;
-
-
-
-        $data['allPdt']     = $this->billinfo_model->billinfoList($invoice_id,$from_date,$to_date,$status_id );
+        $data['allPdt']     = $this->billinfo_model->billinfoList($invoice_id,$from_date,$to_date );
         //echo "<pre>";  print_r($data['allPdt']);exit();
         $data['content']    = $this->load->view("bill-invoice-list", $data, TRUE);
         $this->load->view('layout/master', $data);

@@ -25,44 +25,43 @@ class Billinfo_model extends CI_Model {
 		 }
 		 
 		 
-	public function billinfoList($invoice_id, $from_date, $to_date, $status_id) {
+public function billinfoList($invoice_id = null, $from_date = null, $to_date = null)
+{
+    $branch_id  = $this->session->userdata("loggedin_branch_id");
 
-          $branch_id  = $this->session->userdata("loggedin_branch_id");
-
-
-	 if (!empty($branch_id)) {
-             $this->db->where("billing_summary.branch_id", $branch_id); 
-	 }
-
-
-    
-
-    $this->db->select("billing_summary.* , customer.name  , customer.mobile_no");
+    if (!empty($branch_id)) {
+        $this->db->where("billing_summary.branch_id", $branch_id);
+    }
+    $this->db->select("
+        billing_summary.*, 
+        customer.name, 
+        customer.mobile_no
+    ");
     $this->db->from("billing_summary");
-    $this->db->join('customer', "billing_summary.customer_id = customer.id",'left');
-
+    $this->db->join('customer', "billing_summary.customer_id = customer.id", 'left');
     if (!empty($invoice_id)) {
-        $this->db->where("billing_summary.invoice_no", $invoice_id); 
-
-
-    } else {
-      
-
+        $this->db->where("billing_summary.invoice_no", $invoice_id);
+    } 
+    else {
+    
         if (!empty($from_date) && !empty($to_date)) {
-            $from_date_str = strtotime($from_date);
-            $to_date_str = strtotime($to_date . ' 23:59:59');
-
-            $this->db->where('billing_summary.invoice_date >=', $from_date_str);
-            $this->db->where('billing_summary.invoice_date <=', $to_date_str);
-        }
-        if (empty($status_id) && (empty($from_date) || empty($to_date))) {
-            return []; 
+            $from_date_fmt = date('Y-m-d', strtotime($from_date));
+            $to_date_fmt   = date('Y-m-d', strtotime($to_date));
+            $this->db->where('billing_summary.invoice_date >=', $from_date_fmt);
+            $this->db->where('billing_summary.invoice_date <=', $to_date_fmt);
+        } 
+        else {
+          
+            return [];
         }
     }
 
-    $this->db->order_by("id", "DESC");
-    return $this->db->get()->result();
+    $this->db->order_by("billing_summary.id", "DESC");
+
+    $query = $this->db->get();
+    return $query->result();
 }
+
 
 
 

@@ -120,6 +120,6 @@ class TransactionReport extends CI_Controller {
      
     //  echo "<pre>"; print_r($data['allPdt']);exit();
 
-     $this->load->view('reports/transaction/due-summary', $data);
+     $this->load->view('reports/transaction/reference-summary', $data);
     }
 }

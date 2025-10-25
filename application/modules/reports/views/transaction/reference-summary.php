@@ -27,13 +27,64 @@
         .container { box-shadow: none; border: none; }
     }
 </style>
+<style>
+    .ref-box {
+        background: linear-gradient(135deg, #e3f2fd, #f8f9fa);
+        border-left: 5px solid #007bff;
+        border-radius: 10px;
+        padding: 15px 20px;
+        margin: 20px 0;
+        box-shadow: 0 3px 8px rgba(0,0,0,0.08);
+        display: flex;
+        align-items: center;
+        transition: all 0.3s ease;
+    }
+
+    .ref-box:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 12px rgba(0,0,0,0.12);
+    }
+
+    .ref-icon {
+        font-size: 40px;
+        color: #007bff;
+        margin-right: 15px;
+    }
+
+    .ref-details h4 {
+        margin: 0;
+        font-size: 20px;
+        color: #343a40;
+        font-weight: 600;
+    }
+
+    .ref-details p {
+        margin: 3px 0;
+        color: #555;
+        font-size: 15px;
+    }
+
+    .ref-details strong {
+        color: #000;
+    }
+</style>
 </head>
 <body>
 <div class="container">
     <button class="print-btn" onclick="window.print()">🖨️ Print</button>
-    <h2>Payment Transaction Report</h2>
+    <h2>Reference  Report</h2>
 
-   
+   <?php if (!empty($allPdt) && !empty($allPdt[0]->first_name)) { ?>
+<div class="ref-box">
+    <div class="ref-icon">👨‍⚕️</div>
+    <div class="ref-details">
+        <h4>Reference Information</h4>
+        <p><strong>Name:</strong> <?= $allPdt[0]->first_name . ' ' . $allPdt[0]->last_name; ?></p>
+        <p><strong>Mobile:</strong> <?= $allPdt[0]->staff_mobile; ?></p>
+    </div>
+</div>
+<?php } ?>
+
     <table>
         <thead>
             <tr>

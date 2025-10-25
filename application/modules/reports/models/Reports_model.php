@@ -69,13 +69,20 @@ public function paymentTransactionReports($filters = []) {
 
 
 
-      public function referencenReports($filters = []) {
+ public function referencenReports($filters = []) {
     $this->db->select("
         billing_summary.*, 
         customer.name, 
         customer.registration_no,
         GROUP_CONCAT(CONCAT(payment_methods.method_name, ' (৳', billing_payment.amount, ')') SEPARATOR ', ') AS payment_details
     ");
+
+    // যদি reference_id সিলেক্ট করা থাকে, তখন staff টেবিল যোগ করো
+    if (!empty($filters['reference_id'])) {
+        $this->db->select("staff.first_name, staff.last_name, staff.contact_no AS staff_mobile");
+        $this->db->join('staff', 'staff.id = billing_summary.reference_id', 'left');
+    }
+
     $this->db->from('billing_summary');
     $this->db->join('customer', "billing_summary.customer_id = customer.id", 'left');
     $this->db->join('billing_payment', "billing_payment.billing_id = billing_summary.id", 'left');
@@ -87,7 +94,7 @@ public function paymentTransactionReports($filters = []) {
         $this->db->where("billing_summary.branch_id", $branch_id); 
     }
 
-  
+    // ✅ তারিখ ফিল্টার
     if (!empty($filters['from_date']) && !empty($filters['to_date'])) {
         $from_date = date('Y-m-d 00:00:00', strtotime($filters['from_date']));
         $to_date   = date('Y-m-d 23:59:59', strtotime($filters['to_date']));
@@ -95,7 +102,7 @@ public function paymentTransactionReports($filters = []) {
         $this->db->where('billing_summary.invoice_date <=', $to_date);
     }
 
-  
+    // ✅ Reference অনুযায়ী ফিল্টার (যদি সিলেক্ট করা হয়)
     if (!empty($filters['reference_id'])) {
         $this->db->where('billing_summary.reference_id', $filters['reference_id']);
     }
@@ -104,5 +111,6 @@ public function paymentTransactionReports($filters = []) {
     $query = $this->db->get();
     return $query->result();
 }
+
 
 }

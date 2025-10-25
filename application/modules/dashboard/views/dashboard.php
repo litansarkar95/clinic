@@ -136,18 +136,7 @@
                
 
                   <div class="row px-3">
-                    <div class="col-6 col-sm-6 col-md-3 pb-4">
-                      <a href="<?php echo base_url(); ?>patient/create" class="crd_4_link">
-                        <div class="dashbord_card4 dashbord_card4_bg1">
-                          <div class="card_top">
-                            <span><i class="fas fa-plus"></i></span>
-                          </div>
-                          <div class="card_bottom">
-                            <h3>Customer Registration</h3>
-                          </div>
-                        </div>
-                      </a>
-                    </div>
+                    
                     <div class="col-6 col-sm-6 col-md-3 pb-4">
                       <a href="<?php echo base_url(); ?>billinfo/create" class="crd_4_link">
                         <div class="dashbord_card4 dashbord_card4_bg2">
@@ -156,6 +145,18 @@
                           </div>
                           <div class="card_bottom">
                             <h3>Create Billing</h3>
+                          </div>
+                        </div>
+                      </a>
+                    </div>
+                    <div class="col-6 col-sm-6 col-md-3 pb-4">
+                      <a href="<?php echo base_url(); ?>billinfo/list" class="crd_4_link">
+                        <div class="dashbord_card4 dashbord_card4_bg1">
+                          <div class="card_top">
+                            <span><i class="fas fa-list"></i></span>
+                          </div>
+                          <div class="card_bottom">
+                            <h3>Billing List</h3>
                           </div>
                         </div>
                       </a>
@@ -178,71 +179,7 @@
               
 
 
-                  <div class="dashboard">
-    <div class="card card-order-pending">
-      <div class="card-content">
-        <h3>Today  Registration</h3>
-        <p data-target="<?= $today_patient; ?>">0</p>
-      </div>
-      <i class="fa-solid fa-user-plus"></i>
-    </div>
-
-    <div class="card card-order-processing">
-      <div class="card-content">
-        <h3>Today Billing</h3>
-        <p data-target="<?= $today_billing; ?>">0</p>
-      </div>
-      <i class="fa-solid fa-file-invoice-dollar"></i>
-    </div>
-
-    <div class="card card-order-completed">
-      <div class="card-content">
-        <h3>Today Collection</h3>
-        <p data-target="<?= $today_collection; ?>">0</p>
-      </div>
-      <i class="fa-solid fa-circle-check"></i>
-    </div>
-
-    <div class="card card-total-products">
-      <div class="card-content">
-        <h3>Today Due</h3>
-        <p data-target="<?= $today_due; ?>">0</p>
-      </div>
-      <i class="fa-solid fa-boxes-stacked"></i>
-    </div>
-
-       <div class="card card-total-customers">
-      <div class="card-content">
-        <h3>This Month Registration</h3>
-        <p data-target="<?= $this_month_patient; ?>">0</p>
-      </div>
-      <i class="fa-solid fa-users"></i>
-    </div>
-       <div class="card card-total-customers">
-      <div class="card-content">
-        <h3>This Month Billing</h3>
-        <p data-target="<?= $this_month_billing; ?>">0</p>
-      </div>
-            <i class="fa-solid fa-boxes-stacked"></i>
-    </div>
-    <div class="card card-total-customers">
-      <div class="card-content">
-        <h3>This Month Collection</h3>
-        <p data-target="<?= $this_month_collection; ?>">0</p>
-      </div>
-    <i class="fa-solid fa-circle-check"></i>
-    </div>
-
-    <div class="card card-total-posts">
-      <div class="card-content">
-        <h3>This Month Due</h3>
-        <p data-target="<?= $this_month_due; ?>">0</p>
-      </div>
-      <i class="fa-solid fa-newspaper"></i>
-    </div>
-  </div>
-
-  
+                 
 
   <script>
     const counters = document.querySelectorAll('.card p');

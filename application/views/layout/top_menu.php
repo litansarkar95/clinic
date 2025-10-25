@@ -49,7 +49,7 @@
 												 <li class="nav-item">
 										          <a class="nav-link" href="#">Reports <i class="fas fa-caret-down"></i></a>
 										          <ul class="nav_sub_menu">
-										          	<li><a href="<?php echo base_url(); ?>reports/testinfo"> Test  Reports</a></li>
+										          	<li><a href="<?php echo base_url(); ?>reports/testinfo"> All  Reports</a></li>
 										          
 										          </ul>
 										        </li>
