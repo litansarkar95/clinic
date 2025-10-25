@@ -1,11 +1,11 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Patient extends CI_Controller {
+class Customer extends CI_Controller {
 
     public function __construct() {
         parent::__construct();
-        $this->load->model('patient_model');
+        $this->load->model('customer_model');
     }
 
    public function index()
@@ -15,39 +15,17 @@ class Patient extends CI_Controller {
         $data['active']     = "patient";
         $data['title']      = "Patient"; 
         
-        $invoice_id          = $this->input->post("invoice_id") ;
         $from_date           = $this->input->post("from_date") ;
         $to_date             = $this->input->post("to_date") ;
-        $gender_id           = $this->input->post("gender_id") ;
 
 
 
-        // if( $invoice_id == NULL  ){ 
-        // $invoice_id        =  0;
-        // } 
-        
-        // if( $this->input->post("from_date") != NULL  ){ 
-        // $from_date        =  date("d-m-Y");
-        // } 
-
-        // if( $this->input->post("to_date") != NULL  ){
-        // $to_date        =  date("d-m-Y");
-        // } 
-
-        // if( $status_id == NULL  ){ 
-        // $status_id        =  0;
-        
-        //  } 
-
-
-      $data['invoice_id']        = $this->input->post("invoice_id") ;
       $data['from_date']         = $this->input->post("from_date") ;
       $data['to_date']           = $this->input->post("to_date") ;
-      $data['gender_id']         = $this->input->post("gender_id") ;
 
-     $data['allPdt']     = $this->patient_model->patientList($invoice_id,$from_date,$to_date,$gender_id );
+      $data['allPdt']     = $this->customer_model->CustomerList($from_date,$to_date );
   
-        $data['content']    = $this->load->view("patient-list", $data, TRUE);
+        $data['content']    = $this->load->view("customer", $data, TRUE);
         $this->load->view('layout/master', $data);
 
     }

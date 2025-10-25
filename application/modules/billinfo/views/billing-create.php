@@ -98,16 +98,16 @@ $("#registration_date,.to_date").val(today);
 
      
     </script>
-
-    <style>
+<style>
 .product-card {
   background: #fff;
   border-radius: 10px;
   box-shadow: 0 3px 6px rgba(0,0,0,0.1);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   display: inline-block;
-  width: 220px;
+  width: 150px;
   margin: 10px;
+  text-align: center;
 }
 
 .product-card:hover {
@@ -115,22 +115,22 @@ $("#registration_date,.to_date").val(today);
   box-shadow: 0 6px 12px rgba(0,0,0,0.2);
 }
 
-.product-img {
-  border-radius: 8px;
-}
-
 .product-title {
   font-weight: 600;
   color: #333;
+  font-size: 14px;
+  min-height: 10px;
 }
 
 .price-section {
-  font-size: 16px;
+  font-size: 15px;
+  margin-bottom: 5px;
 }
 
 .original-price {
   text-decoration: line-through;
   color: #888;
+  margin-right: 4px;
 }
 
 .discount-price {
@@ -142,86 +142,84 @@ $("#registration_date,.to_date").val(today);
   background-color: #28a745;
   border: none;
   transition: 0.3s;
+  padding: 5px 10px;
 }
 
 .add-now-btn:hover {
   background-color: #218838;
 }
+
 .discount-badge {
   display: inline-block;
   background: #ff4d4d;
   color: #fff;
   font-weight: bold;
-  font-size: 13px;
+  font-size: 12px;
   border-radius: 5px;
   padding: 3px 8px;
+  margin-bottom: 5px;
 }
 
-.discount-badge span {
-  display: inline-block;
+/* 🧩 Responsive Layout */
+.products-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
-.product-card {
-  background: #fff;
-  border-radius: 10px;
-  box-shadow: 0 3px 6px rgba(0,0,0,0.1);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  display: inline-block;
-  width: 220px;
-  margin: 10px;
+/* বড় স্ক্রিনে প্রতি সারিতে 5টা */
+@media (min-width: 992px) {
+  .product-card {
+    width: 18%;
+  }
 }
 
-.product-card:hover {
-  transform: scale(1.05);
-  box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+/* ট্যাবলেট স্ক্রিনে প্রতি সারিতে 3টা */
+@media (max-width: 991px) and (min-width: 576px) {
+  .product-card {
+    width: 30%;
+  }
 }
 
-.product-img {
-  border-radius: 8px;
-}
+/* মোবাইলে প্রতি সারিতে 2টা */
+@media (max-width: 575px) {
+  .product-card {
+    width: 45%;
+    margin: 8px;
+  }
 
-.product-title {
-  font-weight: 600;
-  color: #333;
-}
+  .product-title {
+    font-size: 13px;
+  }
 
-.price-section {
-  font-size: 16px;
-}
+  .price-section {
+    font-size: 14px;
+  }
 
-.original-price {
-  text-decoration: line-through;
-  color: #888;
+  .add-now-btn {
+    padding: 4px 8px;
+    font-size: 13px;
+  }
 }
-
-.discount-price {
-  color: #28a745;
-  font-weight: bold;
-}
-
-.add-now-btn {
-  background-color: #28a745;
-  border: none;
-  transition: 0.3s;
-}
-
-.add-now-btn:hover {
-  background-color: #218838;
-}
+</style>
+<style>
 .toast-msg {
   position: fixed;
   top: 20px;
   right: 20px;
-  background: linear-gradient(135deg, #28a745, #218838);
+  background: linear-gradient(135deg, #2ecc71, #27ae60);
   color: #fff;
-  padding: 12px 20px;
-  border-radius: 6px;
+  padding: 14px 20px;
+  border-radius: 10px;
   font-weight: 500;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.25);
   opacity: 0;
   transform: translateY(-20px);
   transition: all 0.4s ease;
   z-index: 9999;
+  text-align: left;
+  min-width: 250px;
+  line-height: 1.4;
 }
 
 .toast-msg.show {
@@ -229,7 +227,18 @@ $("#registration_date,.to_date").val(today);
   transform: translateY(0);
 }
 
-            </style>
+/* 💫 সুন্দর অ্যানিমেশন যুক্ত করো */
+@keyframes toastPulse {
+  0% { box-shadow: 0 0 5px rgba(46, 204, 113, 0.5); }
+  50% { box-shadow: 0 0 20px rgba(46, 204, 113, 0.8); }
+  100% { box-shadow: 0 0 5px rgba(46, 204, 113, 0.5); }
+}
+
+.toast-msg.show {
+  animation: toastPulse 1.5s infinite;
+}
+</style>
+
    <div class="container-fluid">
             <div id="toast-msg" class="toast-msg"></div>
 
@@ -268,10 +277,16 @@ $("#registration_date,.to_date").val(today);
 
 
 
-                                      <div class="input_form input_form_new" >
+                                      <div class=" " >
+                                          <div class="row">
+                                        <div class="col-12 text-center">
+                                         <a type="submit" href="<?php echo base_url('billinfo/confirm_page'); ?>" class="btn btn-success">Bill Confirm Now </a>
+
+                                        </div>
+                                      </div>
 									      				<div class="row mb-3">
                                   <div class="col-md-12">
-
+<div class="products-container">
                             <?php
 if (isset($allPdt)) {
     foreach ($allPdt as $pdt) {
@@ -282,7 +297,7 @@ if (isset($allPdt)) {
         }
 ?>
         <div class="product-card text-center p-3">
-            <img src="https://placehold.co/200" alt="Product Image" class="product-img img-fluid mb-3">
+     
 
             <h5 class="product-title mb-2"><?php echo $pdt->name; ?></h5>
 
@@ -301,14 +316,17 @@ if (isset($allPdt)) {
                 </div>
             <?php } ?>
 
-          <button 
+    <button 
   class="btn btn-success btn-sm add-now-btn"
   data-id="<?php echo $pdt->id; ?>"
-  data-name="<?php echo htmlspecialchars($pdt->name); ?>"
+  data-name="<?php echo htmlspecialchars($pdt->name); ?>"  
+  data-original="<?php echo $pdt->regular_price; ?>" 
   data-price="<?php echo $pdt->offer_price < $pdt->regular_price ? $pdt->offer_price : $pdt->regular_price; ?>"
 >
-  Add Now
+ <span><i class="fas fa-shopping-cart"></i></span>
+
 </button>
+
 
         </div>
 <?php
@@ -316,7 +334,7 @@ if (isset($allPdt)) {
 }
 ?>
                                           
-
+  </div>
 
 
                                     </div> 
@@ -326,12 +344,7 @@ if (isset($allPdt)) {
                               
 									      					
 									          		</div>	
-                                      <div class="row">
-                                        <div class="col-12 text-end">
-                                         <a type="submit" href="<?php echo base_url('billinfo/confirm_page'); ?>" class="btn btn_bg">Confirm</a>
-
-                                        </div>
-                                      </div>
+                                    
 
                                 	</div>
 									      	
@@ -342,33 +355,38 @@ if (isset($allPdt)) {
 									</div>
 								</div>
 							</div>
+
 <script>
 $(document).on('click', '.add-now-btn', function() {
   let id = $(this).data('id');
   let name = $(this).data('name');
   let price = $(this).data('price');
+  let original_price = $(this).data('original');
   
   $.ajax({
     url: '<?php echo base_url("billinfo/add_to_session"); ?>',
     type: 'POST',
-    data: { id: id, name: name, price: price },
+    data: { id: id, name: name, price: price , regular_price: original_price },
     dataType: 'json',
     success: function(res) {
       if (res.status === 'success') {
-        showToast(`✅ ${name} added to cart! (Total: ${res.cart_count})`);
+        // 🧾 নতুন টোস্ট মেসেজে কার্ট সংখ্যা + মোট টাকা দেখাবে
+        showToast(`✅ <b>${name}</b> added to cart!<br>
+        🛒 <b>${res.cart_count}</b> items | 💰 <b>৳${res.cart_total}</b>`);
       }
     }
   });
 });
 
-// 🔔 Custom Toast Function
+// ✨ Custom Toast Function
 function showToast(message) {
   let toast = $('#toast-msg');
-  toast.text(message).addClass('show');
+  toast.html(message).addClass('show');
 
   // ৩ সেকেন্ড পর অটো হাইড
   setTimeout(function() {
     toast.removeClass('show');
-  }, 3000);
+  }, 3500);
 }
 </script>
+

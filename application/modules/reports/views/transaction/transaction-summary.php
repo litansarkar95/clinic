@@ -111,62 +111,57 @@
                     <th>Name </th>
 					
                     <th>Bill Date</th>
-                    <th>Fee</th>
+                    <th>Price</th>
                     <th>Discount</th>
                     <th>Total</th>
-                    <th>Paid</th>
-                    <th>Due</th>
                    
                 </tr>
             </thead>
-            <tbody>
-    <?php
-    $i = 1;
-    $total_subTotal = 0;
-    $total_totalDisAmount = 0;
-    $total_totalAmount = 0;  // Cumulative balance
-    $total_paidAmount = 0;  // Cumulative balance
-    $total_dueAmount = 0;  // Cumulative balance
+           <tbody>
+<?php
+$i = 1;
+$total_original = 0;
+$total_discount = 0;
+$total_after_offer = 0;
 
-    if(isset($allPdt)){
-        foreach($allPdt as $pdt){
-            // Update total debit and total credit
-            $total_subTotal += $pdt->subTotal;
-            $total_totalDisAmount+= $pdt->totalDisAmount;
-            $total_totalAmount += $pdt->totalAmount;
-            $total_paidAmount+= $pdt->paidAmount;
-            $total_dueAmount+= $pdt->dueAmount;
-            // Update the balance (cumulative)
-         
-    ?>
-    <tr>
-        <td><?php echo $i; $i++; ?></td>
-        <td><?php echo $pdt->invoiceNumber; ?></td>
-		 <td><?php echo $pdt->registration_no." - ".$pdt->name; ?></td>
-        <td><?php echo date("d-m-Y",$pdt->invoice_date); ?></td>
-        <td><?php echo number_format($pdt->subTotal, 2); ?></td>
-        <td><?php echo number_format($pdt->totalDisAmount, 2); ?></td>
-        <td><?php echo number_format($pdt->totalAmount, 2); ?></td>
-        <td><?php echo number_format($pdt->paidAmount, 2); ?></td>
-        <td><?php echo number_format($pdt->dueAmount, 2); ?></td>
-
-       
-      
-    </tr>
-    <?php
-        }
+if (!empty($allPdt)) {
+    foreach ($allPdt as $pdt) {
+        $discount = $pdt->original_price - $pdt->total_amount;
+        $total_original += $pdt->original_price;
+        $total_discount += $discount;
+        $total_after_offer += $pdt->total_amount;
+?>
+<tr>
+    <td><?= $i++; ?></td>
+    <td><?= $pdt->invoice_no; ?></td>
+    <td><?= $pdt->registration_no . " - " . $pdt->name; ?></td>
+    <td><?= date("d-m-Y", strtotime($pdt->invoice_date)); ?></td>
+    <td><?= number_format($pdt->original_price, 2); ?></td>
+    <td><?= number_format($discount, 2); ?></td>
+    <td><?= number_format($pdt->total_amount, 2); ?></td>
+</tr>
+<?php
     }
-    ?>
-    <!-- Display total debit and credit -->
-    <tr>
-        <td colspan="4"><strong>Total</strong></td>
-        <td><strong><?php echo number_format($total_subTotal, 2); ?></strong></td>
-        <td><strong><?php echo number_format($total_totalDisAmount, 2); ?></strong></td>
-        <td><strong><?php echo number_format($total_totalAmount, 2); ?></strong></td>
-        <td><strong><?php echo number_format($total_paidAmount, 2); ?></strong></td>
-        <td><strong><?php echo number_format($total_dueAmount, 2); ?></strong></td>
-    </tr>
+} else {
+?>
+<tr>
+    <td colspan="7" style="text-align:center; color:red;">No transactions found for the selected date range</td>
+</tr>
+<?php } ?>
 </tbody>
+
+<?php if (!empty($allPdt)) { ?>
+<tfoot>
+<tr style="font-weight:bold; background:#f8f9fa;">
+    <td colspan="4" class="text-end">Grand Total:</td>
+    <td>৳<?= number_format($total_original, 2); ?></td>
+    <td>৳<?= number_format($total_discount, 2); ?></td>
+    <td>৳<?= number_format($total_after_offer, 2); ?></td>
+</tr>
+</tfoot>
+<?php } ?>
+
+
         </table>
         <div class="footer">
             Design and developed by: Master IT.

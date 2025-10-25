@@ -13,7 +13,7 @@
                               <form action="<?php echo base_url() ?>reports/transactionReport/search" method="post"
                                    target="_blank" class="input_form">
                                    <div class="col-auto">
-                                        <h3>Transaction Reports</h3>
+                                        <h3>Invoice Reports</h3>
                                    </div>
                                    <hr>
                                    <div class="row">
@@ -45,27 +45,40 @@
 
 		 <!--- Start -->
  		 <div class="col-md-4">
-                              <form action="<?php echo base_url() ?>reports/transactionReport/duereportssearch" method="post"
+                              <form action="<?php echo base_url() ?>reports/transactionReport/paymentsearch" method="post"
                                    target="_blank" class="input_form input_form_bg">
                                    <div class="col-auto">
-                                        <h3>Due Transaction Report</h3>
+                                        <h3>Payment  Report</h3>
                                    </div>
                                    <hr>
                                    <div class="row">
 
 
                                         <div class=" col-md-12 mb-3">
-                                             <label for="due_from_date">From Date</label>
-                                             <input type="text" id="due_from_date" class="form-control " name="due_from_date"
-                                                  value="<?php echo set_value('due_from_date'); ?>">
+                                             <label for="payment_from_date">From Date</label>
+                                             <input type="text" id="payment_from_date" class="form-control from_date" name="payment_from_date"
+                                                  value="<?php echo set_value('payment_from_date'); ?>">
                                              <span class="text-red small">
-                                                  <?php echo form_error('due_from_date'); ?>
+                                                  <?php echo form_error('payment_from_date'); ?>
                                              </span>
                                         </div>
                                         <div class="col-md-12  mb-3">
-                                             <label for="due_to_date">To Date</label>
-                                             <input type="text" id="due_to_date" class="form-control " name="due_to_date"
-                                                  value="<?php echo set_value('due_to_date'); ?>">
+                                             <label for="payment_to_date">To Date</label>
+                                             <input type="text" id="payment_to_date" class="form-control to_date" name="payment_to_date"
+                                                  value="<?php echo set_value('payment_to_date'); ?>">
+                                        </div>
+
+                                         <div class="col-md-12  mb-3">
+                                               <label for="payment_method_id">Payment Method</label>
+                                 <select type="text" id="payment_method_id" class="form-control" name="payment_method_id"  >
+                                     <option value="0">Select Payment Method</option>
+                                    <?php
+                                        foreach ($payment_methods as $method){
+                                      echo "<option value='{$method->id}'>{$method->method_name} </option>";
+                                        }
+                                    ?>
+                                    </select>
+                                 <span class="text-red small"><?php echo form_error('payment_method_id'); ?></span>
                                         </div>
 
                                         <div class="row">
@@ -79,7 +92,54 @@
                          </div>
 		 <!--- End -->
 
+	 <!--- Start -->
+ 		 <div class="col-md-4">
+                              <form action="<?php echo base_url() ?>reports/transactionReport/referencesearch" method="post"
+                                   target="_blank" class="input_form input_form_bg">
+                                   <div class="col-auto">
+                                        <h3>Reference  Report</h3>
+                                   </div>
+                                   <hr>
+                                   <div class="row">
 
+
+                                        <div class=" col-md-12 mb-3">
+                                             <label for="due_from_date">From Date</label>
+                                             <input type="text" id="due_from_date" class="form-control from_date" name="due_from_date"
+                                                  value="<?php echo set_value('due_from_date'); ?>">
+                                             <span class="text-red small">
+                                                  <?php echo form_error('due_from_date'); ?>
+                                             </span>
+                                        </div>
+                                        <div class="col-md-12  mb-3">
+                                             <label for="due_to_date">To Date</label>
+                                             <input type="text" id="due_to_date" class="form-control to_date" name="due_to_date"
+                                                  value="<?php echo set_value('due_to_date'); ?>">
+                                        </div>
+
+                                         <div class="col-md-12  mb-3">
+                                               <label for="reference_id">Reference</label>
+                                 <select type="text" id="reference_id" class="form-control" name="reference_id" required >
+                                     <option value="0">Select Reference</option>
+                                    <?php
+                                        foreach ($allRef as $ref){
+                                      echo "<option value='{$ref->id}'>{$ref->first_name} - {$ref->contact_no}</option>";
+                                        }
+                                    ?>
+                                    </select>
+                                 <span class="text-red small"><?php echo form_error('reference_id'); ?></span>
+                                        </div>
+
+                                        <div class="row">
+                                             <div class="col-12">
+                                                  <button type="submit" class="btn btn_bg">Search</button>
+                                             </div>
+                                        </div>
+
+			       </div>
+                              </form>
+                         </div>
+		 <!--- End -->
                  
                </div>
           </div>
@@ -95,14 +155,14 @@
 
 
           $("#from_date,#to_date, #due_from_date , #due_to_date,#test_from_date,#test_to_date, .from_date, .to_date").datepicker({
-               dateFormat: "dd-mm-yy",
+               dateFormat: "yy-mm-dd",
                changeMonth: true,
                changeYear: true,
                yearRange: "1900:2100",
           });
 
           // Set a default date (e.g., today's date)
-          var today = $.datepicker.formatDate("dd-mm-yy", new Date());
+          var today = $.datepicker.formatDate("yy-mm-dd", new Date());
           $("#from_date,#to_date, #due_from_date, #due_to_date ,#test_from_date,#test_to_date, .from_date, .to_date").val(today);
 
      });

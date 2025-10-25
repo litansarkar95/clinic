@@ -5,140 +5,14 @@ class Billinfo_model extends CI_Model {
 
 
 
-	public function create()
-	{
-		$saveid = $this->session->userdata('loggedin_userid');
-	 // inventory 
-	 $sales_date = str_replace('/','-',$this->input->post('invoice_date',TRUE));
-	 $newdate= date('Y-m-d' , strtotime($sales_date));
-	 
-	$sales_newdate= strtotime(date('Y-m-d'));
 	
-
-	 $sales_id = $this->number_generator();
-	 $sales_number = 'R-'.str_pad($sales_id,4,"0",STR_PAD_LEFT);
-	 
-	 $createdate  = strtotime(date('Y-m-d H:i:s'));
-
-	
-
-	 if($this->input->post('dis_grandTotal',TRUE) == $this->input->post('payment_amount',TRUE) ){
-		$isPaid = "Paid";
-	 }else  if($this->input->post('dis_grandTotal',TRUE) == $this->input->post('due_amount',TRUE) ){
-		$isPaid = "Due";
-	 }else{
-		$isPaid = "Partially";
-	 }
-	
-
-	
-        $day = date('d');
-        $month = date('m');
-        $year = date('Y');
-        $int_no = $this->get_next_registration_int_no($month, $year);
-        $registration_no = 'R-' . str_pad($int_no, 4, '0', STR_PAD_LEFT);
-
-$is_surgery = $this->input->post('is_surgery') ? 1 : 0;
-
-	 $data=array(
-		 'ip_address'		        => $_SERVER['REMOTE_ADDR'],
-		 "branch_id"                                => $this->session->userdata("loggedin_branch_id"), 
-		 'date_code'	                    => date("y"),
-		 'month_code' 		        => date("m"),
-		 'code_random'		        => $sales_id,
-		 'invoiceNumber'	       	        => $sales_number,
-		 'patient_id'	                    => $this->input->post('patient_id', TRUE),
-		 'subTotal'			        =>	$this->input->post('gtotal_amount', TRUE),
-		 'discountType'	                    =>	$this->input->post('discount_type',TRUE),
-		 'discountAmount'	                    =>	$this->input->post('discountAmount',TRUE),
-		 'totalDisAmount'	                    =>	($this->input->post('gtotal_amount',TRUE) - $this->input->post('dis_grandTotal', TRUE)),
-		 'isPaid'	                                =>	$isPaid,
-		 'totalAmount'	                    =>	$this->input->post('dis_grandTotal', TRUE),
-		 'paidAmount'	                    =>	$this->input->post('payment_amount',TRUE),
-		 'dueAmount'	                    =>	$this->input->post('due_amount',TRUE),
-		 'paymentType'	                    =>	"Cash",
-		 'invoice_date'		        =>	$sales_newdate,
- 		 'is_surgery'	                    =>	$is_surgery,
- 		 'status'	                                =>	1,
-// 		 'create_user'			            =>	$saveid,
-		 'created_at'		        =>	$createdate
-
-	 );
-	 if( $this->db->insert("bill_info",$data)){
-		$returnid = $this->db->insert_id();
-
-		
-		
-		/// Accounts  
-			$accdata = array(
-							'invoice_id'           => $returnid,
-							'patient_id'           => $this->input->post('patient_id', TRUE),
-							'amount'               => $this->input->post('gtotal_amount', TRUE),
-							'transaction_type'     => 'debit',
-							'transaction_date'     => $sales_newdate,
-							'status'               => 'success',
-							
-						);
-
-						$this->db->insert('transactions', $accdata);
-
-						if($this->input->post('payment_amount',TRUE) > 0){
-							$taccdata = array(
-							'invoice_id'           => $returnid,
-							'patient_id'           => $this->input->post('patient_id', TRUE),
-							'amount'               => $this->input->post('payment_amount',TRUE),
-							'transaction_type'     => 'credit',
-							'payment_method'       => 'cash',
-							'transaction_date'     => $sales_newdate,
-							'status'               => 'success',
-							
-						);
-
-						$this->db->insert('transactions', $taccdata);
-						}
-		
-		// end Accounts
-		
-		
-
-			
-				// Start Item
-				 $productIds = $this->input->post('product_id');  // array of IDs
-				$prices = $this->input->post('price');           // array of prices
-				$comments = $this->input->post('comments');           // array of prices
-
-					foreach ($productIds as $index => $productId) {
-						$data1 = array(
-							'bill_id'       => $returnid,
-							'test_info_id'  => $productId,
-						            'price'         => isset($prices[$index]) ? $prices[$index] : null,
-							'comments'      => isset($comments[$index]) ? $comments[$index] : null,
-							'create_date'   => $createdate
-						);
-						
-
-						$this->db->insert('bill_details', $data1);
-					}
-
-
-							//end item
-								
-	
-				return $returnid;
-
-			}
-
-				return 0;
-
-			}
-
 
 
 	public function number_generator() {
         
   
 		$this->db->select_max('code_random');      
-		$this->db->from('bill_info');
+		$this->db->from('billing_summary');
 		$query = $this->db->get();
 		$result =  $query->result_array();
 		$invoice_no = $result[0]['code_random'];
@@ -157,31 +31,29 @@ $is_surgery = $this->input->post('is_surgery') ? 1 : 0;
 
 
 	 if (!empty($branch_id)) {
-             $this->db->where("bill_info.branch_id", $branch_id); 
+             $this->db->where("billing_summary.branch_id", $branch_id); 
 	 }
 
 
     
 
-    $this->db->select("bill_info.* , patients.name  , patients.mobile_no");
-    $this->db->from("bill_info");
-    $this->db->join('patients', "bill_info.patient_id = patients.id",'left');
+    $this->db->select("billing_summary.* , customer.name  , customer.mobile_no");
+    $this->db->from("billing_summary");
+    $this->db->join('customer', "billing_summary.customer_id = customer.id",'left');
 
     if (!empty($invoice_id)) {
-        $this->db->where("bill_info.invoiceNumber", $invoice_id); 
+        $this->db->where("billing_summary.invoice_no", $invoice_id); 
 
 
     } else {
-        if (!empty($status_id)) {
-            $this->db->where("bill_info.isPaid", $status_id); 
-        }
+      
 
         if (!empty($from_date) && !empty($to_date)) {
             $from_date_str = strtotime($from_date);
             $to_date_str = strtotime($to_date . ' 23:59:59');
 
-            $this->db->where('bill_info.invoice_date >=', $from_date_str);
-            $this->db->where('bill_info.invoice_date <=', $to_date_str);
+            $this->db->where('billing_summary.invoice_date >=', $from_date_str);
+            $this->db->where('billing_summary.invoice_date <=', $to_date_str);
         }
         if (empty($status_id) && (empty($from_date) || empty($to_date))) {
             return []; 
@@ -194,7 +66,20 @@ $is_surgery = $this->input->post('is_surgery') ? 1 : 0;
 
 
 
-		public function BillList($id) {
+		public function ReferenceList() {
+		
+			$branch_id  = $this->session->userdata("loggedin_branch_id");
+			if (!empty($branch_id)) {
+					$this->db->where("staff.branch_id", $branch_id); 
+			}
+		
+			$this->db->select("staff.*");
+			$this->db->from("staff");
+			$this->db->order_by("id", "DESC");
+			return $this->db->get()->result();
+		}
+
+			public function BillList($id) {
 		
 				
 		

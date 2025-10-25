@@ -6,6 +6,7 @@ class Testinfo extends CI_Controller {
     public function __construct() {
         parent::__construct();
         $this->load->model("reports_model");
+        $this->load->model("billinfo/billinfo_model");
           
     }
 
@@ -13,9 +14,9 @@ class Testinfo extends CI_Controller {
     {
         $data = array();
         $data['active'] = "testinfo";
-        $data['title'] = " Testinfo"; 
-        $data['allDoctors']    =  $this->common_model->view_data("doctors", array("is_active" => 1), "name", "ASC");
-        $data['allPas']        =  $this->common_model->view_data("patients", array("is_active" => 1), "name", "ASC");
+        $data['title'] = " Invoice Reports"; 
+      $data['payment_methods'] = $this->db->get('payment_methods')->result();
+          $data['allRef']  = $this->billinfo_model->ReferenceList();
         $data['content'] = $this->load->view("testinfo", $data, TRUE);
        $this->load->view('layout/master', $data);
 

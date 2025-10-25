@@ -29,18 +29,7 @@
               value="<?php echo set_value('to_date'); ?>">
           </div>
 
-          <div class="col-md-2 mb-3">
-            <label for="status_id">Status</label>
-            <div class="select_optino">
-              <select name="status_id" id="status_id" class="form-control frm_select">
-                <option value="">Select </option>
-                <option value="Paid">Paid</option>
-                <option value="Due">Due</option>
-                <option value="Partially">Partially</option>
-              </select>
-              <i class="fas fa-caret-down"></i>
-            </div>
-          </div>
+        
 
           <div class="col-auto mt-4">
             <button type="submit" class="btn btn_bg px-4">
@@ -94,9 +83,7 @@
                     </th>
                     <th>Mobile No</th>
                     <th>Total Amount</th>
-                    <th>
-                      <?php echo display('status'); ?>
-                    </th>
+                 
                     <th>
                       <?php echo display('create_date'); ?>
                     </th>
@@ -118,7 +105,7 @@
                     </td>
 
                     <td>
-                      <?php echo $pdt->invoiceNumber;?>
+                      <?php echo $pdt->invoice_no;?>
                     </td>
                     <td>
                       <?php echo $pdt->name;?>
@@ -127,31 +114,25 @@
                       <?php echo $pdt->mobile_no;?>
                     </td>
                     <td>
-                      <?php echo $pdt->totalAmount;?>
+                      <?php echo $pdt->total_amount;?>
+                    </td>
+                 
+                    <td>
+                   <?php echo $pdt->created_at; ?>
                     </td>
                     <td>
-                      <?php echo $pdt->isPaid ;
-                                       ?>
-                    </td>
-                    <td>
-                      <?php echo date('d-m-Y',$pdt->created_at); ?>
-                    </td>
-                    <td>
-                      <button type="button" class="btn btn_bg" data-bs-toggle="modal"
-                        data-bs-target="#exampleModal<?php echo $pdt->id; ?>">
-                        <i class="fas fa-dollar"></i>
-                      </button>
-                       <!-- <a href="<?php echo base_url()."billinfo/invoice/$pdt->id"; ?>" target="_blank" class="btn btn_bg print-btn" >
+                     
+                       <a href="<?php echo base_url()."billinfo/invoice/$pdt->id"; ?>" target="_blank" class="btn btn_bg print-btn" >
                         <i class="fas fa-print"></i>
-                                        </a> -->
+                                        </a>
 
                                            <?php
                                      $role_id = $this->session->userdata('loggedin_role_id');
                                      if($role_id == 1){
                                         ?>
-                                          <a href="<?php echo base_url()."billinfo/edit/$pdt->id"; ?>" target="_blank" class="btn btn_bg print-btn" >
+                                          <!-- <a href="<?php echo base_url()."billinfo/edit/$pdt->id"; ?>" target="_blank" class="btn btn_bg print-btn" >
                         <i class="fas fa-pen"></i>
-                                        </a>
+                                        </a> -->
                                           <a href="<?php echo base_url()."billinfo/delete/$pdt->id"; ?>" 
 
                               class="btn btn-danger print-btn" 
@@ -166,53 +147,7 @@
                     </td>
                   </tr>
 
-                  <!-- Modal -->
-                  <div class="modal fade" id="exampleModal<?php echo $pdt->id; ?>" tabindex="-1"
-                    aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                      <div class="modal-content">
-                        <div class="modal-header">
-                          <h1 class="modal-title fs-5 text-bold" id="exampleModalLabel"> Due Amount -
-                            <?php echo $pdt->name;?>
-                          </h1>
-                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                          <form action="<?php echo base_url(); ?>billinfo/account" method="post" class="">
-                            <input type="hidden" class="form-control" name="id" value="<?php echo $pdt->id; ?>" />
-                            <div class="row mb-3">
-                              <div class="col-12">
-                                <label for="name">Due Amount </label>
-                                <input type="text" class="form-control" value="<?php echo $pdt->dueAmount; ?>"
-                                  readonly />
-                              </div>
-                            </div>
-
-                            <div class="row mb-3">
-                              <div class="col-12">
-                                <label for="totalamount">Total Amount </label>
-                                <input type="text" class="form-control" name="totalamount" id="totalamount" />
-                              </div>
-                            </div>
-
-
-                       
-                            <div class="modal-footer">
-                              <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
-                                Cancel
-                              </button>
-                              <button type="submit" class="btn btn_bg">
-                                Save
-                              </button>
-                            </div>
-                          </form>
-                        </div>
-
-                      </div>
-                    </div>
-                  </div>
-            </div>
-          </div>
+                
 
 
 

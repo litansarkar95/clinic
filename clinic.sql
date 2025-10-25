@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 24, 2025 at 07:33 PM
--- Server version: 10.4.27-MariaDB
--- PHP Version: 7.4.33
+-- Generation Time: Oct 25, 2025 at 12:33 PM
+-- Server version: 10.4.32-MariaDB
+-- PHP Version: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -68,6 +68,7 @@ CREATE TABLE `billing_details` (
   `billing_id` int(11) NOT NULL,
   `product_id` int(11) DEFAULT NULL,
   `product_name` varchar(255) NOT NULL,
+  `original_price` decimal(10,0) NOT NULL,
   `price` decimal(10,2) NOT NULL DEFAULT 0.00,
   `quantity` int(11) NOT NULL DEFAULT 1,
   `total` decimal(10,2) GENERATED ALWAYS AS (`price` * `quantity`) STORED
@@ -77,12 +78,60 @@ CREATE TABLE `billing_details` (
 -- Dumping data for table `billing_details`
 --
 
-INSERT INTO `billing_details` (`id`, `billing_id`, `product_id`, `product_name`, `price`, `quantity`) VALUES
-(1, 5, 5, 'Brightening Facial', '800.00', 1),
-(2, 6, 6, 'Acne Control Facia', '200.00', 1),
-(3, 7, 5, 'Brightening Facial', '800.00', 1),
-(4, 8, 7, 'Deep Cleansing Facial', '200.00', 1),
-(5, 9, 5, 'Brightening Facial', '800.00', 1);
+INSERT INTO `billing_details` (`id`, `billing_id`, `product_id`, `product_name`, `original_price`, `price`, `quantity`) VALUES
+(6, 10, 5, 'Brightening Facial', 0, 800.00, 1),
+(7, 10, 4, 'Anti-Aging Facial', 0, 900.00, 1),
+(8, 10, 2, 'Hydrating Facial', 0, 300.00, 1),
+(9, 10, 3, 'Classic Facial', 0, 450.00, 1),
+(14, 11, 5, 'Brightening Facial', 0, 800.00, 1),
+(15, 12, 5, 'Brightening Facial', 0, 800.00, 1),
+(16, 13, 4, 'Anti-Aging Facial', 0, 900.00, 1),
+(18, 14, 5, 'Brightening Facial', 0, 800.00, 1),
+(19, 15, 4, 'Anti-Aging Facial', 900, 900.00, 1),
+(20, 15, 3, 'Classic Facial', 500, 450.00, 1),
+(21, 16, 5, 'Brightening Facial', 800, 800.00, 1),
+(22, 16, 3, 'Classic Facial', 500, 450.00, 1),
+(23, 17, 4, 'Anti-Aging Facial', 900, 900.00, 1),
+(24, 18, 4, 'Anti-Aging Facial', 900, 900.00, 1),
+(25, 19, 4, 'Anti-Aging Facial', 900, 900.00, 1),
+(26, 20, 4, 'Anti-Aging Facial', 900, 900.00, 1),
+(27, 21, 5, 'Brightening Facial', 800, 800.00, 1),
+(28, 21, 4, 'Anti-Aging Facial', 900, 900.00, 1),
+(29, 22, 3, 'Classic Facial', 500, 450.00, 1),
+(30, 23, 5, 'Brightening Facial', 800, 800.00, 1),
+(31, 23, 3, 'Classic Facial', 500, 450.00, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `billing_payment`
+--
+
+CREATE TABLE `billing_payment` (
+  `id` int(11) NOT NULL,
+  `billing_id` int(11) NOT NULL,
+  `payment_method_id` varchar(50) NOT NULL,
+  `amount` decimal(10,2) NOT NULL,
+  `payment_date` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `billing_payment`
+--
+
+INSERT INTO `billing_payment` (`id`, `billing_id`, `payment_method_id`, `amount`, `payment_date`) VALUES
+(1, 10, '1', 2450.00, '2025-10-25 12:14:00'),
+(4, 11, '1', 500.00, '2025-10-25 12:38:15'),
+(5, 12, '1', 800.00, '2025-10-25 12:38:46'),
+(6, 13, '1', 900.00, '2025-10-25 12:39:12'),
+(7, 15, '1', 500.00, '2025-10-25 14:18:44'),
+(8, 16, '2', 500.00, '2025-10-25 14:20:30'),
+(9, 20, '1', 600.00, '2025-10-25 14:29:25'),
+(10, 20, '3', 300.00, '2025-10-25 14:29:25'),
+(11, 21, '1', 2500.00, '2025-10-25 14:57:49'),
+(12, 22, '1', 450.00, '2025-10-25 14:58:19'),
+(13, 23, '1', 50.00, '2025-10-25 16:20:44'),
+(14, 23, '3', 2000.00, '2025-10-25 16:20:44');
 
 -- --------------------------------------------------------
 
@@ -92,13 +141,24 @@ INSERT INTO `billing_details` (`id`, `billing_id`, `product_id`, `product_name`,
 
 CREATE TABLE `billing_summary` (
   `id` int(11) NOT NULL,
+  `branch_id` int(11) NOT NULL,
+  `reference_id` int(11) NOT NULL,
+  `month` int(11) NOT NULL,
+  `day` int(11) NOT NULL,
+  `year` int(11) NOT NULL,
+  `serial_no` int(11) NOT NULL,
+  `registration_int_no` int(11) NOT NULL,
+  `registration_no` int(11) NOT NULL,
+  `code_random` int(11) NOT NULL,
   `invoice_no` varchar(50) NOT NULL,
   `customer_id` int(11) DEFAULT NULL,
   `invoice_date` date NOT NULL,
+  `original_price` decimal(10,0) NOT NULL,
   `subtotal` decimal(10,2) NOT NULL DEFAULT 0.00,
   `adjustment` decimal(10,2) NOT NULL DEFAULT 0.00,
   `total_amount` decimal(10,2) NOT NULL DEFAULT 0.00,
   `payment_status` enum('Pending','Paid','Cancelled') DEFAULT 'Pending',
+  `create_id` int(11) NOT NULL,
   `created_at` datetime DEFAULT current_timestamp(),
   `updated_at` datetime DEFAULT NULL ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -107,69 +167,21 @@ CREATE TABLE `billing_summary` (
 -- Dumping data for table `billing_summary`
 --
 
-INSERT INTO `billing_summary` (`id`, `invoice_no`, `customer_id`, `invoice_date`, `subtotal`, `adjustment`, `total_amount`, `payment_status`, `created_at`, `updated_at`) VALUES
-(1, '', 1, '2025-10-24', '0.00', '0.00', '0.00', 'Pending', '2025-10-24 23:16:36', NULL),
-(2, '', 4, '2025-10-24', '0.00', '-50.00', '-50.00', 'Pending', '2025-10-24 23:17:15', NULL),
-(3, '', 4, '2025-10-24', '0.00', '-50.00', '-50.00', 'Pending', '2025-10-24 23:22:35', NULL),
-(4, '', 4, '2025-10-24', '800.00', '0.00', '800.00', 'Pending', '2025-10-24 23:24:27', NULL),
-(5, '', 5, '2025-10-24', '800.00', '-70.00', '730.00', 'Pending', '2025-10-24 23:25:01', NULL),
-(6, '', 6, '2025-10-24', '200.00', '0.00', '200.00', 'Pending', '2025-10-24 23:27:32', NULL),
-(7, '', 7, '2025-10-24', '800.00', '0.00', '800.00', 'Pending', '2025-10-24 23:27:55', NULL),
-(8, '', 7, '2025-10-24', '200.00', '0.00', '200.00', 'Pending', '2025-10-24 23:28:19', NULL),
-(9, '', 7, '2025-10-24', '800.00', '0.00', '800.00', 'Pending', '2025-10-24 23:29:45', NULL);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `bill_info`
---
-
-CREATE TABLE `bill_info` (
-  `id` int(11) NOT NULL,
-  `branch_id` int(11) NOT NULL,
-  `month` int(11) NOT NULL,
-  `day` int(11) NOT NULL,
-  `year` int(11) NOT NULL,
-  `serial_no` int(11) NOT NULL,
-  `registration_int_no` int(11) NOT NULL,
-  `registration_no` varchar(255) NOT NULL,
-  `ip_address` varchar(100) NOT NULL,
-  `date_code` year(4) NOT NULL,
-  `month_code` float NOT NULL,
-  `code_random` int(11) NOT NULL,
-  `invoiceNumber` varchar(255) NOT NULL,
-  `patient_id` int(11) NOT NULL,
-  `doctor_id` int(11) NOT NULL,
-  `subTotal` double NOT NULL,
-  `discountType` varchar(100) NOT NULL,
-  `discountAmount` double NOT NULL,
-  `totalDisAmount` double NOT NULL,
-  `isPaid` varchar(255) NOT NULL,
-  `totalAmount` double NOT NULL,
-  `paidAmount` double NOT NULL,
-  `dueAmount` double NOT NULL,
-  `paymentType` varchar(255) NOT NULL,
-  `invoice_date` int(11) NOT NULL,
-  `is_surgery` int(11) NOT NULL,
-  `status` int(11) NOT NULL,
-  `created_at` int(11) NOT NULL,
-  `updated_at` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `bill_info`
---
-
-INSERT INTO `bill_info` (`id`, `branch_id`, `month`, `day`, `year`, `serial_no`, `registration_int_no`, `registration_no`, `ip_address`, `date_code`, `month_code`, `code_random`, `invoiceNumber`, `patient_id`, `doctor_id`, `subTotal`, `discountType`, `discountAmount`, `totalDisAmount`, `isPaid`, `totalAmount`, `paidAmount`, `dueAmount`, `paymentType`, `invoice_date`, `is_surgery`, `status`, `created_at`, `updated_at`) VALUES
-(1221, 0, 0, 0, 0, 0, 0, '', '::1', 2025, 10, 1, 'R-0001', 1237, 0, 100, 'flat', 0, 0, 'Due', 100, 0, 100, 'Cash', 1760724000, 0, 1, 1760768290, 0),
-(1222, 0, 0, 0, 0, 0, 0, '', '::1', 2025, 10, 2, 'R-0002', 1237, 0, 100, 'flat', 0, 0, 'Due', 100, 0, 100, 'Cash', 1760724000, 1, 1, 1760772089, 0),
-(1223, 0, 0, 0, 0, 0, 0, '', '::1', 2025, 10, 3, 'R-0003', 1237, 0, 100, 'flat', 0, 0, 'Due', 100, 0, 100, 'Cash', 1760724000, 1, 1, 1760772150, 0),
-(1225, 0, 0, 0, 0, 0, 0, '', '::1', 2025, 10, 4, 'R-0004', 1237, 0, 1100, 'flat', 0, 0, 'Due', 1100, 0, 1100, 'Cash', 1761069600, 0, 1, 1761130409, 0),
-(1226, 0, 0, 0, 0, 0, 0, '', '::1', 2025, 10, 5, 'R-0005', 1237, 0, 450, 'flat', 0, 0, 'Due', 450, 0, 450, 'Cash', 1761069600, 0, 1, 1761130784, 0),
-(1227, 0, 0, 0, 0, 0, 0, '', '::1', 2025, 10, 6, 'R-0006', 1241, 0, 300, 'flat', 0, 0, 'Due', 300, 0, 300, 'Cash', 1761156000, 0, 1, 1761185248, 0),
-(1228, 0, 0, 0, 0, 0, 0, '', '::1', 2025, 10, 7, 'R-0007', 1242, 0, 800, 'flat', 0, 0, 'Due', 800, 0, 800, 'Cash', 1761156000, 0, 1, 1761185387, 0),
-(1229, 0, 0, 0, 0, 0, 0, '', '::1', 2025, 10, 8, 'R-0008', 1243, 0, 1100, 'flat', 0, 0, 'Due', 1100, 0, 1100, 'Cash', 1761156000, 0, 1, 1761185603, 0),
-(1230, 3, 0, 0, 0, 0, 0, '', '::1', 2025, 10, 9, 'R-0009', 1242, 0, 800, 'flat', 0, 0, 'Paid', 800, 800, 0, 'Cash', 1761156000, 0, 1, 1761185910, 0);
+INSERT INTO `billing_summary` (`id`, `branch_id`, `reference_id`, `month`, `day`, `year`, `serial_no`, `registration_int_no`, `registration_no`, `code_random`, `invoice_no`, `customer_id`, `invoice_date`, `original_price`, `subtotal`, `adjustment`, `total_amount`, `payment_status`, `create_id`, `created_at`, `updated_at`) VALUES
+(10, 0, 0, 0, 0, 0, 0, 0, 0, 0, '', 8, '2025-10-25', 0, 2450.00, 0.00, 2450.00, 'Pending', 0, '2025-10-25 12:14:00', NULL),
+(11, 0, 0, 0, 0, 0, 0, 0, 0, 0, '', 4, '2025-10-25', 0, 800.00, 0.00, 800.00, 'Pending', 0, '2025-10-25 12:38:15', NULL),
+(12, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'R-0001', 4, '2025-10-25', 0, 800.00, 0.00, 800.00, 'Pending', 0, '2025-10-25 12:38:46', NULL),
+(13, 0, 0, 0, 0, 0, 0, 0, 0, 1, 'R-000001', 4, '2025-10-25', 0, 900.00, 0.00, 900.00, 'Pending', 0, '2025-10-25 12:39:12', NULL),
+(14, 0, 0, 0, 0, 0, 0, 0, 0, 2, 'R-000002', 4, '2025-10-25', 0, 800.00, 0.00, 800.00, 'Pending', 0, '2025-10-25 12:39:52', NULL),
+(15, 0, 0, 0, 0, 0, 0, 0, 0, 3, 'R-000003', 4, '2025-10-25', 0, 1350.00, -350.00, 1000.00, 'Pending', 0, '2025-10-25 14:18:44', NULL),
+(16, 0, 0, 0, 0, 0, 0, 0, 0, 4, 'R-000004', 9, '2025-10-25', 0, 1250.00, 0.00, 1250.00, 'Pending', 0, '2025-10-25 14:20:30', NULL),
+(17, 0, 0, 0, 0, 0, 0, 0, 0, 5, 'R-000005', 5, '2025-10-25', 0, 900.00, 0.00, 900.00, 'Pending', 0, '2025-10-25 14:22:26', NULL),
+(18, 0, 0, 0, 0, 0, 0, 0, 0, 6, 'R-000006', 5, '2025-10-25', 0, 900.00, 0.00, 900.00, 'Pending', 0, '2025-10-25 14:28:33', NULL),
+(19, 0, 0, 0, 0, 0, 0, 0, 0, 7, 'R-000007', 4, '2025-10-25', 0, 900.00, 0.00, 900.00, 'Pending', 0, '2025-10-25 14:28:52', NULL),
+(20, 0, 0, 0, 0, 0, 0, 0, 0, 8, 'R-000008', 4, '2025-10-25', 0, 900.00, 0.00, 900.00, 'Pending', 0, '2025-10-25 14:29:25', NULL),
+(21, 0, 16, 0, 0, 0, 0, 0, 0, 9, 'R-000009', 4, '2025-10-25', 1700, 1700.00, 0.00, 1700.00, 'Pending', 1, '2025-10-25 14:57:49', NULL),
+(22, 0, 0, 0, 0, 0, 0, 0, 0, 10, 'R-000010', 4, '2025-10-25', 500, 450.00, 0.00, 450.00, 'Pending', 1, '2025-10-25 14:58:19', NULL),
+(23, 0, 18, 0, 0, 0, 0, 0, 0, 11, 'R-000011', 10, '2025-10-25', 1300, 1250.00, 0.00, 1250.00, 'Pending', 1, '2025-10-25 16:20:44', NULL);
 
 -- --------------------------------------------------------
 
@@ -270,7 +282,10 @@ INSERT INTO `customer` (`id`, `branch_id`, `month`, `day`, `year`, `serial_no`, 
 (4, 1, 0, 0, 0, 0, 0, 'CUST-1761326235', 'litan', 0, '0190888', NULL, 1, 1761326235),
 (5, 1, 0, 0, 0, 0, 0, 'CUST-1761326701', 'lopa', 0, '0444', NULL, 1, 1761326701),
 (6, 1, 0, 0, 0, 0, 0, 'CUST-1761326852', 'uhjhghg', 0, '45655665', NULL, 1, 1761326852),
-(7, 1, 0, 0, 0, 0, 0, 'CUST-1761326875', '', 0, '', NULL, 1, 1761326875);
+(7, 1, 0, 0, 0, 0, 0, 'CUST-1761326875', '', 0, '', NULL, 1, 1761326875),
+(8, 0, 0, 0, 0, 0, 0, 'CUST-1761372840', 'litan sarkar', 0, '018765', NULL, 1, 1761372840),
+(9, 0, 0, 0, 0, 0, 0, 'CUST-1761380430', 'lopa', 0, '018778', NULL, 1, 1761380430),
+(10, 0, 0, 0, 0, 0, 0, 'CUST-1761387644', 'soniya', 0, '0192827', NULL, 1, 1761387644);
 
 -- --------------------------------------------------------
 
@@ -302,7 +317,7 @@ CREATE TABLE `departments` (
 --
 
 INSERT INTO `departments` (`id`, `name`, `commission`, `imap_username`, `email`, `email_from_header`, `host`, `password`, `encryption`, `folder`, `delete_after_import`, `calendar_id`, `hidefromclient`, `is_active`, `create_user`, `create_date`) VALUES
-(6, 'Laber ', '0.00', '', '', 0, '', '', '', 'INBOX', 0, NULL, 0, 1, 0, 1734514677);
+(6, 'Laber ', 0.00, '', '', 0, '', '', '', 'INBOX', 0, NULL, 0, 1, 0, 1734514677);
 
 -- --------------------------------------------------------
 
@@ -390,12 +405,12 @@ CREATE TABLE `facials` (
 --
 
 INSERT INTO `facials` (`id`, `code`, `name`, `regular_price`, `discount_percentage`, `discount_amount`, `offer_price`, `discount_type`, `offer_start_date`, `offer_end_date`, `is_active`, `is_featured`, `created_at`, `updated_at`) VALUES
-(2, '', 'Hydrating Facial', '300.00', '0.00', '0.00', '300.00', 'Percentage', '0000-00-00', '0000-00-00', 1, NULL, '2025-10-22 10:07:42', '2025-10-22 10:44:06'),
-(3, '333', 'Classic Facial', '500.00', '10.00', '0.00', '450.00', 'Percentage', '2025-10-22', '2026-01-29', 1, NULL, '2025-10-22 10:08:57', '2025-10-22 11:02:40'),
-(4, NULL, 'Anti-Aging Facial', '900.00', '0.00', '0.00', '900.00', 'Percentage', '0000-00-00', '0000-00-00', 1, 0, '2025-10-22 10:42:21', '2025-10-22 10:42:21'),
-(5, NULL, 'Brightening Facial', '800.00', '0.00', '0.00', '800.00', 'Percentage', '0000-00-00', '0000-00-00', 1, 0, '2025-10-22 10:42:30', '2025-10-22 10:42:30'),
-(6, NULL, 'Acne Control Facia', '200.00', '0.00', '0.00', '200.00', 'Percentage', '0000-00-00', '0000-00-00', 1, 0, '2025-10-22 10:42:37', '2025-10-22 10:42:37'),
-(7, '', 'Deep Cleansing Facial', '200.00', '0.00', '0.00', '200.00', 'Percentage', '0000-00-00', '0000-00-00', 1, 0, '2025-10-22 10:42:49', '2025-10-22 11:10:52');
+(2, '', 'Hydrating Facial', 300.00, 0.00, 0.00, 300.00, 'Percentage', '0000-00-00', '0000-00-00', 1, NULL, '2025-10-22 10:07:42', '2025-10-22 10:44:06'),
+(3, '333', 'Classic Facial', 500.00, 10.00, 0.00, 450.00, 'Percentage', '2025-10-22', '2026-01-29', 1, NULL, '2025-10-22 10:08:57', '2025-10-22 11:02:40'),
+(4, NULL, 'Anti-Aging Facial', 900.00, 0.00, 0.00, 900.00, 'Percentage', '0000-00-00', '0000-00-00', 1, 0, '2025-10-22 10:42:21', '2025-10-22 10:42:21'),
+(5, NULL, 'Brightening Facial', 800.00, 0.00, 0.00, 800.00, 'Percentage', '0000-00-00', '0000-00-00', 1, 0, '2025-10-22 10:42:30', '2025-10-22 10:42:30'),
+(6, NULL, 'Acne Control Facia', 200.00, 0.00, 0.00, 200.00, 'Percentage', '0000-00-00', '0000-00-00', 1, 0, '2025-10-22 10:42:37', '2025-10-22 10:42:37'),
+(7, '', 'Deep Cleansing Facial', 200.00, 0.00, 0.00, 200.00, 'Percentage', '0000-00-00', '0000-00-00', 1, 0, '2025-10-22 10:42:49', '2025-10-22 11:10:52');
 
 -- --------------------------------------------------------
 
@@ -743,7 +758,8 @@ INSERT INTO `login_credential` (`id`, `branch_id`, `user_id`, `username`, `passw
 (1, 0, 1, 'super@admin.com', 'UHZVdVBOTWI0VkwrN0MvQjRRRUZkdz09', 1, 1, '2025-10-24 20:39:42', '2024-10-21 15:42:57', '2025-10-24 20:39:42'),
 (2, 0, 6, 'admin@gmail.com', 'UHZVdVBOTWI0VkwrN0MvQjRRRUZkdz09', 2, 1, '2025-10-19 22:09:14', '2024-11-16 23:35:56', '2025-10-19 22:09:14'),
 (19, 1, 16, '0192827', 'UHZVdVBOTWI0VkwrN0MvQjRRRUZkdz09', 2, 1, NULL, '2025-10-22 15:14:58', '2025-10-22 15:14:58'),
-(20, 3, 17, '018', 'UHZVdVBOTWI0VkwrN0MvQjRRRUZkdz09', 2, 1, '2025-10-23 08:57:57', '2025-10-23 08:11:44', '2025-10-23 08:57:57');
+(20, 3, 17, '018', 'UHZVdVBOTWI0VkwrN0MvQjRRRUZkdz09', 2, 1, '2025-10-23 08:57:57', '2025-10-23 08:11:44', '2025-10-23 08:57:57'),
+(21, 1, 18, '019123', 'UHZVdVBOTWI0VkwrN0MvQjRRRUZkdz09', 2, 1, NULL, '2025-10-25 15:29:00', '2025-10-25 15:29:00');
 
 -- --------------------------------------------------------
 
@@ -856,7 +872,31 @@ INSERT INTO `logs` (`id`, `message`, `record_id`, `user_id`, `action`, `ip_addre
 (85, 'New Record inserted On branch  id 3', 3, 1, 'Insert', '::1', 'Windows 10', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWeb', '2025-10-23 02:11:21', '2025-10-23'),
 (86, 'New Record inserted On staff  id 17', 17, 1, 'Insert', '::1', 'Windows 10', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWeb', '2025-10-23 02:11:44', '2025-10-23'),
 (87, 'New Record inserted On login_credential id 20', 20, 1, 'Insert', '::1', 'Windows 10', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWeb', '2025-10-23 02:11:45', '2025-10-23'),
-(88, 'New Record inserted On patients id 1243', 1243, 17, 'Insert', '::1', 'Windows 10', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWeb', '2025-10-23 02:12:39', '2025-10-23');
+(88, 'New Record inserted On patients id 1243', 1243, 17, 'Insert', '::1', 'Windows 10', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWeb', '2025-10-23 02:12:39', '2025-10-23'),
+(89, 'New Record inserted On staff  id 18', 18, 1, 'Insert', '::1', 'Windows 10', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWeb', '2025-10-25 09:29:00', '2025-10-25'),
+(90, 'New Record inserted On login_credential id 21', 21, 1, 'Insert', '::1', 'Windows 10', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWeb', '2025-10-25 09:29:00', '2025-10-25');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `payment_methods`
+--
+
+CREATE TABLE `payment_methods` (
+  `id` int(11) NOT NULL,
+  `method_name` varchar(100) NOT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT 1,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `payment_methods`
+--
+
+INSERT INTO `payment_methods` (`id`, `method_name`, `status`, `created_at`) VALUES
+(1, 'Cash', 1, '2025-10-25 05:50:56'),
+(2, 'Bkash', 1, '2025-10-25 08:19:52'),
+(3, 'Bank', 1, '2025-10-25 08:20:01');
 
 -- --------------------------------------------------------
 
@@ -977,9 +1017,10 @@ CREATE TABLE `staff` (
 --
 
 INSERT INTO `staff` (`id`, `branch_id`, `employee_id`, `department`, `designation_id`, `ip_address`, `first_name`, `last_name`, `email`, `roles_id`, `qualification`, `work_exp`, `father_name`, `mother_name`, `contact_no`, `emergency_contact_no`, `dob`, `marital_status`, `date_of_joining`, `date_of_leaving`, `local_address`, `permanent_address`, `gender`, `account_title`, `bank_account_no`, `bank_name`, `lang_id`, `bank_branch`, `basic_salary`, `staff_type`, `hourly_rate`, `facebook`, `twitter`, `linkedin`, `instagram`, `resume`, `joining_letter`, `is_active`, `picture`, `create_user`, `create_date`) VALUES
-(1, 0, '', 0, 0, '', 'Admin', '', 'litan@gmail.com', 1, '', '', '', '', '', '', 0, '', 0, 0, '', '', '', '', '', '', '', '', '0.00', 0, '0.00', '', '', '', '', '', '', 1, '0.png', 0, 0),
-(16, 1, '', 0, 0, '', 'Joli Akter', '', '', 2, '', '', '', '', '0192827', '', 0, '', 0, 0, '', '', '', '', '', '', '', '', '0.00', 0, '0.00', '', '', '', '', '', '', 1, '', 0, 1761124498),
-(17, 3, '', 0, 0, '', 'Dhaka', '', '', 2, '', '', '', '', '018', '', 0, '', 0, 0, '', '', '', '', '', '', '', '', '0.00', 0, '0.00', '', '', '', '', '', '', 1, '', 0, 1761185504);
+(1, 0, '', 0, 0, '', 'Admin', '', 'litan@gmail.com', 1, '', '', '', '', '', '', 0, '', 0, 0, '', '', '', '', '', '', '', '', 0.00, 0, 0.00, '', '', '', '', '', '', 1, '0.png', 0, 0),
+(16, 1, '', 0, 0, '', 'Joli Akter', '', '', 2, '', '', '', '', '0192827', '', 0, '', 0, 0, '', '', '', '', '', '', '', '', 0.00, 0, 0.00, '', '', '', '', '', '', 1, '', 0, 1761124498),
+(17, 3, '', 0, 0, '', 'Dhaka', '', '', 2, '', '', '', '', '018', '', 0, '', 0, 0, '', '', '', '', '', '', '', '', 0.00, 0, 0.00, '', '', '', '', '', '', 1, '', 0, 1761185504),
+(18, 1, '', 0, 0, '', 'Ali', '', '', 2, '', '', '', '', '019123', '', 0, '', 0, 0, '', '', '', '', '', '', '', '', 0.00, 0, 0.00, '', '', '', '', '', '', 1, '', 0, 1761384540);
 
 -- --------------------------------------------------------
 
@@ -1005,18 +1046,18 @@ CREATE TABLE `transactions` (
 --
 
 INSERT INTO `transactions` (`transaction_id`, `invoice_id`, `testinfo_id`, `patient_id`, `amount`, `transaction_type`, `payment_method`, `transaction_date`, `status`, `description`) VALUES
-(14, 0, 60, 1237, '100.00', 'credit', 'cash', 1760768125, 'success', NULL),
-(15, 1221, 0, 1237, '100.00', 'debit', NULL, 1760724000, 'success', NULL),
-(16, 1222, 0, 1237, '100.00', 'debit', NULL, 1760724000, 'success', NULL),
-(17, 1223, 0, 1237, '100.00', 'debit', NULL, 1760724000, 'success', NULL),
-(18, 0, 60, 1238, '100.00', 'credit', 'cash', 1760890648, 'success', NULL),
-(21, 1225, 0, 1237, '1100.00', 'debit', NULL, 1761069600, 'success', NULL),
-(22, 1226, 0, 1237, '450.00', 'debit', NULL, 1761069600, 'success', NULL),
-(23, 1227, 0, 1241, '300.00', 'debit', NULL, 1761156000, 'success', NULL),
-(24, 1228, 0, 1242, '800.00', 'debit', NULL, 1761156000, 'success', NULL),
-(25, 1229, 0, 1243, '1100.00', 'debit', NULL, 1761156000, 'success', NULL),
-(26, 1230, 0, 1242, '800.00', 'debit', NULL, 1761156000, 'success', NULL),
-(27, 1230, 0, 1242, '800.00', 'credit', 'cash', 1761156000, 'success', NULL);
+(14, 0, 60, 1237, 100.00, 'credit', 'cash', 1760768125, 'success', NULL),
+(15, 1221, 0, 1237, 100.00, 'debit', NULL, 1760724000, 'success', NULL),
+(16, 1222, 0, 1237, 100.00, 'debit', NULL, 1760724000, 'success', NULL),
+(17, 1223, 0, 1237, 100.00, 'debit', NULL, 1760724000, 'success', NULL),
+(18, 0, 60, 1238, 100.00, 'credit', 'cash', 1760890648, 'success', NULL),
+(21, 1225, 0, 1237, 1100.00, 'debit', NULL, 1761069600, 'success', NULL),
+(22, 1226, 0, 1237, 450.00, 'debit', NULL, 1761069600, 'success', NULL),
+(23, 1227, 0, 1241, 300.00, 'debit', NULL, 1761156000, 'success', NULL),
+(24, 1228, 0, 1242, 800.00, 'debit', NULL, 1761156000, 'success', NULL),
+(25, 1229, 0, 1243, 1100.00, 'debit', NULL, 1761156000, 'success', NULL),
+(26, 1230, 0, 1242, 800.00, 'debit', NULL, 1761156000, 'success', NULL),
+(27, 1230, 0, 1242, 800.00, 'credit', 'cash', 1761156000, 'success', NULL);
 
 -- --------------------------------------------------------
 
@@ -1064,15 +1105,16 @@ ALTER TABLE `billing_details`
   ADD KEY `billing_id` (`billing_id`);
 
 --
+-- Indexes for table `billing_payment`
+--
+ALTER TABLE `billing_payment`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `billing_id_idx` (`billing_id`);
+
+--
 -- Indexes for table `billing_summary`
 --
 ALTER TABLE `billing_summary`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `bill_info`
---
-ALTER TABLE `bill_info`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -1153,6 +1195,12 @@ ALTER TABLE `logs`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `payment_methods`
+--
+ALTER TABLE `payment_methods`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `roles`
 --
 ALTER TABLE `roles`
@@ -1202,19 +1250,19 @@ ALTER TABLE `auth_users_info`
 -- AUTO_INCREMENT for table `billing_details`
 --
 ALTER TABLE `billing_details`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+
+--
+-- AUTO_INCREMENT for table `billing_payment`
+--
+ALTER TABLE `billing_payment`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `billing_summary`
 --
 ALTER TABLE `billing_summary`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
-
---
--- AUTO_INCREMENT for table `bill_info`
---
-ALTER TABLE `bill_info`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1231;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT for table `branch`
@@ -1238,7 +1286,7 @@ ALTER TABLE `country`
 -- AUTO_INCREMENT for table `customer`
 --
 ALTER TABLE `customer`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `departments`
@@ -1280,13 +1328,19 @@ ALTER TABLE `language`
 -- AUTO_INCREMENT for table `login_credential`
 --
 ALTER TABLE `login_credential`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `logs`
 --
 ALTER TABLE `logs`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=89;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=91;
+
+--
+-- AUTO_INCREMENT for table `payment_methods`
+--
+ALTER TABLE `payment_methods`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `roles`
@@ -1304,7 +1358,7 @@ ALTER TABLE `setting`
 -- AUTO_INCREMENT for table `staff`
 --
 ALTER TABLE `staff`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `transactions`
@@ -1327,6 +1381,12 @@ ALTER TABLE `upazila`
 --
 ALTER TABLE `billing_details`
   ADD CONSTRAINT `billing_details_ibfk_1` FOREIGN KEY (`billing_id`) REFERENCES `billing_summary` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `billing_payment`
+--
+ALTER TABLE `billing_payment`
+  ADD CONSTRAINT `fk_billing` FOREIGN KEY (`billing_id`) REFERENCES `billing_summary` (`id`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

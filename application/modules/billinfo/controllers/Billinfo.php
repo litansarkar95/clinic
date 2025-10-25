@@ -77,37 +77,6 @@ class Billinfo extends CI_Controller {
         $month = date('m');
         $year = date('Y');
 
-        
-
-
-    //     $this->form_validation->set_rules("patient_name", "Patient Name", "required");
-    //     $this->form_validation->set_rules("mobile_no","Mobile No", "required");
-    //   if ($this->form_validation->run() == NULL) {
-      
-    //   } else {
-    // //      echo '<pre>';
-    // // print_r($_POST);
-    // // echo '</pre>';
-    // // exit;
-    
-
- 
-       
-        
-
-    //     $sales_id = $this->billinfo_model->create();
-       
-    //     if ($sales_id) {
-    //        $this->session->set_flashdata('success', display('save_successfully'));
-    //         redirect(base_url() . "billinfo", "refresh");
-    //       }else{
-            
-    //           $this->session->set_flashdata('error',  display('please_try_again'));
-    //       }
-        
-    //    redirect(base_url() . "billinfo", "refresh");
-    //   }
-
       
         $data = array();
         $data['active']     = "bill_invoice";
@@ -125,49 +94,102 @@ class Billinfo extends CI_Controller {
 
     }
 
-     // 🟢 Add product to session (AJAX call)
-    public function add_to_session() {
-        $id = $this->input->post('id');
-        $name = $this->input->post('name');
-        $price = $this->input->post('price');
 
-        // আগের session data আনো
-        $cart = $this->session->userdata('cart_items') ?? [];
+ public function add_to_session() {
+    $id = $this->input->post('id');
+    $name = $this->input->post('name');
+    $regular_price = (float)$this->input->post('regular_price'); // আসল দাম
+    $offer_price = (float)$this->input->post('price');     // অফার দাম, যদি থাকে
 
-        // নতুন পণ্য যোগ করো
+    $cart = $this->session->userdata('cart_items') ?? [];
+
+    if (isset($cart[$id])) {
+        $cart[$id]['qty'] += 1;
+    } else {
         $cart[$id] = [
             'id' => $id,
             'name' => $name,
-            'price' => $price
+            'price' => $offer_price, // কার্টে দেখানোর দাম
+            'original_price' => $regular_price, // আসল দাম
+            'qty' => 1
         ];
-
-        // আবার সেভ করো
-        $this->session->set_userdata('cart_items', $cart);
-
-        echo json_encode(['status' => 'success', 'cart_count' => count($cart)]);
     }
 
-    // 🟢 Show page with selected products (after Confirm)
+    $this->session->set_userdata('cart_items', $cart);
+
+    // Cart summary
+    $cart_count = 0;
+    $cart_total = 0;
+    $subtotal = 0;
+    $discount_total = 0;
+
+    foreach ($cart as $item) {
+        $cart_count += $item['qty'];
+        $cart_total += $item['price'] * $item['qty'];
+        $subtotal += $item['original_price'] * $item['qty'];
+    }
+
+    $discount_total = $subtotal - $cart_total;
+
+    echo json_encode([
+        'status' => 'success',
+        'cart_count' => $cart_count,
+        'qty' => 1,
+        'subtotal' => number_format($subtotal, 2),
+        'discount' => number_format($discount_total, 2),
+        'cart_total' => number_format($cart_total, 2)
+    ]);
+}
+
+
     public function confirm_page() {
+        $data = array();
+        $data['active']     = "bill_invoice";
+        $data['title']      = "Create Billing"; 
         $data['cart_items'] = $this->session->userdata('cart_items') ?? [];
-    
-          $data['content']    = $this->load->view("confirm_page", $data, TRUE);
+       // print_r($data['cart_items']);exit();
+        $data['payment_methods'] = $this->db->get('payment_methods')->result();
+        $int_no = $this->billinfo_model->number_generator();
+  	    $registration_no = 'INV-'.str_pad($int_no,6,"0",STR_PAD_LEFT);
+        //serial_no
+       // $data['serial_no']  = $this->billinfo_model->get_daily_serial($day, $month, $year);
+        // registration_no
+        $data['registration_no'] = $registration_no;  
+        $data['allRef']  = $this->billinfo_model->ReferenceList();
+        $data['content']    = $this->load->view("confirm_page", $data, TRUE);
         $this->load->view('layout/master', $data);
     }
 
-    // 🔴 Remove product from session (AJAX)
-public function remove_from_session() {
+ public function get_payment_methods() {
+    $methods = $this->db->get('payment_methods')->result();
+    echo json_encode($methods);
+}
+
+public function remove_from_session()
+{
     $id = $this->input->post('id');
     $cart = $this->session->userdata('cart_items') ?? [];
 
     if (isset($cart[$id])) {
-        unset($cart[$id]); // পণ্যটি রিমুভ করো
+        unset($cart[$id]);
         $this->session->set_userdata('cart_items', $cart);
-        echo json_encode(['status' => 'success', 'message' => 'Item removed']);
+
+        // নতুন মোট হিসাব করো
+        $cart_total = 0;
+        foreach ($cart as $item) {
+            $cart_total += $item['price'];
+        }
+
+        echo json_encode([
+            'status' => 'success',
+            'cart_total' => $cart_total
+        ]);
     } else {
-        echo json_encode(['status' => 'error', 'message' => 'Item not found']);
+        echo json_encode(['status' => 'error', 'message' => 'Item not found in cart']);
     }
 }
+
+
 public function search_customer()
 {
     $query = $this->input->post('query');
@@ -184,7 +206,7 @@ public function save_bill()
     $mobile = trim($this->input->post('mobile_no'));
     $date = date('Y-m-d H:i:s'); 
 
-  
+    // Customer check/insert
     if (empty($customer_id)) {
         $existing = $this->db->get_where('customer', ['mobile_no' => $mobile])->row();
         if ($existing) {
@@ -203,53 +225,93 @@ public function save_bill()
         }
     }
 
+    $cart = $this->session->userdata('cart_items');
+    if (empty($cart)) {
+        redirect('billinfo/create'); 
+    }
+
+    // Without OfferTotal calculation
+    $total = 0;
+    foreach ($cart as $item) {
+        $original_price += $item['original_price'] * 1;
+    }
+
    
-$cart = $this->session->userdata('cart_items');
-if (empty($cart)) {
-    redirect('billinfo/create'); 
-}
+    $original_price = $original_price ;
 
 
-$total = 0;
-foreach ($cart as $item) {
-    $total += $item['price'] * 1;
-}
+     // Total calculation
+    $total = 0;
+    foreach ($cart as $item) {
+        $total += $item['price'] * 1;
+    }
 
-$adjustment = floatval($this->input->post('adjustment') ?? 0);
-$grand_total = $total + $adjustment;
+    $adjustment = floatval($this->input->post('adjustment') ?? 0);
+    $grand_total = $total + $adjustment;
 
-$summary = [
-    'customer_id' => $customer_id,
-    'invoice_date' => $date,
-    'subtotal' => $total,
-    'adjustment' => $adjustment,
-    'total_amount' => $grand_total,
-    'payment_status' => 'Pending',
-    'created_at' => $date
-];
+    // Billing summary insert
+   
+        $sales_id = $this->billinfo_model->number_generator();
+	   $sales_number = 'R-'.str_pad($sales_id,6,"0",STR_PAD_LEFT);
 
-$this->db->insert('billing_summary', $summary);
-$billing_id = $this->db->insert_id();
-
-
-    // ৩️⃣ Billing details insert
- foreach ($cart as $item) {
-    $detail = [
-        'billing_id' => $billing_id,
-        'product_id' => $item['id'],
-        'product_name' => $item['name'],
-        'price' => $item['price'],
-        'quantity' => 1,
+    $summary = [
+        "branch_id"                 => $this->session->userdata("loggedin_branch_id"), 
+        "reference_id"              => $this->input->post('reference_id'), 
+		//'date_code'	                => date("y"),
+		//'month_code' 		        => date("m"),
+		'code_random'		        => $sales_id,
+		'invoice_no'	         	=> $sales_number,
+        'customer_id'               => $customer_id,
+        'invoice_date'              => $date,
+        'original_price'            => $original_price,
+        'subtotal'                  => $total,
+        'adjustment'                => $adjustment,
+        'total_amount'              => $grand_total,
+        'payment_status'            => 'Pending',
+        "create_id"                 => $this->session->userdata("loggedin_userid"), 
+        'created_at'                => $date
     ];
-    $this->db->insert('billing_details', $detail);
-}
 
+    $this->db->insert('billing_summary', $summary);
+    $billing_id = $this->db->insert_id();
 
-    // ৪️⃣ Session clean
+    // Billing details insert
+    foreach ($cart as $item) {
+        $detail = [
+            'billing_id' => $billing_id,
+            'product_id' => $item['id'],
+            'product_name' => $item['name'],
+            'original_price' => $item['original_price'],
+            'price' => $item['price'],
+            'quantity' => 1,
+        ];
+        $this->db->insert('billing_details', $detail);
+    }
+
+    // 🤑 Multiple payments insert
+    $payment_amounts = $this->input->post('payment_amount');
+    $payment_methods = $this->input->post('payment_method');
+
+    if (!empty($payment_amounts) && !empty($payment_methods)) {
+        foreach ($payment_amounts as $key => $amount) {
+            $method = $payment_methods[$key] ?? null;
+            if ($amount > 0 && $method) {
+                $this->db->insert('billing_payment', [
+                    'billing_id' => $billing_id,
+                    'payment_method_id' => $method,
+                    'amount' => $amount,
+                    'payment_date' => $date
+                ]);
+            }
+        }
+    }
+
+    // Clear session
     $this->session->unset_userdata('cart_items');
-      $this->session->set_flashdata('success', 'Save Successfully');
+    $this->session->set_flashdata('success', 'Save Successfully');
     redirect('billinfo/create');
 }
+
 
 
 
@@ -303,17 +365,29 @@ $billing_id = $this->db->insert_id();
   
 
     
-    public function invoice($id)
+    public function invoice($billing_id)
     {
         $data = array();
         $data['active']     = "sales";
         $data['title']      = " Invoice"; 
         $data['id']         = $id;
 
-        $data['allSup']     = $this->main_model->InvoiceHeader();
-        $data['allPdt']     = $this->billinfo_model->BillList($id);
-        $data['allDdt']     = $this->billinfo_model->BillDetailsList($id);
-        $data['surgery']     = $this->billinfo_model->SurgeryDoctorName($id);
+       // Billing summary
+        $data['billing_summary'] = $this->db->get_where('billing_summary', ['id' => $billing_id])->row_array();
+
+        // Customer
+        $data['customer'] = $this->db->get_where('customer', ['id' => $data['billing_summary']['customer_id']])->row_array();
+
+        // Billing details (Cart items)
+        $data['cart_items'] = $this->db->get_where('billing_details', ['billing_id' => $billing_id])->result_array();
+
+        // Payment methods and amounts
+        $data['billing_payments'] = $this->db->select('bp.amount, pm.method_name')
+            ->from('billing_payment bp')
+            ->join('payment_methods pm', 'pm.id = bp.payment_method_id', 'left')
+            ->where('bp.billing_id', $billing_id)
+            ->get()
+            ->result_array();
        // print_r( $data['allPdt'] );exit();
         $this->load->view('billinfo/billinfo-invoice', $data);
 
@@ -430,7 +504,7 @@ public function account(){
 							'patient_id'           => $patient_id,
 							'amount'               => $totalamount,
 							'transaction_type'     => 'credit',
-							'payment_method'       => 'cash',
+							'payment_method_id'       => 'cash',
 							'transaction_date'     => $createdate,
 							'status'               => 'success',
 							

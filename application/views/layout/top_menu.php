@@ -38,8 +38,7 @@
 										          <ul class="nav_sub_menu"> 	
 													<li><a href="<?php echo base_url(); ?>billinfo/create">Create  Billing </a></li>
 										          	<li><a href="<?php echo base_url(); ?>billinfo/list"> Invoice List</a></li>
-										          	<li><a href="<?php echo base_url(); ?>patient/create"> Registration</a></li>
-										          	<li><a href="<?php echo base_url(); ?>patient">Registration List</a></li>
+										          	<li><a href="<?php echo base_url(); ?>customer">Customer List</a></li>
 										         
 										          </ul>
 										        </li>

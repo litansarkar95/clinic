@@ -8,15 +8,12 @@
 <div class="container-fluid">
 
   <div class="row px-3">
-    <form method="post" action="<?= base_url()."patient" ?>">
+    <form method="post" action="<?= base_url()."customer" ?>">
       <div class="filter-row bg-light p-3 rounded-3 shadow-sm mb-3">
 
 
         <div class="row">
-          <div class="col-md-2 mb-3">
-            <label for="invoice_id">Registration ID</label>
-            <input type="text" class="form-control" placeholder="" name="invoice_id" id="invoice_id">
-          </div>
+        
           <div class="col-md-2 mb-3">
             <label for="office_name">From Date</label>
             <input type="text" id="from_date" class="form-control from_date" name="from_date"
@@ -29,18 +26,7 @@
               value="<?php echo set_value('to_date'); ?>">
           </div>
 
-          <div class="col-md-2 mb-3">
-            <label for="gender_id">Gender</label>
-            <div class="select_optino">
-              <select name="gender_id" id="gender_id" class="form-control frm_select">
-                <option value="">Select </option>
-                <option value="Male">Male</option>
-                                    <option value="Female">Female</option>
-                                    <option value="Others">Others</option>
-              </select>
-              <i class="fas fa-caret-down"></i>
-            </div>
-          </div>
+         
 
           <div class="col-auto mt-4">
             <button type="submit" class="btn btn_bg px-4">
@@ -68,13 +54,11 @@
       <div class="content">
         <div class="row">
           <div class="col-auto">
-            <h3>Patient  List</h3>
+            <h3>Customer  List</h3>
           </div>
           <div class="col-auto ms-auto">
             <!-- Button trigger modal -->
-            <a type="button" class="btn btn_bg" href="<?php echo base_url(); ?>patient/create">
-              <i class="fas fa-plus"></i> Add New Patient Registration
-            </a>
+            
 
 
           </div>
@@ -93,13 +77,11 @@
                       <?php echo display('name'); ?>
                     </th>
                     <th>Mobile No</th>
-                    <th>Token</th>
+                
                     <th>Registration Date
                     </th>
                 
-                    <th>
-                      <?php echo display('action'); ?>
-                    </th>
+                   
                   </tr>
                 </thead>
                 <tbody>
@@ -123,37 +105,12 @@
                     <td>
                       <?php echo $pdt->mobile_no;?>
                     </td>
-                    <td>
-                      <?php echo $pdt->serial_no;?>
+                      <td>
+                      <?php echo date("d-m-Y",$pdt->create_date);?>
                     </td>
                   
-                    <td>
-                      <?php echo date('d-m-Y',$pdt->registration_date); ?>
-                    </td>
-                    <td>
-                    
-                       <a href="<?php echo base_url()."patient/invoice/$pdt->id"; ?>" target="_blank" class="btn btn_bg print-btn" >
-                        <i class="fas fa-print"></i>
-                                        </a>
-                                        <?php
-                                     $role_id = $this->session->userdata('loggedin_role_id');
-                                     if($role_id == 1){
-                                        ?>
-                                          <a href="<?php echo base_url()."patient/edit/$pdt->id"; ?>" target="_blank" class="btn btn_bg print-btn" >
-                        <i class="fas fa-pen"></i>
-                                        </a>
-                                          <a href="<?php echo base_url()."patient/delete/$pdt->id"; ?>" 
-
-                              class="btn btn-danger print-btn" 
-                              onclick="return confirm('Are you sure you want to delete this patient?');">
-                                <i class="fas fa-trash"></i>
-                            </a>
-
-                                        <?php
-                                     }
-                                        ?>
-                 
-                    </td>
+                  
+                  
                   </tr>
 
                  

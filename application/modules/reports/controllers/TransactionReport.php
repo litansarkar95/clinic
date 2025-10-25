@@ -30,7 +30,7 @@ class TransactionReport extends CI_Controller {
       $data['active'] = "loss_profits";
       $data['title'] = "Transaction Reports";
 
-      $filters = [];
+
      
       if ($this->input->post('from_date') && $this->input->post('to_date')) {
           $filters['from_date'] = $this->input->post('from_date');
@@ -59,7 +59,39 @@ class TransactionReport extends CI_Controller {
        $this->load->view('layout/master', $data);
 
     }
-    public function duereportssearch()
+    public function paymentsearch()
+    {
+     
+
+
+      $data = array();
+      $data['active'] = "loss_profits";
+      $data['title'] = "Transaction Reports";
+
+      $filters = [];
+     
+      if ($this->input->post('payment_from_date') && $this->input->post('payment_to_date')) {
+          $filters['from_date'] = $this->input->post('payment_from_date');
+          $filters['to_date'] = $this->input->post('payment_to_date');
+      }
+         $patient_id   = $this->input->post('patient_id');
+    
+    if ($this->input->post('payment_method_id')) {
+      $filters['payment_method_id'] = $this->input->post('payment_method_id');
+       
+    }
+      $data['allPdt'] = $this->reports_model->paymentTransactionReports($filters);
+    
+      $data['from_date'] =        $this->input->post('payment_from_date');
+      $data['to_date'] =         $this->input->post('payment_to_date');
+    
+     
+    //  echo "<pre>"; print_r($data['allPdt']);exit();
+
+     $this->load->view('reports/transaction/due-summary', $data);
+    }
+
+     public function referencesearch()
     {
      
 
@@ -74,14 +106,19 @@ class TransactionReport extends CI_Controller {
           $filters['from_date'] = $this->input->post('due_from_date');
           $filters['to_date'] = $this->input->post('due_to_date');
       }
-
-      $data['allPdt'] = $this->reports_model->DueTransactionReports($filters);
+         $patient_id   = $this->input->post('patient_id');
+    
+    if ($this->input->post('reference_id')) {
+      $filters['reference_id'] = $this->input->post('reference_id');
+       
+    }
+      $data['allPdt'] = $this->reports_model->referencenReports($filters);
     
       $data['from_date'] =        $this->input->post('due_from_date');
       $data['to_date'] =         $this->input->post('due_to_date');
     
      
-      //echo "<pre>"; print_r($data['allPdt']);exit();
+    //  echo "<pre>"; print_r($data['allPdt']);exit();
 
      $this->load->view('reports/transaction/due-summary', $data);
     }
