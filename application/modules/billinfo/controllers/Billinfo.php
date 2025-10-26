@@ -231,7 +231,7 @@ public function save_bill()
     $name = trim($this->input->post('customer_name'));
     $mobile = trim($this->input->post('mobile_no'));
     $date = date('Y-m-d H:i:s'); 
-
+   
     // Customer check/insert
     if (empty($customer_id)) {
         $existing = $this->db->get_where('customer', ['mobile_no' => $mobile])->row();
@@ -331,6 +331,25 @@ public function save_bill()
             }
         }
     }
+
+    //Send SMS
+
+     // end sms template
+                $message = "Payment received! Thank you for visiting Zareen’s Beauty Salon. Stay beautiful and come again!";
+                $json_string = $this->mailsmsconf->send_mailsms($mobile, $message);
+                $sms_type = "Enroll Active Summary";
+                //start
+                $dataArray = json_decode($json_string, true);
+                $response_code = $dataArray['response_code'];
+                $message_id = $dataArray['message_id'];
+                $success_message = $dataArray['success_message'];
+                if($json_string){
+                        
+              //  $this->common_model->sms_save_data($sender, $message,$date,$sms_type,$response_code,$success_message,$message_id);
+
+                }
+
+    // END Send SMS
 
     // Clear session
     $this->session->unset_userdata('cart_items');

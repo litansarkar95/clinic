@@ -389,13 +389,13 @@ $("#registration_date,.to_date").val(today);
 }
 
 @keyframes blinkFocus {
-  0%, 100% { box-shadow: 0 0 0px rgba(0, 255, 0, 0); }
+  0%, 100% { box-shadow: 0 0 0 rgba(0, 255, 0, 0); }
   50% { box-shadow: 0 0 10px rgba(0, 255, 0, 0.4); }
 }
-
 .focus-blink {
-  animation: blinkFocus 1s ease-in-out 2;
+  animation: blinkFocus 1s ease-in-out 3;
 }
+
 
 </style>
 
@@ -448,13 +448,7 @@ $("#registration_date,.to_date").val(today);
                                  <input type="text" id="registration_date" class="form-control " name="registration_date"  value="<?php echo set_value('registration_date'); ?>" >
                                  <span class="text-red small"><?php echo form_error('registration_date'); ?></span>
                               </div>
-                             <div class="form-group col-md-3 mb-3">
-                                                <label for="customer_name">Name</label>
-                                                <input type="text" id="customer_name" class="form-control" name="customer_name" placeholder="Search by name or mobile..." autocomplete="off" required>
-                                                <div id="search_results" class="list-group position-absolute w-100" style="z-index:1000;"></div>
-                                                </div>
-
-             <div class="form-group col-md-2 mb-3">
+                                       <div class="form-group col-md-2 mb-3">
                         <label for="mobile_no">Mobile No</label>
                         <input 
                           type="tel"
@@ -467,7 +461,16 @@ $("#registration_date,.to_date").val(today);
                           autocomplete="off"
                           required
                         >
+
+                          <div id="search_results" class="list-group position-absolute " style="z-index:1000;"></div>
                       </div>
+                             <div class="form-group col-md-3 mb-3">
+                                                <label for="customer_name">Name</label>
+                                                <input type="text" id="customer_name" class="form-control" name="customer_name" placeholder="Search by name or mobile..." autocomplete="off" required>
+                                              
+                                                </div>
+
+    
 
 
 
@@ -895,22 +898,33 @@ $(document).ready(function() {
   const input = document.getElementById("mobile_no");
   const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 
-  // 🖥️ ডেস্কটপে সরাসরি ফোকাস কাজ করবে
-  if (!isMobile && input) {
-    input.focus();
-  }
-
-  // 📱 মোবাইলে কিবোর্ড ব্লক হয়, তাই visual hint দিব
   if (isMobile && input) {
-    // হালকা visual hint
     input.classList.add("focus-blink");
 
-    // ইউজার পেজে টাচ করলেই সাথে সাথে ফোকাস দাও
-    document.body.addEventListener("touchstart", function autoFocusOnce() {
-      input.focus();
-      document.body.removeEventListener("touchstart", autoFocusOnce);
-    });
+    const activateKeyboard = () => {
+      input.focus({ preventScroll: true });
+      document.removeEventListener("touchstart", activateKeyboard);
+      document.removeEventListener("click", activateKeyboard);
+      document.removeEventListener("scroll", activateKeyboard);
+    };
+
+    document.addEventListener("touchstart", activateKeyboard);
+    document.addEventListener("click", activateKeyboard);
+    document.addEventListener("scroll", activateKeyboard);
+  } else if (input) {
+    // ডেস্কটপে অটো ফোকাস
+    input.focus();
   }
+});
+
+
+$(document).ready(function() {
+  const nameField = $('#customer_name');
+  nameField.on('blur', function() {
+    if ($.trim(nameField.val()) === '') {
+      nameField.val('User');
+    }
+  });
 });
 
 
