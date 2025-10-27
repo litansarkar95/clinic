@@ -335,7 +335,21 @@ public function save_bill()
     //Send SMS
 
      // end sms template
-                $message = "Payment received! Thank you for visiting Zareen’s Beauty Salon. Stay beautiful and come again!";
+
+           if ($original_price > $grand_total) {
+
+            $discount = $original_price - $grand_total;
+            $message = "Dear $name, ,Your TOTAL Bill Was Tk $original_price. After a DISCOUNT of $discount, FINAL AMOUNT: $grand_total. Payment RECEIVED Successfully.-ZAREEN'S BEAUTY SALON";
+
+        } else {
+
+            $message ="DEAR $name,Your TOTAL Bill Was Tk $grand_total. Payment Received Successfully.- ZAREEN'S BEAUTY SALON";
+
+        }
+
+
+
+
                 $json_string = $this->mailsmsconf->send_mailsms($mobile, $message);
                 $sms_type = "Enroll Active Summary";
                 //start
