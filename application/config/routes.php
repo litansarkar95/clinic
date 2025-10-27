@@ -15,3 +15,4 @@ $route["registration"]      = "authentication/registration";
 
 
 //Settings
+$route['s/(:any)'] = 'shortlink/redirect/$1';

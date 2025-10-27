@@ -65,7 +65,7 @@ class Facials extends CI_Controller {
       $data = array();
       $data['active'] = "test_information";
       $data['title'] = "Test Info"; 
-      $data['allPdt'] = $this->common_model->view_data("testinfo", "", "id", "DESC");
+      $data['allPdt'] = $this->common_model->view_data("facials", "", "id", "DESC");
       $data['content'] = $this->load->view("facials/facials-create", $data, TRUE);
      $this->load->view('layout/master', $data);
     }

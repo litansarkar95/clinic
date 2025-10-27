@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.1
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 25, 2025 at 12:33 PM
--- Server version: 10.4.32-MariaDB
--- PHP Version: 8.2.12
+-- Generation Time: Oct 27, 2025 at 06:51 PM
+-- Server version: 10.4.27-MariaDB
+-- PHP Version: 7.4.33
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -79,27 +79,28 @@ CREATE TABLE `billing_details` (
 --
 
 INSERT INTO `billing_details` (`id`, `billing_id`, `product_id`, `product_name`, `original_price`, `price`, `quantity`) VALUES
-(6, 10, 5, 'Brightening Facial', 0, 800.00, 1),
-(7, 10, 4, 'Anti-Aging Facial', 0, 900.00, 1),
-(8, 10, 2, 'Hydrating Facial', 0, 300.00, 1),
-(9, 10, 3, 'Classic Facial', 0, 450.00, 1),
-(14, 11, 5, 'Brightening Facial', 0, 800.00, 1),
-(15, 12, 5, 'Brightening Facial', 0, 800.00, 1),
-(16, 13, 4, 'Anti-Aging Facial', 0, 900.00, 1),
-(18, 14, 5, 'Brightening Facial', 0, 800.00, 1),
-(19, 15, 4, 'Anti-Aging Facial', 900, 900.00, 1),
-(20, 15, 3, 'Classic Facial', 500, 450.00, 1),
-(21, 16, 5, 'Brightening Facial', 800, 800.00, 1),
-(22, 16, 3, 'Classic Facial', 500, 450.00, 1),
-(23, 17, 4, 'Anti-Aging Facial', 900, 900.00, 1),
-(24, 18, 4, 'Anti-Aging Facial', 900, 900.00, 1),
-(25, 19, 4, 'Anti-Aging Facial', 900, 900.00, 1),
-(26, 20, 4, 'Anti-Aging Facial', 900, 900.00, 1),
-(27, 21, 5, 'Brightening Facial', 800, 800.00, 1),
-(28, 21, 4, 'Anti-Aging Facial', 900, 900.00, 1),
-(29, 22, 3, 'Classic Facial', 500, 450.00, 1),
-(30, 23, 5, 'Brightening Facial', 800, 800.00, 1),
-(31, 23, 3, 'Classic Facial', 500, 450.00, 1);
+(6, 10, 5, 'Brightening Facial', '0', '800.00', 1),
+(7, 10, 4, 'Anti-Aging Facial', '0', '900.00', 1),
+(8, 10, 2, 'Hydrating Facial', '0', '300.00', 1),
+(9, 10, 3, 'Classic Facial', '0', '450.00', 1),
+(14, 11, 5, 'Brightening Facial', '0', '800.00', 1),
+(15, 12, 5, 'Brightening Facial', '0', '800.00', 1),
+(16, 13, 4, 'Anti-Aging Facial', '0', '900.00', 1),
+(18, 14, 5, 'Brightening Facial', '0', '800.00', 1),
+(19, 15, 4, 'Anti-Aging Facial', '900', '900.00', 1),
+(20, 15, 3, 'Classic Facial', '500', '450.00', 1),
+(21, 16, 5, 'Brightening Facial', '800', '800.00', 1),
+(22, 16, 3, 'Classic Facial', '500', '450.00', 1),
+(23, 17, 4, 'Anti-Aging Facial', '900', '900.00', 1),
+(24, 18, 4, 'Anti-Aging Facial', '900', '900.00', 1),
+(25, 19, 4, 'Anti-Aging Facial', '900', '900.00', 1),
+(26, 20, 4, 'Anti-Aging Facial', '900', '900.00', 1),
+(27, 21, 5, 'Brightening Facial', '800', '800.00', 1),
+(28, 21, 4, 'Anti-Aging Facial', '900', '900.00', 1),
+(29, 22, 3, 'Classic Facial', '500', '450.00', 1),
+(30, 23, 5, 'Brightening Facial', '800', '800.00', 1),
+(31, 23, 3, 'Classic Facial', '500', '450.00', 1),
+(32, 24, 5, 'Brightening Facial', '800', '800.00', 1);
 
 -- --------------------------------------------------------
 
@@ -120,18 +121,19 @@ CREATE TABLE `billing_payment` (
 --
 
 INSERT INTO `billing_payment` (`id`, `billing_id`, `payment_method_id`, `amount`, `payment_date`) VALUES
-(1, 10, '1', 2450.00, '2025-10-25 12:14:00'),
-(4, 11, '1', 500.00, '2025-10-25 12:38:15'),
-(5, 12, '1', 800.00, '2025-10-25 12:38:46'),
-(6, 13, '1', 900.00, '2025-10-25 12:39:12'),
-(7, 15, '1', 500.00, '2025-10-25 14:18:44'),
-(8, 16, '2', 500.00, '2025-10-25 14:20:30'),
-(9, 20, '1', 600.00, '2025-10-25 14:29:25'),
-(10, 20, '3', 300.00, '2025-10-25 14:29:25'),
-(11, 21, '1', 2500.00, '2025-10-25 14:57:49'),
-(12, 22, '1', 450.00, '2025-10-25 14:58:19'),
-(13, 23, '1', 50.00, '2025-10-25 16:20:44'),
-(14, 23, '3', 2000.00, '2025-10-25 16:20:44');
+(1, 10, '1', '2450.00', '2025-10-25 12:14:00'),
+(4, 11, '1', '500.00', '2025-10-25 12:38:15'),
+(5, 12, '1', '800.00', '2025-10-25 12:38:46'),
+(6, 13, '1', '900.00', '2025-10-25 12:39:12'),
+(7, 15, '1', '500.00', '2025-10-25 14:18:44'),
+(8, 16, '2', '500.00', '2025-10-25 14:20:30'),
+(9, 20, '1', '600.00', '2025-10-25 14:29:25'),
+(10, 20, '3', '300.00', '2025-10-25 14:29:25'),
+(11, 21, '1', '2500.00', '2025-10-25 14:57:49'),
+(12, 22, '1', '450.00', '2025-10-25 14:58:19'),
+(13, 23, '1', '50.00', '2025-10-25 16:20:44'),
+(14, 23, '3', '2000.00', '2025-10-25 16:20:44'),
+(15, 24, '1', '800.00', '2025-10-27 23:27:48');
 
 -- --------------------------------------------------------
 
@@ -168,20 +170,21 @@ CREATE TABLE `billing_summary` (
 --
 
 INSERT INTO `billing_summary` (`id`, `branch_id`, `reference_id`, `month`, `day`, `year`, `serial_no`, `registration_int_no`, `registration_no`, `code_random`, `invoice_no`, `customer_id`, `invoice_date`, `original_price`, `subtotal`, `adjustment`, `total_amount`, `payment_status`, `create_id`, `created_at`, `updated_at`) VALUES
-(10, 0, 0, 0, 0, 0, 0, 0, 0, 0, '', 8, '2025-10-25', 0, 2450.00, 0.00, 2450.00, 'Pending', 0, '2025-10-25 12:14:00', NULL),
-(11, 0, 0, 0, 0, 0, 0, 0, 0, 0, '', 4, '2025-10-25', 0, 800.00, 0.00, 800.00, 'Pending', 0, '2025-10-25 12:38:15', NULL),
-(12, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'R-0001', 4, '2025-10-25', 0, 800.00, 0.00, 800.00, 'Pending', 0, '2025-10-25 12:38:46', NULL),
-(13, 0, 0, 0, 0, 0, 0, 0, 0, 1, 'R-000001', 4, '2025-10-25', 0, 900.00, 0.00, 900.00, 'Pending', 0, '2025-10-25 12:39:12', NULL),
-(14, 0, 0, 0, 0, 0, 0, 0, 0, 2, 'R-000002', 4, '2025-10-25', 0, 800.00, 0.00, 800.00, 'Pending', 0, '2025-10-25 12:39:52', NULL),
-(15, 0, 0, 0, 0, 0, 0, 0, 0, 3, 'R-000003', 4, '2025-10-25', 0, 1350.00, -350.00, 1000.00, 'Pending', 0, '2025-10-25 14:18:44', NULL),
-(16, 0, 0, 0, 0, 0, 0, 0, 0, 4, 'R-000004', 9, '2025-10-25', 0, 1250.00, 0.00, 1250.00, 'Pending', 0, '2025-10-25 14:20:30', NULL),
-(17, 0, 0, 0, 0, 0, 0, 0, 0, 5, 'R-000005', 5, '2025-10-25', 0, 900.00, 0.00, 900.00, 'Pending', 0, '2025-10-25 14:22:26', NULL),
-(18, 0, 0, 0, 0, 0, 0, 0, 0, 6, 'R-000006', 5, '2025-10-25', 0, 900.00, 0.00, 900.00, 'Pending', 0, '2025-10-25 14:28:33', NULL),
-(19, 0, 0, 0, 0, 0, 0, 0, 0, 7, 'R-000007', 4, '2025-10-25', 0, 900.00, 0.00, 900.00, 'Pending', 0, '2025-10-25 14:28:52', NULL),
-(20, 0, 0, 0, 0, 0, 0, 0, 0, 8, 'R-000008', 4, '2025-10-25', 0, 900.00, 0.00, 900.00, 'Pending', 0, '2025-10-25 14:29:25', NULL),
-(21, 0, 16, 0, 0, 0, 0, 0, 0, 9, 'R-000009', 4, '2025-10-25', 1700, 1700.00, 0.00, 1700.00, 'Pending', 1, '2025-10-25 14:57:49', NULL),
-(22, 0, 0, 0, 0, 0, 0, 0, 0, 10, 'R-000010', 4, '2025-10-25', 500, 450.00, 0.00, 450.00, 'Pending', 1, '2025-10-25 14:58:19', NULL),
-(23, 0, 18, 0, 0, 0, 0, 0, 0, 11, 'R-000011', 10, '2025-10-25', 1300, 1250.00, 0.00, 1250.00, 'Pending', 1, '2025-10-25 16:20:44', NULL);
+(10, 0, 0, 0, 0, 0, 0, 0, 0, 0, '', 8, '2025-10-25', '0', '2450.00', '0.00', '2450.00', 'Pending', 0, '2025-10-25 12:14:00', NULL),
+(11, 0, 0, 0, 0, 0, 0, 0, 0, 0, '', 4, '2025-10-25', '0', '800.00', '0.00', '800.00', 'Pending', 0, '2025-10-25 12:38:15', NULL),
+(12, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'R-0001', 4, '2025-10-25', '0', '800.00', '0.00', '800.00', 'Pending', 0, '2025-10-25 12:38:46', NULL),
+(13, 0, 0, 0, 0, 0, 0, 0, 0, 1, 'R-000001', 4, '2025-10-25', '0', '900.00', '0.00', '900.00', 'Pending', 0, '2025-10-25 12:39:12', NULL),
+(14, 0, 0, 0, 0, 0, 0, 0, 0, 2, 'R-000002', 4, '2025-10-25', '0', '800.00', '0.00', '800.00', 'Pending', 0, '2025-10-25 12:39:52', NULL),
+(15, 0, 0, 0, 0, 0, 0, 0, 0, 3, 'R-000003', 4, '2025-10-25', '0', '1350.00', '-350.00', '1000.00', 'Pending', 0, '2025-10-25 14:18:44', NULL),
+(16, 0, 0, 0, 0, 0, 0, 0, 0, 4, 'R-000004', 9, '2025-10-25', '0', '1250.00', '0.00', '1250.00', 'Pending', 0, '2025-10-25 14:20:30', NULL),
+(17, 0, 0, 0, 0, 0, 0, 0, 0, 5, 'R-000005', 5, '2025-10-25', '0', '900.00', '0.00', '900.00', 'Pending', 0, '2025-10-25 14:22:26', NULL),
+(18, 0, 0, 0, 0, 0, 0, 0, 0, 6, 'R-000006', 5, '2025-10-25', '0', '900.00', '0.00', '900.00', 'Pending', 0, '2025-10-25 14:28:33', NULL),
+(19, 0, 0, 0, 0, 0, 0, 0, 0, 7, 'R-000007', 4, '2025-10-25', '0', '900.00', '0.00', '900.00', 'Pending', 0, '2025-10-25 14:28:52', NULL),
+(20, 0, 0, 0, 0, 0, 0, 0, 0, 8, 'R-000008', 4, '2025-10-25', '0', '900.00', '0.00', '900.00', 'Pending', 0, '2025-10-25 14:29:25', NULL),
+(21, 0, 16, 0, 0, 0, 0, 0, 0, 9, 'R-000009', 4, '2025-10-25', '1700', '1700.00', '0.00', '1700.00', 'Pending', 1, '2025-10-25 14:57:49', NULL),
+(22, 0, 0, 0, 0, 0, 0, 0, 0, 10, 'R-000010', 4, '2025-10-25', '500', '450.00', '0.00', '450.00', 'Pending', 1, '2025-10-25 14:58:19', NULL),
+(23, 0, 18, 0, 0, 0, 0, 0, 0, 11, 'R-000011', 10, '2025-10-25', '1300', '1250.00', '0.00', '1250.00', 'Pending', 1, '2025-10-25 16:20:44', NULL),
+(24, 0, 18, 0, 0, 0, 0, 0, 0, 12, 'R-000012', 8, '2025-10-27', '800', '800.00', '0.00', '800.00', 'Pending', 6, '2025-10-27 23:27:48', NULL);
 
 -- --------------------------------------------------------
 
@@ -317,7 +320,7 @@ CREATE TABLE `departments` (
 --
 
 INSERT INTO `departments` (`id`, `name`, `commission`, `imap_username`, `email`, `email_from_header`, `host`, `password`, `encryption`, `folder`, `delete_after_import`, `calendar_id`, `hidefromclient`, `is_active`, `create_user`, `create_date`) VALUES
-(6, 'Laber ', 0.00, '', '', 0, '', '', '', 'INBOX', 0, NULL, 0, 1, 0, 1734514677);
+(6, 'Laber ', '0.00', '', '', 0, '', '', '', 'INBOX', 0, NULL, 0, 1, 0, 1734514677);
 
 -- --------------------------------------------------------
 
@@ -405,12 +408,14 @@ CREATE TABLE `facials` (
 --
 
 INSERT INTO `facials` (`id`, `code`, `name`, `regular_price`, `discount_percentage`, `discount_amount`, `offer_price`, `discount_type`, `offer_start_date`, `offer_end_date`, `is_active`, `is_featured`, `created_at`, `updated_at`) VALUES
-(2, '', 'Hydrating Facial', 300.00, 0.00, 0.00, 300.00, 'Percentage', '0000-00-00', '0000-00-00', 1, NULL, '2025-10-22 10:07:42', '2025-10-22 10:44:06'),
-(3, '333', 'Classic Facial', 500.00, 10.00, 0.00, 450.00, 'Percentage', '2025-10-22', '2026-01-29', 1, NULL, '2025-10-22 10:08:57', '2025-10-22 11:02:40'),
-(4, NULL, 'Anti-Aging Facial', 900.00, 0.00, 0.00, 900.00, 'Percentage', '0000-00-00', '0000-00-00', 1, 0, '2025-10-22 10:42:21', '2025-10-22 10:42:21'),
-(5, NULL, 'Brightening Facial', 800.00, 0.00, 0.00, 800.00, 'Percentage', '0000-00-00', '0000-00-00', 1, 0, '2025-10-22 10:42:30', '2025-10-22 10:42:30'),
-(6, NULL, 'Acne Control Facia', 200.00, 0.00, 0.00, 200.00, 'Percentage', '0000-00-00', '0000-00-00', 1, 0, '2025-10-22 10:42:37', '2025-10-22 10:42:37'),
-(7, '', 'Deep Cleansing Facial', 200.00, 0.00, 0.00, 200.00, 'Percentage', '0000-00-00', '0000-00-00', 1, 0, '2025-10-22 10:42:49', '2025-10-22 11:10:52');
+(2, '', 'Hydrating Facial', '300.00', '0.00', '0.00', '300.00', 'Percentage', '0000-00-00', '0000-00-00', 1, NULL, '2025-10-22 10:07:42', '2025-10-22 10:44:06'),
+(3, '333', 'Classic Facial', '500.00', '10.00', '0.00', '450.00', 'Percentage', '2025-10-22', '2026-01-29', 1, NULL, '2025-10-22 10:08:57', '2025-10-22 11:02:40'),
+(4, NULL, 'Anti-Aging Facial', '900.00', '0.00', '0.00', '900.00', 'Percentage', '0000-00-00', '0000-00-00', 1, 0, '2025-10-22 10:42:21', '2025-10-22 10:42:21'),
+(5, NULL, 'Brightening Facial', '800.00', '0.00', '0.00', '800.00', 'Percentage', '0000-00-00', '0000-00-00', 1, 0, '2025-10-22 10:42:30', '2025-10-22 10:42:30'),
+(6, NULL, 'Acne Control Facia', '200.00', '0.00', '0.00', '200.00', 'Percentage', '0000-00-00', '0000-00-00', 1, 0, '2025-10-22 10:42:37', '2025-10-22 10:42:37'),
+(7, '', 'Deep Cleansing Facial', '200.00', '0.00', '0.00', '200.00', 'Percentage', '0000-00-00', '0000-00-00', 1, 0, '2025-10-22 10:42:49', '2025-10-22 11:10:52'),
+(8, NULL, 'eee', '44.00', '4.00', '0.00', '42.24', 'Percentage', '0000-00-00', '0000-00-00', 1, 0, '2025-10-27 17:47:59', '2025-10-27 17:47:59'),
+(9, NULL, 'ee44', '4.00', '0.00', '3.00', '1.00', 'Fixed', '0000-00-00', '0000-00-00', 1, 0, '2025-10-27 17:49:53', '2025-10-27 17:49:53');
 
 -- --------------------------------------------------------
 
@@ -755,9 +760,9 @@ CREATE TABLE `login_credential` (
 --
 
 INSERT INTO `login_credential` (`id`, `branch_id`, `user_id`, `username`, `password`, `role`, `active`, `last_login`, `created_at`, `updated_at`) VALUES
-(1, 0, 1, 'super@admin.com', 'UHZVdVBOTWI0VkwrN0MvQjRRRUZkdz09', 1, 1, '2025-10-24 20:39:42', '2024-10-21 15:42:57', '2025-10-24 20:39:42'),
-(2, 0, 6, 'admin@gmail.com', 'UHZVdVBOTWI0VkwrN0MvQjRRRUZkdz09', 2, 1, '2025-10-19 22:09:14', '2024-11-16 23:35:56', '2025-10-19 22:09:14'),
-(19, 1, 16, '0192827', 'UHZVdVBOTWI0VkwrN0MvQjRRRUZkdz09', 2, 1, NULL, '2025-10-22 15:14:58', '2025-10-22 15:14:58'),
+(1, 0, 1, 'super@admin.com', 'UHZVdVBOTWI0VkwrN0MvQjRRRUZkdz09', 1, 1, '2025-10-27 23:36:14', '2024-10-21 15:42:57', '2025-10-27 23:36:14'),
+(2, 0, 6, 'admin@gmail.com', 'UHZVdVBOTWI0VkwrN0MvQjRRRUZkdz09', 2, 1, '2025-10-27 23:08:44', '2024-11-16 23:35:56', '2025-10-27 23:08:44'),
+(19, 1, 16, '0192827', 'UHZVdVBOTWI0VkwrN0MvQjRRRUZkdz09', 2, 1, '2025-10-25 22:45:26', '2025-10-22 15:14:58', '2025-10-25 22:45:26'),
 (20, 3, 17, '018', 'UHZVdVBOTWI0VkwrN0MvQjRRRUZkdz09', 2, 1, '2025-10-23 08:57:57', '2025-10-23 08:11:44', '2025-10-23 08:57:57'),
 (21, 1, 18, '019123', 'UHZVdVBOTWI0VkwrN0MvQjRRRUZkdz09', 2, 1, NULL, '2025-10-25 15:29:00', '2025-10-25 15:29:00');
 
@@ -874,7 +879,9 @@ INSERT INTO `logs` (`id`, `message`, `record_id`, `user_id`, `action`, `ip_addre
 (87, 'New Record inserted On login_credential id 20', 20, 1, 'Insert', '::1', 'Windows 10', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWeb', '2025-10-23 02:11:45', '2025-10-23'),
 (88, 'New Record inserted On patients id 1243', 1243, 17, 'Insert', '::1', 'Windows 10', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWeb', '2025-10-23 02:12:39', '2025-10-23'),
 (89, 'New Record inserted On staff  id 18', 18, 1, 'Insert', '::1', 'Windows 10', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWeb', '2025-10-25 09:29:00', '2025-10-25'),
-(90, 'New Record inserted On login_credential id 21', 21, 1, 'Insert', '::1', 'Windows 10', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWeb', '2025-10-25 09:29:00', '2025-10-25');
+(90, 'New Record inserted On login_credential id 21', 21, 1, 'Insert', '::1', 'Windows 10', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWeb', '2025-10-25 09:29:00', '2025-10-25'),
+(91, 'New Record inserted On facials id 8', 8, 1, 'Insert', '::1', 'Windows 10', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWeb', '2025-10-27 17:47:59', '2025-10-27'),
+(92, 'New Record inserted On facials id 9', 9, 1, 'Insert', '::1', 'Windows 10', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWeb', '2025-10-27 17:49:53', '2025-10-27');
 
 -- --------------------------------------------------------
 
@@ -965,6 +972,34 @@ INSERT INTO `setting` (`id`, `title`, `name`, `short_description`, `address`, `e
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `short_links`
+--
+
+CREATE TABLE `short_links` (
+  `id` int(11) NOT NULL,
+  `original_url` text NOT NULL,
+  `short_code` varchar(10) NOT NULL,
+  `created_at` datetime NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Dumping data for table `short_links`
+--
+
+INSERT INTO `short_links` (`id`, `original_url`, `short_code`, `created_at`) VALUES
+(1, 'billinfo/invoice/23', 'd23f19', '2025-10-27 23:16:59'),
+(2, 'http://localhost/clinic/billinfo/invoice/23', 'e040ac', '2025-10-27 23:17:16'),
+(3, 'http://localhost/clinic/billinfo/invoice/http:', '4ecd1c', '2025-10-27 23:18:20'),
+(4, 'http://localhost/clinic/billinfo/invoice/billinfo', '617a39', '2025-10-27 23:19:02'),
+(5, 'http://localhost/clinic/billinfo/invoice/http:', '1fdacc', '2025-10-27 23:21:14'),
+(6, 'http://localhost/clinic/billinfo/invoice/http:', '417902', '2025-10-27 23:21:23'),
+(7, 'http://localhost/clinic/billinfo/invoice/23', 'd02b4b', '2025-10-27 23:21:30'),
+(8, 'http://localhost/clinic/billinfo/invoice/23', '817519', '2025-10-27 23:22:21'),
+(9, 'http://localhost/clinic/billinfo/invoice/24', '3759ac', '2025-10-27 23:27:48');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `staff`
 --
 
@@ -1017,10 +1052,10 @@ CREATE TABLE `staff` (
 --
 
 INSERT INTO `staff` (`id`, `branch_id`, `employee_id`, `department`, `designation_id`, `ip_address`, `first_name`, `last_name`, `email`, `roles_id`, `qualification`, `work_exp`, `father_name`, `mother_name`, `contact_no`, `emergency_contact_no`, `dob`, `marital_status`, `date_of_joining`, `date_of_leaving`, `local_address`, `permanent_address`, `gender`, `account_title`, `bank_account_no`, `bank_name`, `lang_id`, `bank_branch`, `basic_salary`, `staff_type`, `hourly_rate`, `facebook`, `twitter`, `linkedin`, `instagram`, `resume`, `joining_letter`, `is_active`, `picture`, `create_user`, `create_date`) VALUES
-(1, 0, '', 0, 0, '', 'Admin', '', 'litan@gmail.com', 1, '', '', '', '', '', '', 0, '', 0, 0, '', '', '', '', '', '', '', '', 0.00, 0, 0.00, '', '', '', '', '', '', 1, '0.png', 0, 0),
-(16, 1, '', 0, 0, '', 'Joli Akter', '', '', 2, '', '', '', '', '0192827', '', 0, '', 0, 0, '', '', '', '', '', '', '', '', 0.00, 0, 0.00, '', '', '', '', '', '', 1, '', 0, 1761124498),
-(17, 3, '', 0, 0, '', 'Dhaka', '', '', 2, '', '', '', '', '018', '', 0, '', 0, 0, '', '', '', '', '', '', '', '', 0.00, 0, 0.00, '', '', '', '', '', '', 1, '', 0, 1761185504),
-(18, 1, '', 0, 0, '', 'Ali', '', '', 2, '', '', '', '', '019123', '', 0, '', 0, 0, '', '', '', '', '', '', '', '', 0.00, 0, 0.00, '', '', '', '', '', '', 1, '', 0, 1761384540);
+(1, 0, '', 0, 0, '', 'Admin', '', 'litan@gmail.com', 1, '', '', '', '', '', '', 0, '', 0, 0, '', '', '', '', '', '', '', '', '0.00', 0, '0.00', '', '', '', '', '', '', 1, '0.png', 0, 0),
+(16, 1, '', 0, 0, '', 'Joli Akter', '', '', 2, '', '', '', '', '0192827', '', 0, '', 0, 0, '', '', '', '', '', '', '', '', '0.00', 0, '0.00', '', '', '', '', '', '', 1, '', 0, 1761124498),
+(17, 3, '', 0, 0, '', 'Dhaka', '', '', 2, '', '', '', '', '018', '', 0, '', 0, 0, '', '', '', '', '', '', '', '', '0.00', 0, '0.00', '', '', '', '', '', '', 1, '', 0, 1761185504),
+(18, 1, '', 0, 0, '', 'Ali', '', '', 2, '', '', '', '', '019123', '', 0, '', 0, 0, '', '', '', '', '', '', '', '', '0.00', 0, '0.00', '', '', '', '', '', '', 1, '', 0, 1761384540);
 
 -- --------------------------------------------------------
 
@@ -1046,18 +1081,18 @@ CREATE TABLE `transactions` (
 --
 
 INSERT INTO `transactions` (`transaction_id`, `invoice_id`, `testinfo_id`, `patient_id`, `amount`, `transaction_type`, `payment_method`, `transaction_date`, `status`, `description`) VALUES
-(14, 0, 60, 1237, 100.00, 'credit', 'cash', 1760768125, 'success', NULL),
-(15, 1221, 0, 1237, 100.00, 'debit', NULL, 1760724000, 'success', NULL),
-(16, 1222, 0, 1237, 100.00, 'debit', NULL, 1760724000, 'success', NULL),
-(17, 1223, 0, 1237, 100.00, 'debit', NULL, 1760724000, 'success', NULL),
-(18, 0, 60, 1238, 100.00, 'credit', 'cash', 1760890648, 'success', NULL),
-(21, 1225, 0, 1237, 1100.00, 'debit', NULL, 1761069600, 'success', NULL),
-(22, 1226, 0, 1237, 450.00, 'debit', NULL, 1761069600, 'success', NULL),
-(23, 1227, 0, 1241, 300.00, 'debit', NULL, 1761156000, 'success', NULL),
-(24, 1228, 0, 1242, 800.00, 'debit', NULL, 1761156000, 'success', NULL),
-(25, 1229, 0, 1243, 1100.00, 'debit', NULL, 1761156000, 'success', NULL),
-(26, 1230, 0, 1242, 800.00, 'debit', NULL, 1761156000, 'success', NULL),
-(27, 1230, 0, 1242, 800.00, 'credit', 'cash', 1761156000, 'success', NULL);
+(14, 0, 60, 1237, '100.00', 'credit', 'cash', 1760768125, 'success', NULL),
+(15, 1221, 0, 1237, '100.00', 'debit', NULL, 1760724000, 'success', NULL),
+(16, 1222, 0, 1237, '100.00', 'debit', NULL, 1760724000, 'success', NULL),
+(17, 1223, 0, 1237, '100.00', 'debit', NULL, 1760724000, 'success', NULL),
+(18, 0, 60, 1238, '100.00', 'credit', 'cash', 1760890648, 'success', NULL),
+(21, 1225, 0, 1237, '1100.00', 'debit', NULL, 1761069600, 'success', NULL),
+(22, 1226, 0, 1237, '450.00', 'debit', NULL, 1761069600, 'success', NULL),
+(23, 1227, 0, 1241, '300.00', 'debit', NULL, 1761156000, 'success', NULL),
+(24, 1228, 0, 1242, '800.00', 'debit', NULL, 1761156000, 'success', NULL),
+(25, 1229, 0, 1243, '1100.00', 'debit', NULL, 1761156000, 'success', NULL),
+(26, 1230, 0, 1242, '800.00', 'debit', NULL, 1761156000, 'success', NULL),
+(27, 1230, 0, 1242, '800.00', 'credit', 'cash', 1761156000, 'success', NULL);
 
 -- --------------------------------------------------------
 
@@ -1213,6 +1248,13 @@ ALTER TABLE `setting`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `short_links`
+--
+ALTER TABLE `short_links`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `short_code` (`short_code`);
+
+--
 -- Indexes for table `staff`
 --
 ALTER TABLE `staff`
@@ -1250,19 +1292,19 @@ ALTER TABLE `auth_users_info`
 -- AUTO_INCREMENT for table `billing_details`
 --
 ALTER TABLE `billing_details`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT for table `billing_payment`
 --
 ALTER TABLE `billing_payment`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `billing_summary`
 --
 ALTER TABLE `billing_summary`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `branch`
@@ -1316,7 +1358,7 @@ ALTER TABLE `doctors`
 -- AUTO_INCREMENT for table `facials`
 --
 ALTER TABLE `facials`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `language`
@@ -1334,7 +1376,7 @@ ALTER TABLE `login_credential`
 -- AUTO_INCREMENT for table `logs`
 --
 ALTER TABLE `logs`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=91;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=93;
 
 --
 -- AUTO_INCREMENT for table `payment_methods`
@@ -1353,6 +1395,12 @@ ALTER TABLE `roles`
 --
 ALTER TABLE `setting`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `short_links`
+--
+ALTER TABLE `short_links`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `staff`

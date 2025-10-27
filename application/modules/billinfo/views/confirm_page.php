@@ -466,7 +466,7 @@ $("#registration_date,.to_date").val(today);
                       </div>
                              <div class="form-group col-md-3 mb-3">
                                                 <label for="customer_name">Name</label>
-                                                <input type="text" id="customer_name" class="form-control" name="customer_name" placeholder="Search by name or mobile..." autocomplete="off" required>
+                                                <input type="text" id="customer_name" class="form-control" name="customer_name" value="User" placeholder="Search by name or mobile..." autocomplete="off" required>
                                               
                                                 </div>
 
@@ -533,8 +533,8 @@ foreach ($cart_items as $item) {
 <td><?php echo $i++; ?></td>
 <td><?php echo $item['name']; ?></td>
 <td>
-    ৳<?php echo $item['price']; ?> 
-    <?php if($item['price'] < $item['regular_price']) { ?>
+   ৳<?php echo $item['price']; ?> 
+    <?php if(isset($item['regular_price']) && $item['price'] < $item['regular_price']) { ?>
         <small class="text-muted"><s>৳<?php echo $item['regular_price']; ?></s></small>
     <?php } ?>
 </td>
